@@ -1,27 +1,21 @@
 # Introdução
 
-Texto descritivo com a visão geral do projeto abordado. Inclui o contexto, o problema, os objetivos, a justificativa e o público-alvo do projeto.
+A população com deficiência no Brasil foi estimada em 18,6 milhões de pessoas de 2 anos ou mais, o que corresponde a 8,9% da população dessa faixa etária. O indicativo faz parte da Pesquisa Nacional por Amostra de Domicílios (PNAD): Pessoas com Deficiência 2022, fruto de um Termo de Execução Descentralizada entre a Secretaria Nacional dos Direitos da Pessoa com Deficiência do Ministério dos Direitos Humanos e da Cidadania (SNDPD/MDHC) e o Instituto Brasileiro de Geografia e Estatística (IBGE)[^1].
+
+Em 2010 o levantamento apontou que 18,6% da população brasileira possui algum tipo de deficiência visual. Desse total, 6,5 milhões apresentam deficiência visual severa, sendo que 506 mil têm perda total da visão (0,3% da população) e 6 milhões, grande dificuldade para enxergar (3,2%)[^2].
 
 ## Problema
-Nesse momento você deve apresentar o problema que a sua aplicação deve  resolver. No entanto, não é a hora de comentar sobre a aplicação.
-
-Descreva também o contexto em que essa aplicação será usada, se  houver: empresa, tecnologias, etc. Novamente, descreva apenas o que de  fato existir, pois ainda não é a hora de apresentar requisitos  detalhados ou projetos.
-
-Nesse momento, o grupo pode optar por fazer uso  de ferramentas como Design Thinking, que permite um olhar de ponta a ponta para o problema.
-
-> **Links Úteis**:
-> - [Objetivos, Problema de pesquisa e Justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
-> - [Matriz Certezas, Suposições e Dúvidas](https://medium.com/educa%C3%A7%C3%A3o-fora-da-caixa/matriz-certezas-suposi%C3%A7%C3%B5es-e-d%C3%BAvidas-fa2263633655)
-> - [Brainstorming](https://www.euax.com.br/2018/09/brainstorming/)
+O projeto traz como problema, conforme dados levantados, a necessidade dos desficientes visuais em ter acessibilidade e apoio, a realizarem tarefas básicas do dia a dia, mas que pode ser de grande complexidade quando não se tem o auxílio da visão. 
 
 ## Objetivos
 
-Aqui você deve descrever os objetivos do trabalho indicando que o objetivo geral é desenvolver um software para solucionar o problema apresentado acima. 
+O objetivo é desenvolver um sistema que proporcione acessibilidade e apoio aos deficientes visuais de forma segura, respeitosa e olhando para a necessidade individual.
 
-Apresente também alguns (pelo menos 2) objetivos específicos dependendo de onde você vai querer concentrar a sua prática investigativa, ou como você vai aprofundar no seu trabalho.
- 
-> **Links Úteis**:
-> - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
+* Como objetivos específicos, podemos evidenciar:
+* Apoio em atividades do cotidiano.
+* Acompanhamento nas atividades necessárias. 
+* Segurança e transparência
+* Tratamento individual
 
 ## Justificativa
 
@@ -29,18 +23,12 @@ Descreva a importância ou a motivação para trabalhar com esta aplicação que
 
 O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estatísticos, que podem ser apresentados, com o objetivo de esclarecer detalhes do problema que será abordado pelo grupo.
 
-> **Links Úteis**:
-> - [Como montar a justificativa](https://guiadamonografia.com.br/como-montar-justificativa-do-tcc/)
-
 ## Público-Alvo
 
-Descreva quem serão as pessoas que usarão a sua aplicação indicando os diferentes perfis. O objetivo aqui não é definir quem serão os clientes ou quais serão os papéis dos usuários na aplicação. A ideia é, dentro do possível, conhecer um pouco mais sobre o perfil dos usuários: conhecimentos prévios, relação com a tecnologia, relações
-hierárquicas, etc.
+Como público alvo, o projeto visa às pessoas com deficiência visual parcial ou total residentes no Brasil, que buscam por apoio na realização de tarefas que seriam triviais para quem não tem a visão comprometida. 
 
-Adicione informações sobre o público-alvo por meio de uma descrição textual, diagramas de personas e mapa de stakeholders.
+## Referências
 
-> **Links Úteis**:
-> - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
-> - [Como definir o público alvo](https://exame.com/pme/5-dicas-essenciais-para-definir-o-publico-alvo-do-seu-negocio/)
-> - [Público-alvo: o que é, tipos, como definir seu público e exemplos](https://klickpages.com.br/blog/publico-alvo-o-que-e/)
-> - [Qual a diferença entre público-alvo e persona?](https://rockcontent.com/blog/diferenca-publico-alvo-e-persona/)
+[^1]: BRASIL. Ministério dos Direitos Humanos e da Cidadania. Brasil tem 18,6 milhões de pessoas com deficiência, indica pesquisa divulgada pelo IBGE e MDHC. [S. l.], 7 jul. 2023. Disponível em: https://www.gov.br/mdh/pt-br/assuntos/noticias/2023/julho/brasil-tem-18-6-milhoes-de-pessoas-com-deficiencia-indica-pesquisa-divulgada-pelo-ibge-e-mdhc#:~:text=Brasil%20tem%2018%2C6%20milh%C3%B5es,Direitos%20Humanos%20e%20da%20Cidadania. Acesso em: 29 ago. 2023.
+
+[^2]: BRASIL. Ministério da Educação. Data reafirma os direitos das pessoas com deficiência visual. [S. l.], 7 jul. 2023. Disponível em: http://portal.mec.gov.br/ultimas-noticias/202-264937351/58391-data-reafirma-os-direitos-das-pessoas-com-deficiencia-visual. Acesso em: 29 ago. 2023.
