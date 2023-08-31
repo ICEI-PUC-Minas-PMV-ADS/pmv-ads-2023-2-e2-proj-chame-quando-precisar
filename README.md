@@ -1,23 +1,26 @@
-# TÍTULO DO PROJETO
+# CHAME QUANTO PRECISAR
 
-`CURSO`
+`Tecnólogo em Análise e Desenvolvimento de Sistemas`
 
-`DISCIPLINA`
+`Projeto: Desenvolvimento de uma Aplicação Interativa`
 
-`SEMESTRE`
+`Eixo 2 - 2º Semestre`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+Um sistema que proporcione acessibilidade e apoio aos deficientes visuais de forma segura, respeitosa e olhando para a necessidade individual.
+
 
 ## Integrantes
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
+* Daniel Diniz Morais
+* Juliane Rodrigues Ferreira
+* Marco de Pereira Binda
+* Marcos Henrique Aguiar França
+* Rafael Cassiano Januário de Souza
+* Tuerê Pinto
 
 ## Orientador
 
-* Nome completo do professor 1
+* Carlos Alberto Marques Pietrobon
 
 ## Instruções de utilização
 
