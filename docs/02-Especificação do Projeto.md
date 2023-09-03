@@ -78,7 +78,8 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 | RG-01 | Estabeleça uma comunicação transparente e respeitosa entre todos os membros envolvidos, incentivando a troca de ideias, feedback e informações. |
 | RG-02 | Atividades claras, estabelecendo marcos ao longo do desenvolvimento para avaliar o progresso. |
 | RG-03 | Cada membro da equipe deve ter funções e responsabilidades claramente definidas com base em suas habilidades e especializações. |
-| RG-04 | Data limite e outros requisitos. |
+| RG-06 | O sistema tem que ser entregue na data limite acordada . |
+| RG-05 | O sistema deve conter um back-end em C-sharp, usando ferramentas de cloud Azure. |
 
 ## Diagrama de Casos de Uso
 
