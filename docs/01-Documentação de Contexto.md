@@ -27,7 +27,7 @@ Como público alvo, o projeto visa às pessoas com deficiência visual parcial o
 
 A Orientação e a Mobilidade, também conhecida pela sigla OM, estão presentes na vida de todos nós. A orientação é a capacidade de perceber o ambiente, saber onde estamos. 
 
-Você já pensou em como é viver no Brasil sem enxergar?No Brasil mais de 6,5 milhões de brasileiros enfrentam problemas como analfabetismo por falta de acesso ao conhecimento em Braille, estruturas precárias de locomoção e oportunidades escassas no mercado de trabalho. (WAT)[ˆ5]
+Você já pensou em como é viver no Brasil sem enxergar?No Brasil mais de 6,5 milhões de brasileiros enfrentam problemas como analfabetismo por falta de acesso ao conhecimento em Braille, estruturas precárias de locomoção e oportunidades escassas no mercado de trabalho. (WAT)[^5]
 
 ## Referências
 
@@ -39,4 +39,4 @@ Você já pensou em como é viver no Brasil sem enxergar?No Brasil mais de 6,5 m
 
 [^4]: IGBE EDUCA. https://educa.ibge.gov.br/jovens/conheca-o-brasil/populacao/20551-pessoas-com-deficiencia.html
 
-[ˆ5]: WAT. https://watplast.com.br/veja-as-principais-dificuldades-dos-deficientes-visuais-no-dia-a-dia-e-como-adaptar-sua-empresa/
+[^5]: WAT. https://watplast.com.br/veja-as-principais-dificuldades-dos-deficientes-visuais-no-dia-a-dia-e-como-adaptar-sua-empresa/
