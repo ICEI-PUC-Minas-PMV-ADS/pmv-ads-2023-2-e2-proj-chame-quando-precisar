@@ -9,7 +9,7 @@ Os processos e atividades do projeto são desenvolvidos e acompanhados por auxí
 
 | Ambiente | Plataforma | Link de Acesso|
 |----------|------------|---------------|
-|Projeto de Interface e Wireframes | Figura | [Documento](/docs/04-Projeto%20de%20Interface.md)|
+|Projeto de Interface e Wireframes | Figma | [Documento](/docs/04-Projeto%20de%20Interface.md)|
 |Gerenciamento do Projeto | Trello | [Board](https://trello.com/b/pENbh8VD/cqp-chame-quando-precisar)|
 |Repositórios do Projeto | GitHub | [Repositório](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e2-proj-chame-quando-precisar)
 
