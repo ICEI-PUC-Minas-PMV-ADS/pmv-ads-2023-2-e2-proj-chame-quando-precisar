@@ -31,17 +31,21 @@ Para mais informações, consulte o microfundamento "Modelagem de Dados".
 
 ## Tecnologias Utilizadas
 
-Descreva aqui qual(is) tecnologias você vai usar para resolver o seu problema, ou seja, implementar a sua solução. Liste todas as tecnologias envolvidas, linguagens a serem utilizadas, serviços web, frameworks, bibliotecas, IDEs de desenvolvimento, e ferramentas.
+As tecnologia usada para resolver o problema sistematico apresentado, utiliza as tecnologias.:
+|||||||
+|-|-|-|-|-|-|
+|linguagens| serviços web| frameworks| bibliotecas| IDEs de desenvolvimento | ferramentas |
+| C# ou C-Sharp| Azure, GitHub Pages| .Net | Microsoft Nuget, Bootstrap | Visual Studio, Visual Studio Code, SQL Server Management Studio  | Azure SQL, Azure App Servece, GitHub | 
 
-Apresente também uma figura explicando como as tecnologias estão relacionadas ou como uma interação do usuário com o sistema vai ser conduzida, por onde ela passa até retornar uma resposta ao usuário.
+A interação do usuário com o sistema vai ser conduzida apartir do momento que o mesmo entrar no site que está hospedado no GitHub Page, em seguida que o mesmo efetuar o login no sitema será conduzido de forma transparente e agil para as ferramentas Azures que se encontra a hospedagem do backend.
+
+![fluxo integração](/docs/img/fluxo_tec_arch.png)
 
 ## Hospedagem
 
-Explique como a hospedagem e o lançamento da plataforma foi feita.
+* Hospedagem do front-end utilizasse do artefato [Website com GitHub Pages](https://pages.github.com/), seu lançamento se da através da plublicação da branch main via CD "Continuos Delivery" da pipeline após a validaçãos dos testes da plataforma.
 
-> **Links Úteis**:
->
-> - [Website com GitHub Pages](https://pages.github.com/)
-> - [Programação colaborativa com Repl.it](https://repl.it/)
-> - [Getting Started with Heroku](https://devcenter.heroku.com/start)
-> - [Publicando Seu Site No Heroku](http://pythonclub.com.br/publicando-seu-hello-world-no-heroku.html)
+* Hospedagem do banck-end utilizasse do artefato [Azure com App Service](https://learn.microsoft.com/pt-br/azure/app-service/overview), seu lançamento se da através da plublicação da branch main via CI "Continuos Integration" da pipeline após a validaçãos dos testes.
+
+* Hospedagem do banco de dados utilizasse do artefato [Azure com Banco de dados SQL](https://azure.microsoft.com/pt-br/products/azure-sql/database), sua construção e implementação foi feita conforme os padrões e orientações dada pela Azure.
+
