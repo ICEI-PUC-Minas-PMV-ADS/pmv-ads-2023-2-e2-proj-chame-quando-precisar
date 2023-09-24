@@ -1,31 +1,14 @@
 # Plano de Testes de Software
 
-<span style="color:red">Pré-requisitos: <a href="2-Especificação do Projeto.md"> Especificação do Projeto</a></span>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>
+Cenários de testes utilizados na realização dos testes da sua aplicação.
 
-Apresente os cenários de testes utilizados na realização dos testes da sua aplicação. Escolha cenários de testes que demonstrem os requisitos sendo satisfeitos.
-
-Não deixe de enumerar os casos de teste de forma sequencial e de garantir que o(s) requisito(s) associado(s) a cada um deles está(ão) correto(s) - de acordo com o que foi definido na seção "2 - Especificação do Projeto". 
-
-Por exemplo:
- 
-| **Caso de Teste** 	| **CT-01 – Cadastrar perfil** 	|
-|:---:	|:---:	|
-|	Requisito Associado 	| RF-00X - A aplicação deve apresentar, na página principal, a funcionalidade de cadastro de usuários para que esses consigam criar e gerenciar seu perfil. |
-| Objetivo do Teste 	| Verificar se o usuário consegue se cadastrar na aplicação. |
-| Passos 	| - Acessar o navegador <br> - Informar o endereço do site https://adota-pet.herokuapp.com/src/index.html<br> - Clicar em "Criar conta" <br> - Preencher os campos obrigatórios (e-mail, nome, sobrenome, celular, CPF, senha, confirmação de senha) <br> - Aceitar os termos de uso <br> - Clicar em "Registrar" |
-|Critério de Êxito | - O cadastro foi realizado com sucesso. |
-|  	|  	|
-| Caso de Teste 	| CT-02 – Efetuar login	|
-|Requisito Associado | RF-00Y	- A aplicação deve possuir opção de fazer login, sendo o login o endereço de e-mail. |
-| Objetivo do Teste 	| Verificar se o usuário consegue realizar login. |
-| Passos 	| - Acessar o navegador <br> - Informar o endereço do site https://adota-pet.herokuapp.com/src/index.html<br> - Clicar no botão "Entrar" <br> - Preencher o campo de e-mail <br> - Preencher o campo da senha <br> - Clicar em "Login" |
-|Critério de Êxito | - O login foi realizado com sucesso. |
-
- 
-> **Links Úteis**:
-> - [IBM - Criação e Geração de Planos de Teste](https://www.ibm.com/developerworks/br/local/rational/criacao_geracao_planos_testes_software/index.html)
-> - [Práticas e Técnicas de Testes Ágeis](http://assiste.serpro.gov.br/serproagil/Apresenta/slides.pdf)
-> -  [Teste de Software: Conceitos e tipos de testes](https://blog.onedaytesting.com.br/teste-de-software/)
-> - [Criação e Geração de Planos de Teste de Software](https://www.ibm.com/developerworks/br/local/rational/criacao_geracao_planos_testes_software/index.html)
-> - [Ferramentas de Test para Java Script](https://geekflare.com/javascript-unit-testing/)
-> - [UX Tools](https://uxdesign.cc/ux-user-research-and-user-testing-tools-2d339d379dc7)
+| | | | | |
+|-|-|-|-|-|
+|Caso de Teste|Requisito Associado|Objetivo do Teste|Passos|Critérios de Êxito|
+|CT-01 - Realizar cadastro e efetuar login|RF-01 - O WebApp deve permitir ao usuário a possível realização de login ou cadastro e validar a entrada de dados.|Verificar se o usuário consegue se cadastrar e realizar login no sistema.|- Acessar o sistema- Visualizar a página principal- Clicar em “Crie sua conta”- Preencher os campos obrigatórios (Nome, e-mail, senha e confirmar senha)- Clicar no botão “Cadastrar”- Preencher campos para login (e-mail e senha)- Clicar no botão “Entrar”|- Comunicação correta com o banco de dados.|
+|CT-02 - Realizar a recuperação de senha|RF-02 - O WebApp deve permitir ao usuário a recuperação de senha e validar a entrada de dados.|Verificar se o usuário consegue realizar a recuperação de senha.|- Acessar o navegador- Visualizar a página principal- Clicar em “Entrar”- Clicar em “Esqueceu sua senha”- Preencher o campo obrigatório (e-mail)- Clicar em “Redefinir Senha”- Preencher os campos obrigatórios (nova senha e repetir senha)- Clicar em “Redefinir Senha”- Efetuar login|- Acesso na aplicação pelo login.|
+|CT-03 - Solicitar ajuda|RF-03 - O WebApp deve permitir ao usuário com deficiência visual solicitar ajuda, detalhando o tipo de assistência necessária.|Verificar se o usuário consegue solicitar ajuda de forma eficaz.|- Acessar o sistema- Efetuar login- Acessar a seção “Solicitar Ajuda”- Descrever o tipo de ajuda necessária- Clicar em “Enviar Solicitação”|- Solicitação enviada com sucesso para voluntários disponíveis.|
+|CT-04 - Oferecer ajuda|RF-04 - O WebApp deve permitir que voluntários ofereçam ajuda respondendo às solicitações dos usuários.|Verificar se os voluntários conseguem oferecer ajuda de forma eficaz.|- Acessar o sistema- Efetuar login como voluntário- Acessar a seção “Ofertas de Ajuda”- Visualizar solicitações de ajuda disponíveis- Clicar em “Oferecer Ajuda” em uma solicitação específica|- Oferta de ajuda registrada com sucesso e usuário notificado.|
+|CT-05 - Comunicação entre usuários e voluntários|RF-05 - O WebApp deve facilitar a comunicação segura e eficaz entre usuários e voluntários.|Verificar se usuários e voluntários conseguem se comunicar através da plataforma.|- Acessar o sistema- Efetuar login- Acessar a seção de mensagens- Selecionar um contato- Enviar uma mensagem|- Mensagem enviada e recebida com sucesso.|
+|CT-06 - Feedback e avaliações|RF-06 - O WebApp deve permitir que usuários e voluntários deixem feedbacks e avaliações uns para os outros após a conclusão da assistência.|Verificar se é possível deixar feedbacks e avaliações de forma eficaz.|- Acessar o sistema- Efetuar login- Acessar o histórico de assistências- Selecionar uma assistência concluída- Deixar feedback e avaliação|- Feedback e avaliação registrados com sucesso.|
+|CT-07 - Gerenciamento de conteúdo pelo administrador|RF-07 - O WebApp deve permitir que o administrador gerencie o conteúdo da plataforma, incluindo a moderação de feedbacks e avaliações.|Verificar se o administrador consegue gerenciar o conteúdo de forma eficaz.|- Acessar o sistema como administrador- Moderar feedbacks e avaliações- Gerenciar conteúdo da plataforma|- Conteúdo gerenciado com sucesso e plataforma mantida em bom funcionamento.|
