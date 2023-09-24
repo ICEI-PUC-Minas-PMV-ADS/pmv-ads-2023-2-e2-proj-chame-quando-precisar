@@ -10,20 +10,49 @@ As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de
 > - [O que é um diagrama de classe UML? | Lucidchart](https://www.lucidchart.com/pages/pt/o-que-e-diagrama-de-classe-uml)
 
 ## Modelo ER (Projeto Conceitual)
-
-O Modelo ER representa através de um diagrama como as entidades (coisas, objetos) se relacionam entre si na aplicação interativa.
-
-Sugestão de ferramentas para geração deste artefato: LucidChart e Draw.io.
-
-A referência abaixo irá auxiliá-lo na geração do artefato “Modelo ER”.
-
-> - [Como fazer um diagrama entidade relacionamento | Lucidchart](https://www.lucidchart.com/pages/pt/como-fazer-um-diagrama-entidade-relacionamento)
+![projetoBD](/docs/img/)
 
 ## Projeto da Base de Dados
 
-O projeto da base de dados corresponde à representação das entidades e relacionamentos identificadas no Modelo ER, no formato de tabelas, com colunas e chaves primárias/estrangeiras necessárias para representar corretamente as restrições de integridade.
- 
-Para mais informações, consulte o microfundamento "Modelagem de Dados".
+BdCQP
+
+Descrição do Projeto:
+
+O projeto "Chame quando precisar" é uma plataforma online destinada a promover a interação e colaboração entre pessoas com deficiência visual e colaboradores que desejam oferecer assistência e apoio. A plataforma oferece recursos específicos para atender às necessidades de ambos os grupos, criando uma comunidade inclusiva e de apoio.
+
+Objetivos Principais:
+
+Facilitar a Comunicação e Interação: A plataforma permitirá que deficientes visuais e colaboradores se comuniquem e interajam de maneira eficaz. Os deficientes visuais poderão compartilhar suas experiências, desafios e necessidades, enquanto os colaboradores poderão oferecer ajuda e apoio.
+
+Agendamento de Tarefas e Assistência: Uma das principais características da plataforma é a capacidade de agendar tarefas e assistência. Os deficientes visuais podem registrar suas rotinas diárias, horários disponíveis e solicitar assistência para tarefas específicas, como leitura de documentos, orientação em locais públicos, etc.
+
+Registro de Horários Agendados: A plataforma permitirá o registro de horários agendados entre deficientes visuais e colaboradores. Isso facilitará a coordenação e garantirá que ambas as partes estejam cientes dos compromissos agendados.
+
+Compartilhamento de Recursos e Informações: Os usuários poderão compartilhar recursos úteis, como materiais de leitura em formato acessível, informações sobre serviços e eventos voltados para deficientes visuais, entre outros.
+
+Componentes Principais do Banco de Dados:
+
+O banco de dados do projeto é projetado para suportar as funcionalidades mencionadas. Ele inclui as seguintes tabelas:
+
+ "Usuarios": Armazena informações sobre os usuários da plataforma, incluindo nome, sobrenome, email, login, senha, perfil de usuário, status de ativação e datas de inclusão e alteração.
+
+"Calendario": Registra as atividades agendadas dos deficientes visuais, incluindo o dia da semana, o ID do usuário associado, a hora de início e a hora de término.
+
+ "HorariosAgendados": Registra os horários agendados entre deficientes visuais e colaboradores, incluindo o ID do usuário deficiente visual, o ID do usuário colaborador, a data e hora do agendamento, bem como os detalhes específicos do agendamento.
+
+ "Perfil": Registra os perfis que podem ser ligados aos usuários
+
+  "Notificacoes": Registra as mensagens diparadas pelo sistema para usuário
+
+  "Agendamento": Registra a valiação de um agendamento, podendo ser feita pelo deficiente visual ou o seu colborador.
+
+  "AvaliacaodoAgendamento": Registra a valiação de um agendamento, podendo ser feita pelo deficiente visual ou o seu colborador.
+
+  "DadosDoUsuario " : Tabela reservada para guardar informações especificas do usuário, como tipo de deficiência, dados de endereço, etc.
+
+  "Amigos " : Registra o relacionamento entre dois usuário, criando um vinculo
+
+  "Deficiencia " : Registra os tipos de deficiências visuais para serem ligadas a um usário deficiente
 
 ## Tecnologias Utilizadas
 
