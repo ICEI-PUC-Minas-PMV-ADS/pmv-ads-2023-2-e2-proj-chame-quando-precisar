@@ -5,11 +5,9 @@
 ![Diagrama de Classes](/docs/img/diagrama_classes.png)
 
 ## Modelo ER (Projeto Conceitual)
-![projetoBD](/docs/img/)
+![Diagrama base de dados](/docs/img/Modelobasededados.png)
 
 ## Projeto da Base de Dados
-
-BdCQP
 
 Descrição do Projeto:
 
@@ -47,7 +45,7 @@ O banco de dados do projeto é projetado para suportar as funcionalidades mencio
 
   "Amigos " : Registra o relacionamento entre dois usuário, criando um vinculo
 
-  "Deficiencia " : Registra os tipos de deficiências visuais para serem ligadas a um usário deficiente
+  "Deficiencia " : Registra os tipos de deficiências visuais para serem ligadas a um usário deficiente  
 
 ## Tecnologias Utilizadas
 
