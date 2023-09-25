@@ -9,7 +9,7 @@ Os processos e atividades do projeto são desenvolvidos e acompanhados por auxí
 
 | Ambiente | Plataforma | Link de Acesso|
 |----------|------------|---------------|
-|Projeto de Interface e Wireframes | Figura | [Documento]()|
+|Projeto de Interface e Wireframes | Figma | [Documento](/docs/04-Projeto%20de%20Interface.md)|
 |Gerenciamento do Projeto | Trello | [Board](https://trello.com/b/pENbh8VD/cqp-chame-quando-precisar)|
 |Repositórios do Projeto | GitHub | [Repositório](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e2-proj-chame-quando-precisar)
 
@@ -22,18 +22,15 @@ foi utilizado para hospedagem do repositório.
 O projeto segue a seguinte convenção para o nome de branches:
 
 - `main`: versão estável já testada do software
-- `unstable`: versão já testada do software, porém instável
+- `developer`: versão de desenvolvimento do software
 - `testing`: versão em testes do software
-- `dev`: versão de desenvolvimento do software
 
 Quanto à gerência de issues, o projeto adota a seguinte convenção para
 etiquetas:
 
 - `documentation`: melhorias ou acréscimos à documentação
 - `bug`: uma funcionalidade encontra-se com problemas
-- `enhancement`: uma funcionalidade precisa ser melhorada
 - `feature`: uma nova funcionalidade precisa ser introduzida
-
 
 ## Gerenciamento de Projeto
 
@@ -43,14 +40,14 @@ A equipe utiliza metodologias Ágeis, escolhido o método Scrum neste processo d
 
 A equipe está distribuída da seguinte forma: 
 - Scrum Master : Juliane Rodrigues Ferreira
-- Product Owner : Tuerê Pintoss
+- Product Owner : Tuerê Pinto
 - Equipe de Desenvolvimento
     * Daniel Diniz Morais
     * Juliane Rodrigues Ferreira
     * Marco de Pereira Binda
     * Marcos Henrique Aguiar França
     * Rafael Cassiano Januário de Souza
-    * Tuerê Pintoss
+    * Tuerê Pinto
 - Equipe de Design
     * Daniel Diniz Morais
 
@@ -79,7 +76,9 @@ O quadro Kanban utilizado pela equipe, foi criado utilizando a plataforma Trello
 
 As ferramentas empregadas no projeto são:
 
-- **Editor de código:** VS Code
-- **Ferramentas de comunicação:**  WhatsApp e Microsoft Teams
-- **Ferramenta de desenho de tela:** 
-- **Ferramentas de criação de diagramas:** Draw.io
+- **Editor de código:** Visual Studio Code & Visual Studio
+- **Ferramentas de comunicação:**  WhatsApp & Microsoft Teams
+- **Ferramenta de desenho de tela:** LucidChart & MarvelAPP
+- **Ferramentas de criação de diagramas e arquitetura:** Draw.io
+- **Ferramenta de hospedagem do sistema:** GitPages (Front-end) & Azure (Back-end)
+

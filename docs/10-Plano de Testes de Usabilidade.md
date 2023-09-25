@@ -2,14 +2,13 @@
 
 Os testes de usabilidade permitem avaliar a qualidade da interface com o usuário da aplicação interativa.
 
-Um plano de teste de usabilidade deverá conter: o detalhamento dos objetivos (em função dos requisitos levantados/implementados), dos critérios que serão utilizados para a seleção dos participantes, dos procedimentos a serem adotados pelos condutores de teste (por exemplo: os testes serão presenciais ou remotos? o método será observação direta, medição ou avaliação?), das tarefas a serem executadas, dos dados a serem coletados (quantidade de cliques, número de erros, tempo etc.), a ordem de execução das tarefas e das etapas da sessão de teste, recursos demandados, métricas coletadas etc.
-
-Para cada voluntário do teste, é fundamental coletar e apresentar todos os dados/métricas previamente definidos, mas não se esqueça: atendendo à LGPD (Lei Geral de Proteção de Dados), nenhum dado sensível, que permita identificar o voluntário, deverá ser apresentado).
-
-As referências abaixo irão auxiliá-lo na geração do artefato "Plano de Testes de Usabilidade".
-
-> **Links Úteis**:
-> - [Teste De Usabilidade: O Que É e Como Fazer Passo a Passo (neilpatel.com)](https://neilpatel.com/br/blog/teste-de-usabilidade/)
-> - [Teste de usabilidade: tudo o que você precisa saber! | by Jon Vieira | Aela.io | Medium](https://medium.com/aela/teste-de-usabilidade-o-que-voc%C3%AA-precisa-saber-39a36343d9a6/)
-> - [Planejando testes de usabilidade: o que (e o que não) fazer | iMasters](https://imasters.com.br/design-ux/planejando-testes-de-usabilidade-o-que-e-o-que-nao-fazer/)
-> - [Ferramentas de Testes de Usabilidade](https://www.usability.gov/how-to-and-tools/resources/templates.html)
+| | | | |
+|-|-|-|-|
+|Caso de Teste|Objetivo do Teste|Tarefas|Critérios de Sucesso|
+|CT-01 - Navegação intuitiva|Verificar se os usuários conseguem navegar pelo WebApp de forma intuitiva.|- Acessar diferentes seções do WebApp<br>- Utilizar o menu de navegação|- Os usuários conseguem encontrar e acessar as seções desejadas sem dificuldades|
+|CT-02 - Facilidade de cadastro|Avaliar a facilidade e compreensibilidade do processo de cadastro.|- Realizar o cadastro inserindo informações pessoais|- O cadastro é concluído sem problemas<br>- Os usuários entendem as informações solicitadas|
+|CT-03 - Solicitação de ajuda|Verificar se o processo de solicitar ajuda é simples e direto.|- Criar uma nova solicitação de ajuda<br>- Descrever o tipo de ajuda necessária|- A solicitação de ajuda é criada com sucesso<br>- Os usuários conseguem descrever suas necessidades claramente|
+|CT-04 - Oferta de ajuda por voluntários|Avaliar se os voluntários conseguem oferecer ajuda de forma eficiente.|- Visualizar solicitações de ajuda disponíveis<br>- Oferecer ajuda para uma solicitação específica|- Os voluntários conseguem visualizar e responder às solicitações de ajuda com facilidade|
+|CT-05 - Comunicação entre usuários e voluntários|Verificar se a ferramenta de comunicação é eficaz e fácil de usar.|- Enviar e receber mensagens através da plataforma|- A comunicação ocorre sem problemas, com mensagens sendo enviadas e recebidas corretamente|
+|CT-06 - Feedback e avaliações|Avaliar se o sistema de feedback e avaliação é intuitivo e fácil de usar.|- Deixar feedback e avaliação para uma assistência concluída|- Os usuários conseguem deixar feedbacks e avaliações sem dificuldades|
+|CT-07 - Acessibilidade|Garantir que o WebApp seja acessível para pessoas com deficiência visual.|- Navegar pelo WebApp utilizando leitores de tela ou outras ferramentas de acessibilidade|- O WebApp é compatível com ferramentas de acessibilidade e oferece uma boa experiência para usuários com deficiência visual|
