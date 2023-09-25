@@ -22,7 +22,18 @@ As referências abaixo irão auxiliá-lo na geração do artefato “Diagramas d
 
 ## Wireframes
 
-![Exemplo de Wireframe](img/wireframe-example.png)
+![Página de Login](img/Wireframes_interativos/Página%20de%20Login.png)
+![Página de Cadastro](img/Wireframes_interativos/Pagina%20de%20Cadastro.png)
+![Página de Cadastro Sucesso](img/Wireframes_interativos/Cadastro%20Sucedido.png)
+![Página de Cadastro Erro](img/Wireframes_interativos/Cadastro%20Malsucedido.png)
+![Página de Agenda](img/Wireframes_interativos/Agenda.png)
+![Página de Agendamento AC](img/Wireframes_interativos/Agenda%20Acompanhante.png)
+![Página de Agendamento PCD](img/Wireframes_interativos/Agendamento%20PCD.png)
+![Página de Agendamento Sucesso](img/Wireframes_interativos/Agendamento%20%20Sucesso.png)
+![Página de Agendamento Erro](img/Wireframes_interativos/Agendamento%20Falha.png)
+![Página de Menu](img/Wireframes_interativos/Menu%20Lateral%20Aberto.png)
+![Página de Notificações](img/Wireframes_interativos/Notificações.png)
+![Página de Cancelar](img/Wireframes_interativos/Cancelar.png)
+![Página de Cancelamento Concluido](img/Wireframes_interativos/Cancelado.png)
 
-São protótipos usados em design de interface para sugerir a estrutura de um site web e seu relacionamentos entre suas páginas. Um wireframe web é uma ilustração semelhante do layout de elementos fundamentais na interface.
  
