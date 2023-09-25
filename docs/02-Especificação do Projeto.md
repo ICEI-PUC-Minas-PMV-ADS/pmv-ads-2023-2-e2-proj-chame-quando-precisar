@@ -86,4 +86,4 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 O diagrama de casos de uso é a representação das elicitações dos requisitos levantando. Através dele contempla a fronteira do sistema e o detalhamento dos requisitos funcionais com a indicação dos atores, casos de uso e seus relacionamentos. 
 
 A imagem abaixo demonstra a aplicabilidade do sistema atraves do “Diagrama de Casos de Uso”.
-![diagram_use_case](/docs/img/diagrama_caso_uso_cqp.png)
+![diagram_use_case](/docs/img/diagrama_de_caso_de_uso.png)
