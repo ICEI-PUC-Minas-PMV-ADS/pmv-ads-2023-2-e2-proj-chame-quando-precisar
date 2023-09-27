@@ -2,9 +2,9 @@
 
 Cenários de testes utilizados na realização dos testes da sua aplicação.
 
-| | | | | |
-|-|-|-|-|-|
-|Caso de Teste|Requisito Associado|Objetivo do Teste|Passos|Critérios de Êxito|
+| | | | | | |
+|-|-|-|-|-|-|
+|Caso de Teste|Requisito Associado|Objetivo do Teste|Passos|Critérios de Êxito|Resultado Obtido|
 |CT-01 - Realizar cadastro e efetuar login|RF-01 - O WebApp deve permitir ao usuário a possível realização de login ou cadastro e validar a entrada de dados.|Verificar se o usuário consegue se cadastrar e realizar login no sistema.|- Acessar o sistema- Visualizar a página principal- Clicar em “Crie sua conta”- Preencher os campos obrigatórios (Nome, e-mail, senha e confirmar senha)- Clicar no botão “Cadastrar”- Preencher campos para login (e-mail e senha)- Clicar no botão “Entrar”|- Comunicação correta com o banco de dados.|
 |CT-02 - Realizar a recuperação de senha|RF-02 - O WebApp deve permitir ao usuário a recuperação de senha e validar a entrada de dados.|Verificar se o usuário consegue realizar a recuperação de senha.|- Acessar o navegador- Visualizar a página principal- Clicar em “Entrar”- Clicar em “Esqueceu sua senha”- Preencher o campo obrigatório (e-mail)- Clicar em “Redefinir Senha”- Preencher os campos obrigatórios (nova senha e repetir senha)- Clicar em “Redefinir Senha”- Efetuar login|- Acesso na aplicação pelo login.|
 |CT-03 - Solicitar ajuda|RF-03 - O WebApp deve permitir ao usuário com deficiência visual solicitar ajuda, detalhando o tipo de assistência necessária.|Verificar se o usuário consegue solicitar ajuda de forma eficaz.|- Acessar o sistema- Efetuar login- Acessar a seção “Solicitar Ajuda”- Descrever o tipo de ajuda necessária- Clicar em “Enviar Solicitação”|- Solicitação enviada com sucesso para voluntários disponíveis.|
