@@ -2,9 +2,9 @@
 
 Os testes de usabilidade permitem avaliar a qualidade da interface com o usuário da aplicação interativa.
 
-| | | | |
-|-|-|-|-|
-|Caso de Teste|Objetivo do Teste|Tarefas|Critérios de Sucesso|
+| | | | | |
+|-|-|-|-|-|
+|Caso de Teste|Objetivo do Teste|Tarefas|Critérios de Sucesso|Resultado Obtido|
 |CT-01 - Navegação intuitiva|Verificar se os usuários conseguem navegar pelo WebApp de forma intuitiva.|- Acessar diferentes seções do WebApp<br>- Utilizar o menu de navegação|- Os usuários conseguem encontrar e acessar as seções desejadas sem dificuldades|
 |CT-02 - Facilidade de cadastro|Avaliar a facilidade e compreensibilidade do processo de cadastro.|- Realizar o cadastro inserindo informações pessoais|- O cadastro é concluído sem problemas<br>- Os usuários entendem as informações solicitadas|
 |CT-03 - Solicitação de ajuda|Verificar se o processo de solicitar ajuda é simples e direto.|- Criar uma nova solicitação de ajuda<br>- Descrever o tipo de ajuda necessária|- A solicitação de ajuda é criada com sucesso<br>- Os usuários conseguem descrever suas necessidades claramente|
