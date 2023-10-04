@@ -1,6 +1,6 @@
 # Plano de Testes de Usabilidade
 
-Os testes de usabilidade permitem avaliar a qualidade da interface com o usuário da aplicação interativa, usando o sitema de escala de (Likerts)[^1].
+Os testes de usabilidade permitem avaliar a qualidade da interface com o usuário da aplicação interativa, usando o sitema de escala de Likerts[^1].
 
 Conforme imagem abaixo, usamos da escala negativa, pontos que a usabilidade da interface com usuário está comprometida, conforme a escala tende para o positivo a usabilidade está adequada as necessidades do usuário, usando dos pontos de (Concordância, Frequência, Importância e Probabilidade). 
 
