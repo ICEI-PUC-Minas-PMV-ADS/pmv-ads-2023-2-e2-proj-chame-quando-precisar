@@ -1,0 +1,82 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - WebApplicationADs_Eixo2</title>
+    <!-- Outros metadados e links -->
+    <!-- Referência aos arquivos CSS do Bootstrap -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplicationADs_Eixo2.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <audio id="audioElement">
+        <source src="~/audio/happy-logo-167474.mp3" type="audio/mpeg">
+        Faça Login
+    </audio>
+    <header>
+        
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Home</a>               
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-lg-auto">
+                        <!-- 'ml-auto' alinha à direita -->
+                        <li class="nav-item">
+                            <a class="nav-link" id="botaologin" asp-controller="Usuarios" asp-action="login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Usuarios" asp-action="Create">Cadastro</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - WebApplicationADs_Eixo2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+
+    <!-- Conteúdo da página -->
+    <!-- Referência aos scripts JavaScript do Bootstrap (jQuery é uma dependência) -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/bootstrap.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+<script>
+    // Obtenha o elemento de áudio
+    var audioElement = document.getElementById('audioElement');
+
+    // Obtenha o botão que desencadeará o som
+    var button = document.getElementById('botaologin'); // Substitua 'seuBotao' pelo ID do seu botão
+
+    // Quando o mouse passar sobre o botão
+    button.addEventListener('mouseenter', function () {
+        audioElement.play();
+    });
+
+    // Quando o mouse sair do botão
+    button.addEventListener('mouseleave', function () {
+        audioElement.pause();
+        audioElement.currentTime = 0; // Reinicie o áudio
+    });
+</script>
+</html>
