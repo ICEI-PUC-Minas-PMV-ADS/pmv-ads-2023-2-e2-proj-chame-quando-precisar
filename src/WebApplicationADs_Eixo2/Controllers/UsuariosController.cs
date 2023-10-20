@@ -237,7 +237,7 @@ namespace WebApplicationADs_Eixo2.Controllers
                     };
 
                     await HttpContext.SignInAsync(principal, Aut);
-                    Redirect("/");
+                    return Redirect("/");
                 }
                 return RedirectToAction(nameof(Login));
             }
@@ -245,5 +245,13 @@ namespace WebApplicationADs_Eixo2.Controllers
             return View(usuario);
 
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Login", "Usuarios");
+        }
     }
+
+   
 }
