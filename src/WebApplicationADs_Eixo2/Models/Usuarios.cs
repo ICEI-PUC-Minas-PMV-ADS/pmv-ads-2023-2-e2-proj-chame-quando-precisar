@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebApplicationADs_Eixo2.Models.Attributes;
 
 namespace WebApplicationADs_Eixo2.Models
 {
@@ -23,22 +24,21 @@ namespace WebApplicationADs_Eixo2.Models
         [Required(ErrorMessage = "Campo Obrigatório")]
         public string Login { get; set; }
 
-        [Required(ErrorMessage = "Campo Obrigatório")]
+        [Required(ErrorMessage = "Campo Obrigatório")]        
         [DataType(DataType.Password)]
         public string Senha { get; set; }
 
         public int IdPerfil { get; set; }
 
         public bool Ativo { get; set; }
-
-
         public DateTime DtInclusao { get; set; }
         public DateTime DtAlteracao { get; set; }
 
 
-        // Relações com Usuários (Deficiente e Colaborador)
-        public Perfil PerfilIdPerfil { get; set; }
-        public Deficiencia DeficienciaIdDeficiencia { get; set; }
+        // Relação usuário e perfil
+        [ForeignKey("IdPerfil")]
+        public Perfil? Perfil { get; set; }
+        //public Deficiencia? DeficienciaIdDeficiencia { get; set; }
 
     }
 }

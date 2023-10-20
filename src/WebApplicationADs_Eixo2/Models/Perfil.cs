@@ -25,5 +25,8 @@ namespace WebApplicationADs_Eixo2.Models
 
         public DateTime DtInclusao { get; set; }
         public DateTime DtAlteracao { get; set; }
+
+
+        public ICollection<Usuarios> Usuarios { get; set; }
     }
 }

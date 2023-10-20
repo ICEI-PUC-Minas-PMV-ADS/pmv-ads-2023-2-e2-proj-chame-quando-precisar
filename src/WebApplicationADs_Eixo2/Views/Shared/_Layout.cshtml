@@ -21,18 +21,31 @@
         
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Home</a>               
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-lg-auto">
-                        <!-- 'ml-auto' alinha à direita -->
-                        <li class="nav-item">
-                            <a class="nav-link" id="botaologin" asp-controller="Usuarios" asp-action="login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Usuarios" asp-action="Create">Cadastro</a>
-                        </li>
-                    </ul>
-                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        Olá,@User.Identity.Name
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Usuarios" asp-action="Logout">Sair</a>
+                    </li>
+                }
+                else
+                {
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">Home</a>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-lg-auto">
+                            <!-- 'ml-auto' alinha à direita -->
+                            <li class="nav-item">
+                                <a class="nav-link" id="botaologin" asp-controller="Usuarios" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Usuarios" asp-action="Create">Cadastro</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                
             </div>
         </nav>
     </header>
@@ -53,7 +66,7 @@
     <!-- Referência aos scripts JavaScript do Bootstrap (jQuery é uma dependência) -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/bootstrap.js"></script>
+    <!--script src="~/js/bootstrap.js"></!--script-->
 
     <script src="~/js/site.js" asp-append-version="true"></script>
 
