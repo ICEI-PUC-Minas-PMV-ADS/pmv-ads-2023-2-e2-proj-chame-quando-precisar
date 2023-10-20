@@ -239,9 +239,10 @@ namespace WebApplicationADs_Eixo2.Controllers
                     await HttpContext.SignInAsync(principal, Aut);
                     return Redirect("/");
                 }
+                ModelState.AddModelError(string.Empty, "Email/Login inválidos OU senha incorreta");
                 return RedirectToAction(nameof(Login));
             }
-            ModelState.AddModelError(string.Empty, "Email/Login inválidos OU senha incorreta");
+            ModelState.AddModelError(string.Empty, "Email OU senha incorreta");
             return View(usuario);
 
         }
