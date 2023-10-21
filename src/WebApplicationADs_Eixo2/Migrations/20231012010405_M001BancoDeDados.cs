@@ -74,15 +74,14 @@ namespace WebApplicationADs_Eixo2.Migrations
                     IdPerfil = table.Column<int>(type: "int", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    PerfilIdPerfilID = table.Column<int>(type: "int", nullable: false)
+                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.Id);                    
                     table.ForeignKey(
                         name: "FK_Usuarios_Perfil_Perfil",
-                        column: x => x.PerfilIdPerfilID,
+                        column: x => x.IdPerfil,
                         principalTable: "Perfil",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -166,15 +165,14 @@ namespace WebApplicationADs_Eixo2.Migrations
                     IdDeficiencia = table.Column<int>(type: "int", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UsuarioIDUserId = table.Column<int>(type: "int", nullable: false),
-                    DeficienciaIdDeficienciaID = table.Column<int>(type: "int", nullable: false)
+                    UsuarioIDUserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DadosUsuarios", x => x.IDUser);
                     table.ForeignKey(
-                        name: "FK_DadosUsuarios_Deficiencia_DeficienciaIdDeficienciaID",
-                        column: x => x.DeficienciaIdDeficienciaID,
+                        name: "FK_DadosUsuarios_Deficiencia_Deficiencia",
+                        column: x => x.IdDeficiencia,
                         principalTable: "Deficiencia",
                         principalColumn: "ID"/*,
                         onDelete: ReferentialAction.Cascade*/);
@@ -308,8 +306,8 @@ namespace WebApplicationADs_Eixo2.Migrations
                         name: "FK_AvaliacaoAgendamento_Usuarios_UsuarioAvaliadorId",
                         column: x => x.UsuarioAvaliadorId,
                         principalTable: "Usuarios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id"/*,
+                        onDelete: ReferentialAction.Cascade*/);
                 });
 
             migrationBuilder.CreateIndex(
@@ -353,9 +351,9 @@ namespace WebApplicationADs_Eixo2.Migrations
                 column: "UsuarioidUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DadosUsuarios_DeficienciaIdDeficienciaID",
+                name: "IX_DadosUsuarios_Deficiencia_Deficiencia",
                 table: "DadosUsuarios",
-                column: "DeficienciaIdDeficienciaID");
+                column: "IdDeficiencia");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DadosUsuarios_UsuarioIDUserId",
@@ -377,15 +375,12 @@ namespace WebApplicationADs_Eixo2.Migrations
                 table: "Notificacoes",
                 column: "UsuarioDestinatarioId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_DeficienciaIdDeficienciaID",
-                table: "Usuarios",
-                column: "DeficienciaIdDeficienciaID");
+          
 
             migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_PerfilIdPerfilID",
+                name: "IX_Usuarios_Perfil",
                 table: "Usuarios",
-                column: "PerfilIdPerfilID");
+                column: "IdPerfil");
         }
 
         /// <inheritdoc />
