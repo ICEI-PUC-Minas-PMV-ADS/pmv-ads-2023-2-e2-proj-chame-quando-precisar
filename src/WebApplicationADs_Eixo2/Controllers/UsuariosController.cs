@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ using WebApplicationADs_Eixo2.Models;
 
 namespace WebApplicationADs_Eixo2.Controllers
 {
+    [Authorize (Roles = "ADM")]
     public class UsuariosController : Controller
     {
         private readonly AppDbContext _context;
@@ -99,7 +101,7 @@ namespace WebApplicationADs_Eixo2.Controllers
                 return NotFound();
             }
 
-            ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "ID", "Descricao");
+            ViewBag.Perfis = new SelectList(_context.Perfils, "ID", "Descricao");
 
             var usuarios = await _context.usuarios.FindAsync(id);
             if (usuarios == null)
@@ -187,7 +189,49 @@ namespace WebApplicationADs_Eixo2.Controllers
             return (_context.usuarios?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+        [AllowAnonymous]
+        public IActionResult CadastroUser()
+        {
+            ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "ID", "Descricao");
+            return View();
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public async Task<IActionResult> CadastroUser([Bind("Nome,SobreNome,Email,Login,Senha,IdPerfil")] Usuarios usuarios)
+        {
+            usuarios.Ativo = true;
+            usuarios.DtInclusao = DateTime.Now;
+
+            ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "ID", "Descricao");
+
+            if (ModelState.IsValid)
+            {
+                //criptografar senha
+                usuarios.Senha = BCrypt.Net.BCrypt.HashPassword(usuarios.Senha);
+                // Verificar se o email já existe no banco de dados
+                if (_context.usuarios.Any(u => u.Email == usuarios.Email))
+                {
+                    ModelState.AddModelError("Email", "Este email já está em uso.");
+                    return View(usuarios);
+                }
+                if (_context.usuarios.Any(u => u.Login == usuarios.Login))
+                {
+                    ModelState.AddModelError("Login", "Este Login Já se encontra cadastrado");
+                    return View(usuarios);
+                }
+
+               
+
+                _context.Add(usuarios);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Home");
+            }
+            return View(usuarios);
+        }
+
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
@@ -195,63 +239,80 @@ namespace WebApplicationADs_Eixo2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(Usuarios usuario)
-        {
-
-            List<Usuarios> usuarios = _context.usuarios.ToList();
-            List<Usuarios> usuariosFiltrados = new List<Usuarios>();
-
-            foreach (var u in usuarios)
+        {          
+            string role = "";
+            var user = _context.usuarios.Include(u => u.Perfil).FirstOrDefault(obj => obj.Email == usuario.Email);
+            if (user == null)
             {
-                if (u.Email == usuario.Email)
-                {
-                    usuariosFiltrados.Add(u);
-                }
+                 user = _context.usuarios.Include(u => u.Perfil).FirstOrDefault(obj => obj.Login == usuario.Email);
             }
-            var userEmail =  usuariosFiltrados.FirstOrDefault();            
-
-            if (userEmail != null)
+            if (user != null)
             {
-
-                
-                bool isValid = BCrypt.Net.BCrypt.Verify(usuario.Senha, userEmail.Senha);
-                if (isValid==true)
+                if (user.Perfil.Administrador)
                 {
-                    var claims = new List<Claim>
+                    role = "ADM";
+                }
+                else if (user.Perfil.Colaborador)
+                {
+                    role = "COL";
+                }
+                else
+                {
+                    role = "DEF";
+                }
+
+                if (user.Ativo)
+                {
+                    bool isValid = BCrypt.Net.BCrypt.Verify(usuario.Senha, user.Senha);
+                    if (isValid == true)
                     {
-                        new Claim(ClaimTypes.Name , userEmail.Nome),
-                         new Claim(ClaimTypes.NameIdentifier , userEmail.Id.ToString()),
-                          new Claim(ClaimTypes.Role , userEmail.IdPerfil.ToString()),
+
+                        var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name , user.Nome),
+                         new Claim(ClaimTypes.NameIdentifier , user.Id.ToString()),
+                          new Claim(ClaimTypes.Role , role),
 
                     };
 
-                    var usuarioIdenty =  new ClaimsIdentity(claims,"login");
-                    ClaimsPrincipal principal = new ClaimsPrincipal(usuarioIdenty);
+                        var usuarioIdenty = new ClaimsIdentity(claims, "login");
+                        ClaimsPrincipal principal = new ClaimsPrincipal(usuarioIdenty);
 
-                    var Aut = new AuthenticationProperties
-                    {
-                        AllowRefresh = true,
-                        ExpiresUtc = DateTime.UtcNow.ToLocalTime().AddHours(8),
-                        IsPersistent = true,
+                        var Aut = new AuthenticationProperties
+                        {
+                            AllowRefresh = true,
+                            ExpiresUtc = DateTime.UtcNow.ToLocalTime().AddHours(8),
+                            IsPersistent = true,
 
-                    };
+                        };
 
-                    await HttpContext.SignInAsync(principal, Aut);
-                    return Redirect("/");
+                        await HttpContext.SignInAsync(principal, Aut);
+                        return Redirect("/");
+                    }
+                    ModelState.AddModelError(string.Empty, "Senha Incorreta!");
+                    return View(usuario);
                 }
-                ModelState.AddModelError(string.Empty, "Email/Login inválidos OU senha incorreta");
-                return RedirectToAction(nameof(Login));
-            }
-            ModelState.AddModelError(string.Empty, "Email OU senha incorreta");
+            }          
+            ModelState.AddModelError(string.Empty, "Usuário não Encontrado OU Inativo");
             return View(usuario);
-
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
             return RedirectToAction("Login", "Usuarios");
         }
+
+        [AllowAnonymous]
+        public IActionResult AcessoNegado()
+        {
+            return View();
+        }
+
+
     }
 
    

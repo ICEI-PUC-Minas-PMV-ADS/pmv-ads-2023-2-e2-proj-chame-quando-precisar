@@ -37,8 +37,10 @@ namespace WebApplicationADs_Eixo2.Models
         public DateTime DtInclusao { get; set; }
         public DateTime DtAlteracao { get; set; }
 
+        [ForeignKey("IDUser")]
+
         // Relações com Usuários (Deficiente e Colaborador)
-        public Usuarios UsuarioIDUser { get; set; }
-        public Deficiencia DeficienciaIdDeficiencia { get; set; }
+        public Usuarios? Usuario { get; set; }
+        public Deficiencia? Deficiencia { get; set; }
     }
 }

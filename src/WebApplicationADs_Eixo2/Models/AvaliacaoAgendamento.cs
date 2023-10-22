@@ -8,15 +8,20 @@ namespace WebApplicationADs_Eixo2.Models
     public class AvaliacaoAgendamento
     {
 
-        [Key] public int IdAgendamento { get; set; }
-        [Key] public int Avaliador { get; set; }
+        
+        [Key]
+        [ForeignKey("IdAgendamento")]
+        public int IdAgendamento { get; set; }
+        [Key]
+        [ForeignKey("Avaliador")]
+        public int Avaliador { get; set; }
         public DateTime DataPublicacao { get; set; }
         public string Conteudo { get; set; }
         public DateTime DtInclusao { get; set; }
         public DateTime DtAlteracao { get; set; }
 
         // Relações com Usuários (Deficiente e Colaborador)
-        public Agendamento AgendamentoIdAgendamento { get; set; }
-        public Usuarios UsuarioAvaliador { get; set; }
+        public Agendamento? Agendamento { get; set; }
+        public Usuarios? UserAvaliador { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplicationADs_Eixo2.Models;
 
@@ -11,9 +12,11 @@ using WebApplicationADs_Eixo2.Models;
 namespace WebApplicationADs_Eixo2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231021224612_M005_ATUALIZACAO_RELACIONAMENTO")]
+    partial class M005_ATUALIZACAO_RELACIONAMENTO
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +33,7 @@ namespace WebApplicationADs_Eixo2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CalendarioID")
+                    b.Property<int>("CalendarioID")
                         .HasColumnType("int");
 
                     b.Property<int>("Colaborador")
@@ -52,10 +55,10 @@ namespace WebApplicationADs_Eixo2.Migrations
                     b.Property<int>("IdCalendario")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UsuarioColaboradorId")
+                    b.Property<int>("UsuarioColaboradorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UsuarioDeficienteId")
+                    b.Property<int>("UsuarioDeficienteId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -86,10 +89,10 @@ namespace WebApplicationADs_Eixo2.Migrations
                     b.Property<DateTime>("DtInclusao")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("User1Id")
+                    b.Property<int>("User1Id")
                         .HasColumnType("int");
 
-                    b.Property<int?>("User2Id")
+                    b.Property<int>("User2Id")
                         .HasColumnType("int");
 
                     b.HasKey("Usuario1", "Usuario2");
@@ -109,7 +112,7 @@ namespace WebApplicationADs_Eixo2.Migrations
                     b.Property<int>("Avaliador")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AgendamentoId")
+                    b.Property<int>("AgendamentoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Conteudo")
@@ -125,7 +128,7 @@ namespace WebApplicationADs_Eixo2.Migrations
                     b.Property<DateTime>("DtInclusao")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserAvaliadorId")
+                    b.Property<int>("UserAvaliadorId")
                         .HasColumnType("int");
 
                     b.HasKey("IdAgendamento", "Avaliador");
@@ -176,12 +179,9 @@ namespace WebApplicationADs_Eixo2.Migrations
                     b.Property<int>("Mes")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UsuarioId")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("IdUser");
 
                     b.ToTable("Calendario");
                 });
@@ -189,7 +189,10 @@ namespace WebApplicationADs_Eixo2.Migrations
             modelBuilder.Entity("WebApplicationADs_Eixo2.Models.DadosUsuarios", b =>
                 {
                     b.Property<int>("IDUser")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDUser"));
 
                     b.Property<string>("Bairro")
                         .IsRequired()
@@ -302,10 +305,10 @@ namespace WebApplicationADs_Eixo2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UsuarioDestinatarioId")
+                    b.Property<int>("UsuarioDestinatarioId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UsuarioRemetenteId")
+                    b.Property<int>("UsuarioRemetenteId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -412,10 +415,7 @@ namespace WebApplicationADs_Eixo2.Migrations
             modelBuilder.Entity("WebApplicationADs_Eixo2.Models.Usuarios", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
@@ -460,15 +460,21 @@ namespace WebApplicationADs_Eixo2.Migrations
                 {
                     b.HasOne("WebApplicationADs_Eixo2.Models.Calendario", "Calendario")
                         .WithMany()
-                        .HasForeignKey("CalendarioID");
+                        .HasForeignKey("CalendarioID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WebApplicationADs_Eixo2.Models.Usuarios", "UsuarioColaborador")
                         .WithMany()
-                        .HasForeignKey("UsuarioColaboradorId");
+                        .HasForeignKey("UsuarioColaboradorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WebApplicationADs_Eixo2.Models.Usuarios", "UsuarioDeficiente")
                         .WithMany()
-                        .HasForeignKey("UsuarioDeficienteId");
+                        .HasForeignKey("UsuarioDeficienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Calendario");
 
@@ -481,11 +487,15 @@ namespace WebApplicationADs_Eixo2.Migrations
                 {
                     b.HasOne("WebApplicationADs_Eixo2.Models.Usuarios", "User1")
                         .WithMany()
-                        .HasForeignKey("User1Id");
+                        .HasForeignKey("User1Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WebApplicationADs_Eixo2.Models.Usuarios", "User2")
                         .WithMany()
-                        .HasForeignKey("User2Id");
+                        .HasForeignKey("User2Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User1");
 
@@ -496,11 +506,15 @@ namespace WebApplicationADs_Eixo2.Migrations
                 {
                     b.HasOne("WebApplicationADs_Eixo2.Models.Agendamento", "Agendamento")
                         .WithMany()
-                        .HasForeignKey("AgendamentoId");
+                        .HasForeignKey("AgendamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WebApplicationADs_Eixo2.Models.Usuarios", "UserAvaliador")
                         .WithMany()
-                        .HasForeignKey("UserAvaliadorId");
+                        .HasForeignKey("UserAvaliadorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Agendamento");
 
@@ -511,7 +525,9 @@ namespace WebApplicationADs_Eixo2.Migrations
                 {
                     b.HasOne("WebApplicationADs_Eixo2.Models.Usuarios", "Usuario")
                         .WithMany("AllCalendario")
-                        .HasForeignKey("UsuarioId");
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Usuario");
                 });
@@ -522,26 +538,22 @@ namespace WebApplicationADs_Eixo2.Migrations
                         .WithMany()
                         .HasForeignKey("DeficienciaID");
 
-                    b.HasOne("WebApplicationADs_Eixo2.Models.Usuarios", "Usuario")
-                        .WithOne("DadosUsuarios")
-                        .HasForeignKey("WebApplicationADs_Eixo2.Models.DadosUsuarios", "IDUser")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Deficiencia");
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("WebApplicationADs_Eixo2.Models.MensagensPrivadas", b =>
                 {
                     b.HasOne("WebApplicationADs_Eixo2.Models.Usuarios", "UsuarioDestinatario")
                         .WithMany()
-                        .HasForeignKey("UsuarioDestinatarioId");
+                        .HasForeignKey("UsuarioDestinatarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WebApplicationADs_Eixo2.Models.Usuarios", "UsuarioRemetente")
                         .WithMany()
-                        .HasForeignKey("UsuarioRemetenteId");
+                        .HasForeignKey("UsuarioRemetenteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("UsuarioDestinatario");
 
@@ -561,13 +573,26 @@ namespace WebApplicationADs_Eixo2.Migrations
 
             modelBuilder.Entity("WebApplicationADs_Eixo2.Models.Usuarios", b =>
                 {
+                    b.HasOne("WebApplicationADs_Eixo2.Models.DadosUsuarios", "DadosUsuarios")
+                        .WithOne("Usuario")
+                        .HasForeignKey("WebApplicationADs_Eixo2.Models.Usuarios", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WebApplicationADs_Eixo2.Models.Perfil", "Perfil")
                         .WithMany("Usuarios")
                         .HasForeignKey("IdPerfil")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("DadosUsuarios");
+
                     b.Navigation("Perfil");
+                });
+
+            modelBuilder.Entity("WebApplicationADs_Eixo2.Models.DadosUsuarios", b =>
+                {
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("WebApplicationADs_Eixo2.Models.Perfil", b =>
@@ -578,8 +603,6 @@ namespace WebApplicationADs_Eixo2.Migrations
             modelBuilder.Entity("WebApplicationADs_Eixo2.Models.Usuarios", b =>
                 {
                     b.Navigation("AllCalendario");
-
-                    b.Navigation("DadosUsuarios");
 
                     b.Navigation("Notificacoes");
                 });

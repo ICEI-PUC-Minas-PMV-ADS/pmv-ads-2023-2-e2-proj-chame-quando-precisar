@@ -8,6 +8,7 @@ namespace WebApplicationADs_Eixo2.Models
     {
 
         [Key] public int ID { get; set; }
+        [ForeignKey("IdUser")]
         public int IdUser { get; set; }
 
         public int Ano { get; set; }
@@ -28,7 +29,7 @@ namespace WebApplicationADs_Eixo2.Models
         public DateTime DtAlteracao { get; set; }
 
         // Relações com Usuários (Deficiente e Colaborador)
-        public Usuarios UsuarioidUser { get; set; }
+        public Usuarios? Usuario { get; set; }
     
     }
 }
