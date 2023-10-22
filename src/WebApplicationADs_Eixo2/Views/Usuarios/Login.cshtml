@@ -1,8 +1,11 @@
-﻿@model WebApplicationADs_Eixo2.Models.Usuarios
+﻿
+@model WebApplicationADs_Eixo2.Models.Usuarios
 
 @{
     ViewData["Title"] = "Login";
 }
+<link rel="stylesheet" href="~/css/site.css">
+
 
 <h1>Login</h1>
 
@@ -12,7 +15,8 @@
     <div class="col-md-4">
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-           
+           <br />
+
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" placeholder="Login ou Email" />

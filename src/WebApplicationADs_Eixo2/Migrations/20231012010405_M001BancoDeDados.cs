@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -160,7 +160,8 @@ namespace WebApplicationADs_Eixo2.Migrations
                     IdDeficiencia = table.Column<int>(type: "int", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                  
+                    UsuarioIDUserId = table.Column<int>(type: "int", nullable: false),
+                    DeficienciaIdDeficienciaID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -295,8 +296,8 @@ namespace WebApplicationADs_Eixo2.Migrations
                         name: "FK_AvaliacaoAgendamento_Usuarios_UserAvaliador",
                         column: x => x.Avaliador,
                         principalTable: "Usuarios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id"/*,
+                        onDelete: ReferentialAction.Cascade*/);
                 });
 
             migrationBuilder.CreateIndex(
@@ -340,9 +341,9 @@ namespace WebApplicationADs_Eixo2.Migrations
                 column: "UsuarioidUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DadosUsuarios_DeficienciaIdDeficienciaID",
+                name: "IX_DadosUsuarios_Deficiencia_Deficiencia",
                 table: "DadosUsuarios",
-                column: "DeficienciaIdDeficienciaID");
+                column: "IdDeficiencia");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DadosUsuarios_UsuarioIDUserId",
@@ -364,10 +365,13 @@ namespace WebApplicationADs_Eixo2.Migrations
                 table: "Notificacoes",
                 column: "UsuarioDestinatarioId");            
 
-           
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_DeficienciaIdDeficienciaID",
+                table: "Usuarios",
+                column: "DeficienciaIdDeficienciaID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_Perfil_Perfil",
+                name: "IX_Usuarios_Perfil",
                 table: "Usuarios",
                 column: "IdPerfil");
         }
