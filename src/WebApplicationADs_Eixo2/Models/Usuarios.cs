@@ -38,7 +38,11 @@ namespace WebApplicationADs_Eixo2.Models
         // Relação usuário e perfil
         [ForeignKey("IdPerfil")]
         public Perfil? Perfil { get; set; }
-        //public Deficiencia? DeficienciaIdDeficiencia { get; set; }
 
+        public DadosUsuarios? DadosUsuarios { get; set; }
+
+        public ICollection<Notificacoes>? Notificacoes { get; set; }
+
+        public ICollection<Calendario>? AllCalendario { get; set; }
     }
 }

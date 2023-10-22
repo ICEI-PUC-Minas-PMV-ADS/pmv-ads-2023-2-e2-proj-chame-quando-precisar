@@ -25,7 +25,8 @@ namespace WebApplicationADs_Eixo2.Models
 
 
         // Relações com Usuários (Deficiente e Colaborador)
-        
-        public Usuarios UsuarioDestinatario { get; set; }
+        // Relação usuário e perfil
+        [ForeignKey("IdDestinatario")]
+        public Usuarios? UsuarioDestinatario { get; set; }
     }
 }

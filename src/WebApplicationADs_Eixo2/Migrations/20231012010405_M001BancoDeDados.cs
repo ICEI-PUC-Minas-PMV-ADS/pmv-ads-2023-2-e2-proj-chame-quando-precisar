@@ -74,15 +74,14 @@ namespace WebApplicationADs_Eixo2.Migrations
                     IdPerfil = table.Column<int>(type: "int", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    PerfilIdPerfilID = table.Column<int>(type: "int", nullable: false)
+                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.Id);                    
                     table.ForeignKey(
                         name: "FK_Usuarios_Perfil_Perfil",
-                        column: x => x.PerfilIdPerfilID,
+                        column: x => x.IdPerfil,
                         principalTable: "Perfil",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -97,24 +96,20 @@ namespace WebApplicationADs_Eixo2.Migrations
                     DataAmizade = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UsuarioUsuario1Id = table.Column<int>(type: "int", nullable: false),
-                    UsuarioUsuario2Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Amigos", x => new { x.Usuario1, x.Usuario2 });
                     table.ForeignKey(
-                        name: "FK_Amigos_Usuarios_UsuarioUsuario1Id",
-                        column: x => x.UsuarioUsuario1Id,
+                        name: "FK_Amigos_Usuarios_Usuario1",
+                        column: x => x.Usuario1,
                         principalTable: "Usuarios",
-                        principalColumn: "Id"/*,
-                        onDelete: ReferentialAction.Cascade*/);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Amigos_Usuarios_UsuarioUsuario2Id",
-                        column: x => x.UsuarioUsuario2Id,
+                        name: "FK_Amigos_Usuarios_Usuario2",
+                        column: x => x.Usuario2,
                         principalTable: "Usuarios",
-                        principalColumn: "Id"/*,
-                        onDelete: ReferentialAction.Cascade*/);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -132,15 +127,14 @@ namespace WebApplicationADs_Eixo2.Migrations
                     HoraFim = table.Column<TimeSpan>(type: "time", nullable: false),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UsuarioidUserId = table.Column<int>(type: "int", nullable: false)
+                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Calendario", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Calendario_Usuarios_UsuarioidUserId",
-                        column: x => x.UsuarioidUserId,
+                        name: "FK_Calendario_Usuarios_Usuario",
+                        column: x => x.IdUser,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -166,21 +160,20 @@ namespace WebApplicationADs_Eixo2.Migrations
                     IdDeficiencia = table.Column<int>(type: "int", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UsuarioIDUserId = table.Column<int>(type: "int", nullable: false),
-                    DeficienciaIdDeficienciaID = table.Column<int>(type: "int", nullable: false)
+                  
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DadosUsuarios", x => x.IDUser);
                     table.ForeignKey(
-                        name: "FK_DadosUsuarios_Deficiencia_DeficienciaIdDeficienciaID",
-                        column: x => x.DeficienciaIdDeficienciaID,
+                        name: "FK_DadosUsuarios_Deficiencia_Deficiencia",
+                        column: x => x.IdDeficiencia,
                         principalTable: "Deficiencia",
                         principalColumn: "ID"/*,
                         onDelete: ReferentialAction.Cascade*/);
                     table.ForeignKey(
-                        name: "FK_DadosUsuarios_Usuarios_UsuarioIDUserId",
-                        column: x => x.UsuarioIDUserId,
+                        name: "FK_DadosUsuarios_Usuarios_Usuario",
+                        column: x => x.IDUser,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -198,21 +191,20 @@ namespace WebApplicationADs_Eixo2.Migrations
                     TextoMensagem = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UsuarioRemetenteId = table.Column<int>(type: "int", nullable: false),
-                    UsuarioDestinatarioId = table.Column<int>(type: "int", nullable: false)
+                    
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MensagensPrivadas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MensagensPrivadas_Usuarios_UsuarioDestinatarioId",
-                        column: x => x.UsuarioDestinatarioId,
+                        name: "FK_MensagensPrivadas_Usuarios_UsuarioDestinatario",
+                        column: x => x.IdDestinatario,
                         principalTable: "Usuarios",
                         principalColumn: "Id"/*,
                         onDelete: ReferentialAction.Cascade*/);
                     table.ForeignKey(
-                        name: "FK_MensagensPrivadas_Usuarios_UsuarioRemetenteId",
-                        column: x => x.UsuarioRemetenteId,
+                        name: "FK_MensagensPrivadas_Usuarios_UsuarioRemetente",
+                        column: x => x.IdRemetente,
                         principalTable: "Usuarios",
                         principalColumn: "Id"/*,
                         onDelete: ReferentialAction.Cascade*/);
@@ -229,15 +221,14 @@ namespace WebApplicationADs_Eixo2.Migrations
                     TextoMensagem = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     lido = table.Column<bool>(type: "bit", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UsuarioDestinatarioId = table.Column<int>(type: "int", nullable: false)
+                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Notificacoes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Notificacoes_Usuarios_UsuarioDestinatarioId",
-                        column: x => x.UsuarioDestinatarioId,
+                        name: "FK_Notificacoes_Usuarios_UsuarioDestinatario",
+                        column: x => x.IdDestinatario,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -255,28 +246,26 @@ namespace WebApplicationADs_Eixo2.Migrations
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UsuarioDeficienteId = table.Column<int>(type: "int", nullable: false),
-                    UsuarioColaboradorId = table.Column<int>(type: "int", nullable: false),
-                    CalendarioIdCalendarioID = table.Column<int>(type: "int", nullable: false)
+                    
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Agendamento", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Agendamento_Calendario_CalendarioIdCalendarioID",
-                        column: x => x.CalendarioIdCalendarioID,
+                        name: "FK_Agendamento_Calendario_Calendario",
+                        column: x => x.IdCalendario,
                         principalTable: "Calendario",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Agendamento_Usuarios_UsuarioColaboradorId",
-                        column: x => x.UsuarioColaboradorId,
+                        name: "FK_Agendamento_Usuarios_UsuarioColaborador",
+                        column: x => x.Colaborador,
                         principalTable: "Usuarios",
                         principalColumn: "Id"/*,
                         onDelete: ReferentialAction.Cascade*/);
                     table.ForeignKey(
-                        name: "FK_Agendamento_Usuarios_UsuarioDeficienteId",
-                        column: x => x.UsuarioDeficienteId,
+                        name: "FK_Agendamento_Usuarios_UsuarioDeficiente",
+                        column: x => x.Deficiente,
                         principalTable: "Usuarios",
                         principalColumn: "Id"/*,
                         onDelete: ReferentialAction.Cascade*/);
@@ -291,22 +280,20 @@ namespace WebApplicationADs_Eixo2.Migrations
                     DataPublicacao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Conteudo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AgendamentoIdAgendamentoId = table.Column<int>(type: "int", nullable: false),
-                    UsuarioAvaliadorId = table.Column<int>(type: "int", nullable: false)
+                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false)                    
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AvaliacaoAgendamento", x => new { x.IdAgendamento, x.Avaliador });
                     table.ForeignKey(
-                        name: "FK_AvaliacaoAgendamento_Agendamento_AgendamentoIdAgendamentoId",
-                        column: x => x.AgendamentoIdAgendamentoId,
+                        name: "FK_AvaliacaoAgendamento_Agendamento_Agendamento",
+                        column: x => x.IdAgendamento,
                         principalTable: "Agendamento",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AvaliacaoAgendamento_Usuarios_UsuarioAvaliadorId",
-                        column: x => x.UsuarioAvaliadorId,
+                        name: "FK_AvaliacaoAgendamento_Usuarios_UserAvaliador",
+                        column: x => x.Avaliador,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -375,17 +362,14 @@ namespace WebApplicationADs_Eixo2.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Notificacoes_UsuarioDestinatarioId",
                 table: "Notificacoes",
-                column: "UsuarioDestinatarioId");
+                column: "UsuarioDestinatarioId");            
+
+           
 
             migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_DeficienciaIdDeficienciaID",
+                name: "IX_Usuarios_Perfil_Perfil",
                 table: "Usuarios",
-                column: "DeficienciaIdDeficienciaID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_PerfilIdPerfilID",
-                table: "Usuarios",
-                column: "PerfilIdPerfilID");
+                column: "IdPerfil");
         }
 
         /// <inheritdoc />

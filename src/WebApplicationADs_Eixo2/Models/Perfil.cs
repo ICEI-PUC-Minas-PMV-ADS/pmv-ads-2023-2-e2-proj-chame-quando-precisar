@@ -27,6 +27,6 @@ namespace WebApplicationADs_Eixo2.Models
         public DateTime DtAlteracao { get; set; }
 
 
-        public ICollection<Usuarios> Usuarios { get; set; }
+        public ICollection<Usuarios>? Usuarios { get; set; }
     }
 }

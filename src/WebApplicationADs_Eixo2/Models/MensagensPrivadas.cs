@@ -10,8 +10,10 @@ namespace WebApplicationADs_Eixo2.Models
         [Key]
         public int Id { get; set; }
 
+        [ForeignKey("IdRemetente")]
         public int IdRemetente { get; set; }
 
+        [ForeignKey("IdDestinatario")]
         public int IdDestinatario { get; set; }
 
 
@@ -23,10 +25,11 @@ namespace WebApplicationADs_Eixo2.Models
         public DateTime DtInclusao { get; set; }
         public DateTime DtAlteracao { get; set; }
 
-
+       
+        
         // Relações com Usuários (Deficiente e Colaborador)
-        public Usuarios UsuarioRemetente { get; set; }
+        public Usuarios? UsuarioRemetente { get; set; }
 
-        public Usuarios UsuarioDestinatario { get; set; }
+        public Usuarios? UsuarioDestinatario { get; set; }
     }
 }
