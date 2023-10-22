@@ -1,8 +1,10 @@
-# Registro de Testes de Usabilidade
+# Registro de Testes de Usabilidade 
+| | 
+|-|
+|RTU-01 Navegação intuitiva
+![likert](/docs/img/TDU/RTULeitor.png)Teste feito com o leitor de tela; comunicação ficou um pouco poluída, sentimos falta do link de cadastro, e recuperação de senha abaixo do formulário de login.|
+| | 
+| |
+|RTU-02 Facilidade de cadastro  
+Simulamos uma pessoa com deficiência visual, e o cadastro pode ser concluído normalmente, apesar da dificuldade de navegação por estar um pouco poluído!|
 
-Após realizar os testes de usabilidade, obtém-se um relatório a partir das análises realizadas. O Registro de Testes de Usabilidade é um relatório que contém as evidências dos testes e relatos dos usuários participantes, baseado no Plano de Testes de Usabilidade desenvolvido para os casos de uso desta etapa.
-
-As referências abaixo irão auxiliá-lo na geração do artefato “Registro de Testes de Usabilidade”.
-
-> **Links Úteis**:
-> - [Ferramentas de Testes de Usabilidade](https://www.usability.gov/how-to-and-tools/resources/templates.html)
