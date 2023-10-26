@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApplicationADs_Eixo2.Models.Usuarios>
+﻿@model IEnumerable<WebApplicationADs_Eixo2.Models.Notificacoes>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,29 +13,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                @Html.DisplayNameFor(model => model.DataEnvio)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SobreNome)
+                @Html.DisplayNameFor(model => model.TextoMensagem)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Login)
-            </th>
-           
-            <th>
-                @Html.DisplayNameFor(model => model.IdPerfil)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ativo)
+                @Html.DisplayNameFor(model => model.lido)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DtInclusao)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DtAlteracao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsuarioDestinatario)
             </th>
             <th></th>
         </tr>
@@ -44,28 +37,22 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Nome)
+                @Html.DisplayFor(modelItem => item.DataEnvio)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SobreNome)
+                @Html.DisplayFor(modelItem => item.TextoMensagem)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Login)
-            </td>            
-            <td>
-                @Html.DisplayFor(modelItem => item.Perfil.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ativo)
+                @Html.DisplayFor(modelItem => item.lido)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DtInclusao)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DtAlteracao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarioDestinatario.Email)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
