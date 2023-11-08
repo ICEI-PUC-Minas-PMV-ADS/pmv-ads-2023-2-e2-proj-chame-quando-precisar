@@ -176,8 +176,8 @@ namespace WebApplicationADs_Eixo2.Migrations
                         name: "FK_DadosUsuarios_Usuarios_Usuario",
                         column: x => x.IDUser,
                         principalTable: "Usuarios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id"
+                        /*onDelete: ReferentialAction.Cascade*/);
                 });
 
             migrationBuilder.CreateTable(
