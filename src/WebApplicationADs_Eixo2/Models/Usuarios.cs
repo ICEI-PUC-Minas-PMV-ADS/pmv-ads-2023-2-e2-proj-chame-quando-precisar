@@ -15,9 +15,11 @@ namespace WebApplicationADs_Eixo2.Models
         public string Nome { get; set; }
 
         [Required (ErrorMessage ="Campo Obrigatório")]
+        [Display(Name = "Sobre Nome")]
         public string SobreNome { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório")]
+        [Display(Name = "E-mail")]
         public string Email { get; set; }
 
 
@@ -28,6 +30,7 @@ namespace WebApplicationADs_Eixo2.Models
         [DataType(DataType.Password)]
         public string Senha { get; set; }
 
+        [Display(Name = "Perfil")]
         public int IdPerfil { get; set; }
 
         public bool Ativo { get; set; }
@@ -37,8 +40,7 @@ namespace WebApplicationADs_Eixo2.Models
 
         // Relação usuário e perfil
         [ForeignKey("IdPerfil")]
-        public Perfil? Perfil { get; set; }
-
+        public Perfil? Perfil { get; set; }        
         public DadosUsuarios? DadosUsuarios { get; set; }
 
         public ICollection<Notificacoes>? Notificacoes { get; set; }

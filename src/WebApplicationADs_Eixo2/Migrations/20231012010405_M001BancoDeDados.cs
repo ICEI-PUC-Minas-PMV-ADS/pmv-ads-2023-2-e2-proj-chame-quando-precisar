@@ -145,7 +145,7 @@ namespace WebApplicationADs_Eixo2.Migrations
                 columns: table => new
                 {
                     IDUser = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("SqlServer:None", "1, 1"),
                     SobreUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Foto = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     Cep = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -176,8 +176,8 @@ namespace WebApplicationADs_Eixo2.Migrations
                         name: "FK_DadosUsuarios_Usuarios_Usuario",
                         column: x => x.IDUser,
                         principalTable: "Usuarios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id"
+                        /*onDelete: ReferentialAction.Cascade*/);
                 });
 
             migrationBuilder.CreateTable(
@@ -301,44 +301,44 @@ namespace WebApplicationADs_Eixo2.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Agendamento_CalendarioIdCalendarioID",
+                name: "IX_Agendamento_Calendario_Calendario",
                 table: "Agendamento",
-                column: "CalendarioIdCalendarioID");
+                column: "IdCalendario");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Agendamento_UsuarioColaboradorId",
+                name: "IX_Agendamento_Usuario_Colaborador",
                 table: "Agendamento",
-                column: "UsuarioColaboradorId");
+                column: "Colaborador");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Agendamento_UsuarioDeficienteId",
+                name: "IX_Agendamento_Usuario_Deficiente",
                 table: "Agendamento",
-                column: "UsuarioDeficienteId");
+                column: "Deficiente");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Amigos_UsuarioUsuario1Id",
+                name: "IX_Amigos_Usuario_Usuario1",
                 table: "Amigos",
-                column: "UsuarioUsuario1Id");
+                column: "Usuario1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Amigos_UsuarioUsuario2Id",
+                name: "IX_Amigos_Usuario_Usuario2",
                 table: "Amigos",
-                column: "UsuarioUsuario2Id");
+                column: "Usuario2");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AvaliacaoAgendamento_AgendamentoIdAgendamentoId",
+                name: "IX_AvaliacaoAgendamento_Agendamento_Agendamento",
                 table: "AvaliacaoAgendamento",
-                column: "AgendamentoIdAgendamentoId");
+                column: "IdAgendamento");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AvaliacaoAgendamento_UsuarioAvaliadorId",
+                name: "IX_AvaliacaoAgendamento_Usuario_Avaliador",
                 table: "AvaliacaoAgendamento",
-                column: "UsuarioAvaliadorId");
+                column: "Avaliador");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Calendario_UsuarioidUserId",
+                name: "IX_Calendario_Usuario_Usuario",
                 table: "Calendario",
-                column: "UsuarioidUserId");
+                column: "IdUser");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DadosUsuarios_Deficiencia_Deficiencia",
@@ -346,32 +346,27 @@ namespace WebApplicationADs_Eixo2.Migrations
                 column: "IdDeficiencia");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DadosUsuarios_UsuarioIDUserId",
+                name: "IX_DadosUsuarios_Usuario_Usuario",
                 table: "DadosUsuarios",
-                column: "UsuarioIDUserId");
+                column: "IDUser");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MensagensPrivadas_UsuarioDestinatarioId",
+                name: "IX_MensagensPrivadas_Usuario_Destinatario",
                 table: "MensagensPrivadas",
-                column: "UsuarioDestinatarioId");
+                column: "IdDestinatario");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MensagensPrivadas_UsuarioRemetenteId",
+                name: "IX_MensagensPrivadas_Usuario_Remetente",
                 table: "MensagensPrivadas",
-                column: "UsuarioRemetenteId");
+                column: "IdRemetente");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notificacoes_UsuarioDestinatarioId",
+                name: "IX_Notificacoes_Usuario_Destinatario",
                 table: "Notificacoes",
-                column: "UsuarioDestinatarioId");            
+                column: "IdDestinatario");           
 
             migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_DeficienciaIdDeficienciaID",
-                table: "Usuarios",
-                column: "DeficienciaIdDeficienciaID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_Perfil",
+                name: "IX_Usuarios_Perfil_Perfil",
                 table: "Usuarios",
                 column: "IdPerfil");
         }
