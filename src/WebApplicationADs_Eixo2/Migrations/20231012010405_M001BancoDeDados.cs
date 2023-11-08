@@ -145,7 +145,7 @@ namespace WebApplicationADs_Eixo2.Migrations
                 columns: table => new
                 {
                     IDUser = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("SqlServer:None", "1, 1"),
                     SobreUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Foto = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     Cep = table.Column<string>(type: "nvarchar(max)", nullable: false),
