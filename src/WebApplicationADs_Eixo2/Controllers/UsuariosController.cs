@@ -28,8 +28,11 @@ namespace WebApplicationADs_Eixo2.Controllers
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-            return _context.usuarios != null ?
-                        View(await _context.usuarios.ToListAsync()) :
+
+            
+            return _context.usuarios.Include(n => n.Perfil) != null ?
+
+                        View(_context.usuarios.Include(n => n.Perfil)) :
                         Problem("Entity set 'AppDbContext.usuarios'  is null.");
         }
 
@@ -101,7 +104,15 @@ namespace WebApplicationADs_Eixo2.Controllers
                 return NotFound();
             }
 
+            //var user = User.Identity;
+            //if (User.IsInRole("ADM"))
+            //{
+
+            //}
+
             ViewBag.Perfis = new SelectList(_context.Perfils, "ID", "Descricao");
+
+
 
             var usuarios = await _context.usuarios.FindAsync(id);
             if (usuarios == null)
@@ -127,6 +138,7 @@ namespace WebApplicationADs_Eixo2.Controllers
             {
                 try
                 {
+
                     usuarios.Senha = BCrypt.Net.BCrypt.HashPassword(usuarios.Senha);
                     _context.Update(usuarios);
                     await _context.SaveChangesAsync();

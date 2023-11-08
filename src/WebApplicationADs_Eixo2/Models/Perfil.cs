@@ -12,6 +12,7 @@ namespace WebApplicationADs_Eixo2.Models
         public int ID { get; set; }
 
         [Required(ErrorMessage = "Este campo é Obrigatório")]
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 
         public bool Administrador { get; set; }

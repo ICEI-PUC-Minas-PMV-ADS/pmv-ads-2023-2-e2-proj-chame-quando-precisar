@@ -11,8 +11,8 @@ namespace WebApplicationADs_Eixo2.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Usuarios_Deficiencia_DeficienciaIdDeficienciaID",
-                table: "Usuarios");
+                name: "FK_Usuarios_Deficiencia_Deficiencia",
+                table: "DadosUsuarios");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Usuarios_Perfil_PerfilIdPerfilID",

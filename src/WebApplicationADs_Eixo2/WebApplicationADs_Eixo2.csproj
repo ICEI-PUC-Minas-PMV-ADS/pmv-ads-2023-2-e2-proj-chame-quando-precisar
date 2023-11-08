@@ -9,6 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20231019201048_MIGRATION002.cs" />
+    <Compile Remove="Migrations\20231019201048_MIGRATION002.Designer.cs" />
+    <Compile Remove="Migrations\20231020171419_M003.cs" />
+    <Compile Remove="Migrations\20231020171419_M003.Designer.cs" />
+    <Compile Remove="Migrations\20231021224612_M005_ATUALIZACAO_RELACIONAMENTO.cs" />
+    <Compile Remove="Migrations\20231021224612_M005_ATUALIZACAO_RELACIONAMENTO.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\img\FileName.cs" />
     <Content Remove="wwwroot\img\ju.jpg" />
   </ItemGroup>
