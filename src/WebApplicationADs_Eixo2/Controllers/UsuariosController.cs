@@ -20,6 +20,8 @@ namespace WebApplicationADs_Eixo2.Controllers
 
         private readonly ILogger<UsuariosController> _logger;
 
+        public static int CurrentUserId { get; set; }
+
         public UsuariosController(AppDbContext context)
         {
             _context = context;
@@ -292,6 +294,9 @@ namespace WebApplicationADs_Eixo2.Controllers
                         var usuarioIdenty = new ClaimsIdentity(claims, "login");
                         ClaimsPrincipal principal = new ClaimsPrincipal(usuarioIdenty);
 
+                        //Var pega Id para mandar para controllers
+                        CurrentUserId = user.Id;
+
                         var Aut = new AuthenticationProperties
                         {
                             AllowRefresh = true,
@@ -323,9 +328,11 @@ namespace WebApplicationADs_Eixo2.Controllers
         {
             return View();
         }
-
+        
 
     }
 
-   
+    
+
+
 }
