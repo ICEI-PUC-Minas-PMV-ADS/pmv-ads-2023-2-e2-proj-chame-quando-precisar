@@ -210,9 +210,6 @@ namespace WebApplicationADs_Eixo2.Migrations
                     b.Property<DateTime>("DataNacimento")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DeficienciaID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DtAlteracao")
                         .HasColumnType("datetime2");
 
@@ -247,7 +244,7 @@ namespace WebApplicationADs_Eixo2.Migrations
 
                     b.HasKey("IDUser");
 
-                    b.HasIndex("DeficienciaID");
+                    b.HasIndex("IdDeficiencia");
 
                     b.ToTable("DadosUsuarios");
                 });
@@ -518,13 +515,15 @@ namespace WebApplicationADs_Eixo2.Migrations
 
             modelBuilder.Entity("WebApplicationADs_Eixo2.Models.DadosUsuarios", b =>
                 {
-                    b.HasOne("WebApplicationADs_Eixo2.Models.Deficiencia", "Deficiencia")
-                        .WithMany()
-                        .HasForeignKey("DeficienciaID");
-
                     b.HasOne("WebApplicationADs_Eixo2.Models.Usuarios", "Usuario")
                         .WithOne("DadosUsuarios")
                         .HasForeignKey("WebApplicationADs_Eixo2.Models.DadosUsuarios", "IDUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplicationADs_Eixo2.Models.Deficiencia", "Deficiencia")
+                        .WithMany("DadosUsuarios")
+                        .HasForeignKey("IdDeficiencia")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -568,6 +567,11 @@ namespace WebApplicationADs_Eixo2.Migrations
                         .IsRequired();
 
                     b.Navigation("Perfil");
+                });
+
+            modelBuilder.Entity("WebApplicationADs_Eixo2.Models.Deficiencia", b =>
+                {
+                    b.Navigation("DadosUsuarios");
                 });
 
             modelBuilder.Entity("WebApplicationADs_Eixo2.Models.Perfil", b =>

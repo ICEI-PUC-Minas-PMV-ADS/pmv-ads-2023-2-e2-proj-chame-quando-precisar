@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplicationADs_Eixo2.Models;
+using WebApplicationADs_Eixo2.Controllers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplicationADs_Eixo2.Controllers
 {
@@ -61,19 +63,30 @@ namespace WebApplicationADs_Eixo2.Controllers
             calendario.DtAlteracao = DateTime.Now;
             calendario.DtInclusao = DateTime.Now;
 
-            if (ModelState.IsValid)
+            int CurrentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            calendario.IdUser = CurrentUserId;
+
+            if (_context.usuarios.Where(p => p.Id == CurrentUserId).Any())
             {
-                _context.Add(calendario);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(calendario);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(calendario);
             }
-            return View(calendario);
+            else
+            {
+                ViewBag.ErrorMessage = "Erro de identificação de usuário. Favor contactar o Administrador";
+                return View();
+            }
         }
 
         // GET: Calendario/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Calendarios == null)
+                if (id == null || _context.Calendarios == null)
             {
                 return NotFound();
             }
@@ -91,8 +104,16 @@ namespace WebApplicationADs_Eixo2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> Edit(int id, [Bind("ID,IdUser,Ano,Mes,Dia,DiaSemana,HoraInicio,HoraFim,Descricao,DtInclusao,DtAlteracao")] Calendario calendario)
         {
+            calendario.DtAlteracao = DateTime.Now;
+
+            int CurrentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            if (CurrentUserId != calendario.IdUser)
+            {
+                return RedirectToAction("AcessoNegado", "usuarios");
+            }
             if (id != calendario.ID)
             {
                 return NotFound();
