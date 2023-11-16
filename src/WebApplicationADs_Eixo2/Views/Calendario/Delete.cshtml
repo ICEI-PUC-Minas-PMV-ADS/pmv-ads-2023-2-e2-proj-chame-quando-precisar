@@ -1,46 +1,17 @@
-﻿@model WebApplicationADs_Eixo2.Models.Calendario
+﻿@using System.Security.Claims;
+@model WebApplicationADs_Eixo2.Models.Calendario
+
+@{int CurrentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);}
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>Cancelar um Agendamento:</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Tem certeza que deseja cancelar este angendamento?</h3>
 <div>
-    <h4>Calendario</h4>
-    <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdUser)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdUser)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ano)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ano)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Mes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Mes)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Dia)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Dia)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DiaSemana)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DiaSemana)
-        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.HoraInicio)
         </dt>
@@ -59,23 +30,14 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Descricao)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DtInclusao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DtInclusao)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DtAlteracao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DtAlteracao)
-        </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="ID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index">Voltar</a>
+        @if (Model.IdUser == CurrentUserId)
+        {
+            <input type="submit" value="Cancelar" class="btn btn-danger" />
+        }
     </form>
 </div>

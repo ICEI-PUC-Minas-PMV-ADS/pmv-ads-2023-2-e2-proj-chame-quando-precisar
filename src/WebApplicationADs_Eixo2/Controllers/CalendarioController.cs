@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplicationADs_Eixo2.Controllers
 {
+    [Authorize(Roles ="ADM,DEF")]
     public class CalendarioController : Controller
     {
         private readonly AppDbContext _context;
@@ -66,6 +67,12 @@ namespace WebApplicationADs_Eixo2.Controllers
             int CurrentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             calendario.IdUser = CurrentUserId;
 
+            if (calendario.HoraInicio > calendario.HoraFim) 
+            {
+                ViewBag.ErrorMessage = "O Horário Inicial do agendamento não pode ser maior que o Horário Final";
+                return View();
+            }
+
             if (_context.usuarios.Where(p => p.Id == CurrentUserId).Any())
             {
                 if (ModelState.IsValid)
@@ -96,7 +103,17 @@ namespace WebApplicationADs_Eixo2.Controllers
             {
                 return NotFound();
             }
-            return View(calendario);
+            
+            int CurrentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            if (calendario.IdUser == CurrentUserId)
+            {
+                return View(calendario);
+            }
+            else
+            {
+                return RedirectToAction("AcessoNegado", "Usuarios");
+            }
         }
 
         // POST: Calendario/Edit/5
@@ -114,6 +131,12 @@ namespace WebApplicationADs_Eixo2.Controllers
             {
                 return RedirectToAction("AcessoNegado", "usuarios");
             }
+            if (calendario.HoraInicio > calendario.HoraFim)
+            {
+                ViewBag.ErrorMessage = "O Horário Inicial do agendamento não pode ser maior que o Horário Final";
+                return View();
+            }
+
             if (id != calendario.ID)
             {
                 return NotFound();
@@ -157,7 +180,16 @@ namespace WebApplicationADs_Eixo2.Controllers
                 return NotFound();
             }
 
-            return View(calendario);
+            int CurrentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            if (calendario.IdUser == CurrentUserId)
+            {
+                return View(calendario);
+            }
+            else
+            {
+                return RedirectToAction("AcessoNegado", "Usuarios");
+            }
         }
 
         // POST: Calendario/Delete/5
