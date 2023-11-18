@@ -39,6 +39,13 @@ namespace WebApplicationADs_Eixo2.Models
                 .WithMany(p => p.Usuarios) // Cada perfil pode estar associado a vários usuários
                 .HasForeignKey(u => u.IdPerfil); // Chave estrangeira em Usuarios
 
+            modelBuilder.Entity<DadosUsuarios>()
+                //entity.HasNoKey()
+
+                .HasOne(u => u.Deficiencia) // Cada usuário tem umA DEFICIENCIA
+                .WithMany(d => d.DadosUsuarios) // Cada perfil pode estar associado a vários usuários
+                .HasForeignKey(u => u.IdDeficiencia); // Chave estrangeira em Usuarios
+
             // Configuração da entidade Perfil
             modelBuilder.Entity<Perfil>()
                 .HasMany(p => p.Usuarios) // Cada perfil pode estar associado a vários usuários

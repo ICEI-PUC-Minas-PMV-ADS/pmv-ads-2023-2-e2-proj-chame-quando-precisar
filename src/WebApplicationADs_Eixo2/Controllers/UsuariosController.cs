@@ -13,7 +13,7 @@ using WebApplicationADs_Eixo2.Models;
 
 namespace WebApplicationADs_Eixo2.Controllers
 {
-    [Authorize (Roles = "ADM")]
+    
     public class UsuariosController : Controller
     {
         private readonly AppDbContext _context;
@@ -26,6 +26,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         }
 
         // GET: Usuarios
+        [Authorize(Roles = "ADM")]
         public async Task<IActionResult> Index()
         {
 
@@ -37,6 +38,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         }
 
         // GET: Usuarios/Details/5
+        [Authorize(Roles = "ADM")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.usuarios == null)
@@ -55,6 +57,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         }
 
         // GET: Usuarios/Create
+        [Authorize(Roles = "ADM")]
         public IActionResult Create()
         {
             ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "ID", "Descricao");
@@ -66,6 +69,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ADM")]
         public async Task<IActionResult> Create([Bind("Nome,SobreNome,Email,Login,Senha,IdPerfil")] Usuarios usuarios)
         {
             usuarios.Ativo = true;
@@ -97,6 +101,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         }
 
         // GET: Usuarios/Edit/5
+        [Authorize(Roles = "ADM")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.usuarios == null)
@@ -127,6 +132,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ADM")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,SobreNome,Email,Login,Senha,IdPerfil,Ativo,DtInclusao,DtAlteracao")] Usuarios usuarios)
         {
             if (id != usuarios.Id)
@@ -160,6 +166,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         }
 
         // GET: Usuarios/Delete/5
+        [Authorize(Roles = "ADM")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.usuarios == null)
@@ -180,6 +187,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ADM")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.usuarios == null)
@@ -286,6 +294,7 @@ namespace WebApplicationADs_Eixo2.Controllers
                         new Claim(ClaimTypes.Name , user.Nome),
                          new Claim(ClaimTypes.NameIdentifier , user.Id.ToString()),
                           new Claim(ClaimTypes.Role , role),
+                           new Claim("CodigoUsuario", user.Id.ToString()),
 
                     };
 
@@ -324,8 +333,70 @@ namespace WebApplicationADs_Eixo2.Controllers
             return View();
         }
 
+        [Authorize(Roles = "DEF,COL")]
+        public async Task<IActionResult> perfilUsuario(int? id)
+        {
+            if (id == null || _context.usuarios == null)
+            {
+                return NotFound();
+            }          
+
+            ViewBag.Perfis = new SelectList(_context.Perfils, "ID", "Descricao");
+
+            var coduser = int.Parse(@User.FindFirst("CodigoUsuario")?.Value);
+            if (id != coduser)
+            {
+                return NotFound();
+            }
+            var usuarios = _context.usuarios.Include(u => u.DadosUsuarios).FirstOrDefault(obj => obj.Id == id);
+            if (usuarios == null)
+            {
+                return NotFound();
+            }
+            return View(usuarios);
+        }
+        
+        [HttpPost]
+        [Authorize(Roles = "DEF,COL")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> perfilUsuario(int id, [Bind("Id,Nome,SobreNome,Email,Login,Senha,IdPerfil,DtAlteracao,DadosUsuarios")] Usuarios usuarios)
+        {
+            if (id != usuarios.Id)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "ID", "Descricao");
+
+            if (ModelState.IsValid)
+            {
+                try
+                {                    
+                    if (usuarios.DadosUsuarios != null)
+                    {
+                        usuarios.DadosUsuarios.Usuario = usuarios;
+                        _context.Update(usuarios.DadosUsuarios);
+                    }
+
+                    _context.Update(usuarios);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UsuariosExists(usuarios.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(usuarios);
+        }
 
     }
-
    
 }
