@@ -16,7 +16,7 @@ namespace WebApplicationADs_Eixo2.Controllers
     public class CalendarioController : Controller
     {
         private readonly AppDbContext _context;
-
+        static Calendario CalendarioPersistence = new Calendario();
         public CalendarioController(AppDbContext context)
         {
             _context = context;
@@ -108,12 +108,15 @@ namespace WebApplicationADs_Eixo2.Controllers
 
             if (calendario.IdUser == CurrentUserId)
             {
+                CalendarioPersistence = calendario;
                 return View(calendario);
             }
             else
             {
                 return RedirectToAction("AcessoNegado", "Usuarios");
             }
+            
+            
         }
 
         // POST: Calendario/Edit/5
@@ -124,13 +127,13 @@ namespace WebApplicationADs_Eixo2.Controllers
         
         public async Task<IActionResult> Edit(int id, [Bind("ID,IdUser,Ano,Mes,Dia,DiaSemana,HoraInicio,HoraFim,Descricao,DtInclusao,DtAlteracao")] Calendario calendario)
         {
-            calendario.DtAlteracao = DateTime.Now;
+        //  Camada de persistência, pegar tais dados direto do banco gera erro de instância
+            CalendarioPersistence.DtAlteracao = DateTime.Now;
+            CalendarioPersistence.Descricao = calendario.Descricao;
+            CalendarioPersistence.HoraFim = calendario.HoraFim;
+            CalendarioPersistence.HoraInicio = calendario.HoraInicio;
+            calendario = CalendarioPersistence;
 
-            int CurrentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            if (CurrentUserId != calendario.IdUser)
-            {
-                return RedirectToAction("AcessoNegado", "usuarios");
-            }
             if (calendario.HoraInicio > calendario.HoraFim)
             {
                 ViewBag.ErrorMessage = "O Horário Inicial do agendamento não pode ser maior que o Horário Final";
@@ -215,5 +218,6 @@ namespace WebApplicationADs_Eixo2.Controllers
         {
           return (_context.Calendarios?.Any(e => e.ID == id)).GetValueOrDefault();
         }
+
     }
 }
