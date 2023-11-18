@@ -216,9 +216,6 @@ namespace WebApplicationADs_Eixo2.Migrations
                     b.Property<DateTime>("DataNacimento")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DeficienciaIdDeficienciaID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DtAlteracao")
                         .HasColumnType("datetime2");
 
@@ -251,14 +248,7 @@ namespace WebApplicationADs_Eixo2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UsuarioIDUserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IDUser");
-
-                    b.HasIndex("DeficienciaIdDeficienciaID");
-
-                    b.HasIndex("UsuarioIDUserId");
+                    b.HasKey("IDUser");                   
 
                     b.ToTable("DadosUsuarios");
                 });
@@ -434,9 +424,6 @@ namespace WebApplicationADs_Eixo2.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
-                    b.Property<int>("DeficienciaIdDeficienciaID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DtAlteracao")
                         .HasColumnType("datetime2");
 
@@ -470,10 +457,6 @@ namespace WebApplicationADs_Eixo2.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DeficienciaIdDeficienciaID");
-
-                    b.HasIndex("PerfilIdPerfilID");
 
                     b.ToTable("Usuarios");
                 });
@@ -558,13 +541,13 @@ namespace WebApplicationADs_Eixo2.Migrations
                 {
                     b.HasOne("WebApplicationADs_Eixo2.Models.Deficiencia", "DeficienciaIdDeficiencia")
                         .WithMany()
-                        .HasForeignKey("DeficienciaIdDeficienciaID")
+                        .HasForeignKey("IdDeficiencia")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebApplicationADs_Eixo2.Models.Usuarios", "UsuarioIDUser")
                         .WithMany()
-                        .HasForeignKey("UsuarioIDUserId")
+                        .HasForeignKey("UsuarioIDUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -607,7 +590,7 @@ namespace WebApplicationADs_Eixo2.Migrations
                 {
                     b.HasOne("WebApplicationADs_Eixo2.Models.Deficiencia", "DeficienciaIdDeficiencia")
                         .WithMany()
-                        .HasForeignKey("DeficienciaIdDeficienciaID")
+                        .HasForeignKey("IdDeficiencia")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
