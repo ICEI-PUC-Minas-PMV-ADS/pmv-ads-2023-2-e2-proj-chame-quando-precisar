@@ -5,7 +5,7 @@
 namespace WebApplicationADs_Eixo2.Migrations
 {
     /// <inheritdoc />
-    public partial class M003 : Migration
+    public partial class DADOSUSUARIOCHAVE : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

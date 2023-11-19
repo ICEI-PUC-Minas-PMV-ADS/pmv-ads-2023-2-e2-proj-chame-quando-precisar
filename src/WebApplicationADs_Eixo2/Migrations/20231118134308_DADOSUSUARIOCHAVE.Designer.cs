@@ -12,8 +12,8 @@ using WebApplicationADs_Eixo2.Models;
 namespace WebApplicationADs_Eixo2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231022013513_teste")]
-    partial class teste
+    [Migration("20231118134308_DADOSUSUARIOCHAVE")]
+    partial class DADOSUSUARIOCHAVE
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -195,62 +195,50 @@ namespace WebApplicationADs_Eixo2.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Bairro")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Celular")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cep")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cidade")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DataNacimento")
+                    b.Property<DateTime?>("DataNacimento")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DeficienciaID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DtAlteracao")
+                    b.Property<DateTime?>("DtAlteracao")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DtInclusao")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Estado")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Foto")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int>("IdDeficiencia")
+                    b.Property<int?>("IdDeficiencia")
                         .HasColumnType("int");
 
-                    b.Property<int>("Numero")
+                    b.Property<int?>("Numero")
                         .HasColumnType("int");
 
                     b.Property<string>("Rua")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SobreUsuario")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telefone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IDUser");
 
-                    b.HasIndex("DeficienciaID");
+                    b.HasIndex("IdDeficiencia");
 
                     b.ToTable("DadosUsuarios");
                 });
@@ -521,15 +509,15 @@ namespace WebApplicationADs_Eixo2.Migrations
 
             modelBuilder.Entity("WebApplicationADs_Eixo2.Models.DadosUsuarios", b =>
                 {
-                    b.HasOne("WebApplicationADs_Eixo2.Models.Deficiencia", "Deficiencia")
-                        .WithMany()
-                        .HasForeignKey("DeficienciaID");
-
                     b.HasOne("WebApplicationADs_Eixo2.Models.Usuarios", "Usuario")
                         .WithOne("DadosUsuarios")
                         .HasForeignKey("WebApplicationADs_Eixo2.Models.DadosUsuarios", "IDUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("WebApplicationADs_Eixo2.Models.Deficiencia", "Deficiencia")
+                        .WithMany("DadosUsuarios")
+                        .HasForeignKey("IdDeficiencia");
 
                     b.Navigation("Deficiencia");
 
@@ -571,6 +559,11 @@ namespace WebApplicationADs_Eixo2.Migrations
                         .IsRequired();
 
                     b.Navigation("Perfil");
+                });
+
+            modelBuilder.Entity("WebApplicationADs_Eixo2.Models.Deficiencia", b =>
+                {
+                    b.Navigation("DadosUsuarios");
                 });
 
             modelBuilder.Entity("WebApplicationADs_Eixo2.Models.Perfil", b =>

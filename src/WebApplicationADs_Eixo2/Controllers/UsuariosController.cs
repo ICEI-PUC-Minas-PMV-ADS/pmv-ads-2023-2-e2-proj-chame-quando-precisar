@@ -9,31 +9,40 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting.Internal;
 using WebApplicationADs_Eixo2.Models;
 
 namespace WebApplicationADs_Eixo2.Controllers
 {
-    [Authorize (Roles = "ADM")]
+    
     public class UsuariosController : Controller
     {
         private readonly AppDbContext _context;
 
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
         private readonly ILogger<UsuariosController> _logger;
 
-        public UsuariosController(AppDbContext context)
+        public UsuariosController(AppDbContext context , IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         // GET: Usuarios
+        [Authorize(Roles = "ADM")]
         public async Task<IActionResult> Index()
         {
-            return _context.usuarios != null ?
-                        View(await _context.usuarios.ToListAsync()) :
+
+            
+            return _context.usuarios.Include(n => n.Perfil) != null ?
+
+                        View(_context.usuarios.Include(n => n.Perfil)) :
                         Problem("Entity set 'AppDbContext.usuarios'  is null.");
         }
 
         // GET: Usuarios/Details/5
+        [Authorize(Roles = "ADM")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.usuarios == null)
@@ -52,6 +61,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         }
 
         // GET: Usuarios/Create
+        [Authorize(Roles = "ADM")]
         public IActionResult Create()
         {
             ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "ID", "Descricao");
@@ -63,6 +73,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ADM")]
         public async Task<IActionResult> Create([Bind("Nome,SobreNome,Email,Login,Senha,IdPerfil")] Usuarios usuarios)
         {
             usuarios.Ativo = true;
@@ -94,6 +105,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         }
 
         // GET: Usuarios/Edit/5
+        [Authorize(Roles = "ADM")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.usuarios == null)
@@ -101,7 +113,15 @@ namespace WebApplicationADs_Eixo2.Controllers
                 return NotFound();
             }
 
+            //var user = User.Identity;
+            //if (User.IsInRole("ADM"))
+            //{
+
+            //}
+
             ViewBag.Perfis = new SelectList(_context.Perfils, "ID", "Descricao");
+
+
 
             var usuarios = await _context.usuarios.FindAsync(id);
             if (usuarios == null)
@@ -116,6 +136,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ADM")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,SobreNome,Email,Login,Senha,IdPerfil,Ativo,DtInclusao,DtAlteracao")] Usuarios usuarios)
         {
             if (id != usuarios.Id)
@@ -127,6 +148,7 @@ namespace WebApplicationADs_Eixo2.Controllers
             {
                 try
                 {
+
                     usuarios.Senha = BCrypt.Net.BCrypt.HashPassword(usuarios.Senha);
                     _context.Update(usuarios);
                     await _context.SaveChangesAsync();
@@ -148,6 +170,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         }
 
         // GET: Usuarios/Delete/5
+        [Authorize(Roles = "ADM")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.usuarios == null)
@@ -168,6 +191,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ADM")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.usuarios == null)
@@ -274,6 +298,7 @@ namespace WebApplicationADs_Eixo2.Controllers
                         new Claim(ClaimTypes.Name , user.Nome),
                          new Claim(ClaimTypes.NameIdentifier , user.Id.ToString()),
                           new Claim(ClaimTypes.Role , role),
+                           new Claim("CodigoUsuario", user.Id.ToString()),
 
                     };
 
@@ -312,6 +337,116 @@ namespace WebApplicationADs_Eixo2.Controllers
             return View();
         }
 
+        [Authorize(Roles = "DEF,COL")]
+        public async Task<IActionResult> perfilUsuario(int? id)
+        {
+            if (id == null || _context.usuarios == null)
+            {
+                return NotFound();
+            }          
+
+            ViewBag.Perfis = new SelectList(_context.Perfils, "ID", "Descricao");
+
+            var coduser = int.Parse(@User.FindFirst("CodigoUsuario")?.Value);
+            if (id != coduser)
+            {
+                return NotFound();
+            }
+            var usuarios = _context.usuarios.Include(u => u.DadosUsuarios).FirstOrDefault(obj => obj.Id == id);
+            if (usuarios == null)
+            {
+                return NotFound();
+            }
+            return View(usuarios);
+        }
+        
+        [HttpPost]
+        [Authorize(Roles = "DEF,COL")]
+        [ValidateAntiForgeryToken]
+
+         /*IFormFile foto*/
+        public async Task<IActionResult> perfilUsuario(int id, [Bind("Id,Nome,SobreNome,Email,Login,Senha,IdPerfil,DtAlteracao,DadosUsuarios")] Usuarios usuarios)
+        {
+            if (id != usuarios.Id)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "ID", "Descricao");
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    usuarios.DtAlteracao = DateTime.Now;
+
+                    // Verifique se há uma imagem enviada
+                    //if (foto != null && foto.Length > 0)
+                   // {
+                      //  using (var memoryStream = new MemoryStream())
+                      //  {
+                       //     await foto.CopyToAsync(memoryStream);
+                          //  usuarios.DadosUsuarios.Foto = memoryStream.ToArray();
+                      //  }
+                    //}
+
+                    if (usuarios.DadosUsuarios != null)
+                    {
+                        // Associe o usuário aos DadosUsuarios
+                        usuarios.DadosUsuarios.Usuario = usuarios;
+                        usuarios.DadosUsuarios.IDUser = usuarios.Id;
+                        if (usuarios.DadosUsuarios.IDUser > 0)
+                        {
+                            _context.Update(usuarios.DadosUsuarios);
+                        }
+                        else
+                        {
+                            _context.Add(usuarios.DadosUsuarios);
+                        }
+                    }
+                    _context.Update(usuarios);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UsuariosExists(usuarios.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                TempData["MensagemSucesso"] = "Dados atualizados com sucesso!";
+                return RedirectToAction(nameof(perfilUsuario));
+            }
+            TempData["MensagemErro"] = "Verifique os dados Enviados.";
+            return View(usuarios);
+        }
+
+        [AllowAnonymous]
+        public IActionResult ObterImagem(int id)
+        {
+            var usuario = _context.usuarios.Include(u => u.DadosUsuarios).FirstOrDefault(obj => obj.Id == id);
+
+            if (usuario != null && usuario.DadosUsuarios != null && usuario.DadosUsuarios.Foto != null)
+            {
+                return File(usuario.DadosUsuarios.Foto, "jpeg");
+            }
+
+            // Obtém o caminho físico da imagem padrão
+            var caminhoImagemPadrao = Path.Combine(_hostingEnvironment.WebRootPath, "img", "defaultFoto.jpg");
+
+            // Verifique se o arquivo existe antes de tentar usá-lo
+            if (System.IO.File.Exists(caminhoImagemPadrao))
+            {
+                var imagemPadrao = System.IO.File.ReadAllBytes(caminhoImagemPadrao);
+                return File(imagemPadrao, "image/jpg");
+            }
+
+            return NotFound(); // 404 Not Found
+        }
 
     }
 
