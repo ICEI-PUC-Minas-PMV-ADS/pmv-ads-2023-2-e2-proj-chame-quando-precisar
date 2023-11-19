@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security;
 using WebApplicationADs_Eixo2.Models;
 
 namespace WebApplicationADs_Eixo2.Controllers
@@ -17,7 +19,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         }
 
         public IActionResult Index()
-        {
+        { 
             string nomeDaConexao = _configuration.GetConnectionString("CqpConnection");
             return View();
         }
