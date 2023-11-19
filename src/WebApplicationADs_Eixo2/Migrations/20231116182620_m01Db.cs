@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -160,7 +160,7 @@ namespace WebApplicationADs_Eixo2.Migrations
                     Celular = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IdDeficiencia = table.Column<int>(type: "int", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),                   
                 },
                 constraints: table =>
                 {
@@ -361,6 +361,8 @@ namespace WebApplicationADs_Eixo2.Migrations
                 name: "IX_Usuarios_IdPerfil",
                 table: "Usuarios",
                 column: "IdPerfil");
+
+            
         }
 
         /// <inheritdoc />

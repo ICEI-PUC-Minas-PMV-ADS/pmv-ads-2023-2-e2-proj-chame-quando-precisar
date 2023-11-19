@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,8 +7,9 @@
     <!-- Outros metadados e links -->
     <!-- Referência aos arquivos CSS do Bootstrap -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!--link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /-->
     <link rel="stylesheet" href="~/WebApplicationADs_Eixo2.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
     <audio id="audioElement">
@@ -36,7 +37,7 @@
                         <a class="navbar-brand" asp-controller="Agendamento" asp-action="Index">Agendamento</a>
                         <a class="navbar-brand" asp-controller="Notificacoes" asp-action="Index">Notificacoes</a>
                         <a class="navbar-brand" asp-controller="Amigos" asp-action="Index">Amigos</a>
-                        <a class="navbar-brand" asp-controller="Usuarios" asp-action="PerfilUsuario">Meu Perfil</a>
+                        <a class="navbar-brand" asp-controller="Usuarios" asp-action="PerfilUsuario" asp-route-id="@User.FindFirst("CodigoUsuario")?.Value">Meu Perfil</a>
                         
                     }
                     @if (User.IsInRole("COL"))
@@ -45,7 +46,7 @@
                         <a class="navbar-brand" asp-controller="Agendamento" asp-action="Index">Agendamento</a>
                         <a class="navbar-brand" asp-controller="Notificacoes" asp-action="Index">Notificacoes</a>
                         <a class="navbar-brand" asp-controller="Amigos" asp-action="Index">Amigos</a>
-                        <a class="navbar-brand" asp-controller="Usuarios" asp-action="PerfilUsuario">Perfil</a>
+                        <a class="navbar-brand" asp-controller="Usuarios" asp-action="PerfilUsuario" asp-route-id="@User.FindFirst("CodigoUsuario")?.Value">Perfil</a>
 
                     }
 
@@ -105,7 +106,7 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
-<script>
+<!--script>
     
     var audioElement = document.getElementById('audioElement');   
     var button = document.getElementById('botaologin');    
@@ -116,5 +117,5 @@
         audioElement.pause();
         audioElement.currentTime = 0; 
     });
-</script>
+</script-->
 </html>
