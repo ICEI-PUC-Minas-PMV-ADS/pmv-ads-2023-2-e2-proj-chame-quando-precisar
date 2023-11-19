@@ -37,7 +37,7 @@
                         <a class="navbar-brand" asp-controller="Agendamento" asp-action="Index">Agendamento</a>
                         <a class="navbar-brand" asp-controller="Notificacoes" asp-action="Index">Notificacoes</a>
                         <a class="navbar-brand" asp-controller="Amigos" asp-action="Index">Amigos</a>
-                        <a class="navbar-brand" asp-controller="Usuarios" asp-action="PerfilUsuario">Meu Perfil</a>
+                        <a class="navbar-brand" asp-controller="Usuarios" asp-action="PerfilUsuario" asp-route-id="@User.FindFirst("CodigoUsuario")?.Value">Meu Perfil</a>
                         
                     }
                     @if (User.IsInRole("COL"))

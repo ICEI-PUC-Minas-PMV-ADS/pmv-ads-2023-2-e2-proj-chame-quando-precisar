@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting.Internal;
 using WebApplicationADs_Eixo2.Models;
 
 namespace WebApplicationADs_Eixo2.Controllers
@@ -18,11 +19,14 @@ namespace WebApplicationADs_Eixo2.Controllers
     {
         private readonly AppDbContext _context;
 
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
         private readonly ILogger<UsuariosController> _logger;
 
-        public UsuariosController(AppDbContext context)
+        public UsuariosController(AppDbContext context , IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         // GET: Usuarios
@@ -359,6 +363,8 @@ namespace WebApplicationADs_Eixo2.Controllers
         [HttpPost]
         [Authorize(Roles = "DEF,COL")]
         [ValidateAntiForgeryToken]
+
+         /*IFormFile foto*/
         public async Task<IActionResult> perfilUsuario(int id, [Bind("Id,Nome,SobreNome,Email,Login,Senha,IdPerfil,DtAlteracao,DadosUsuarios")] Usuarios usuarios)
         {
             if (id != usuarios.Id)
@@ -371,13 +377,33 @@ namespace WebApplicationADs_Eixo2.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {                    
+                {
+                    usuarios.DtAlteracao = DateTime.Now;
+
+                    // Verifique se há uma imagem enviada
+                    //if (foto != null && foto.Length > 0)
+                   // {
+                      //  using (var memoryStream = new MemoryStream())
+                      //  {
+                       //     await foto.CopyToAsync(memoryStream);
+                          //  usuarios.DadosUsuarios.Foto = memoryStream.ToArray();
+                      //  }
+                    //}
+
                     if (usuarios.DadosUsuarios != null)
                     {
+                        // Associe o usuário aos DadosUsuarios
                         usuarios.DadosUsuarios.Usuario = usuarios;
-                        _context.Update(usuarios.DadosUsuarios);
+                        usuarios.DadosUsuarios.IDUser = usuarios.Id;
+                        if (usuarios.DadosUsuarios.IDUser > 0)
+                        {
+                            _context.Update(usuarios.DadosUsuarios);
+                        }
+                        else
+                        {
+                            _context.Add(usuarios.DadosUsuarios);
+                        }
                     }
-
                     _context.Update(usuarios);
                     await _context.SaveChangesAsync();
                 }
@@ -392,11 +418,37 @@ namespace WebApplicationADs_Eixo2.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                TempData["MensagemSucesso"] = "Dados atualizados com sucesso!";
+                return RedirectToAction(nameof(perfilUsuario));
             }
+            TempData["MensagemErro"] = "Verifique os dados Enviados.";
             return View(usuarios);
         }
 
+        [AllowAnonymous]
+        public IActionResult ObterImagem(int id)
+        {
+            var usuario = _context.usuarios.Include(u => u.DadosUsuarios).FirstOrDefault(obj => obj.Id == id);
+
+            if (usuario != null && usuario.DadosUsuarios != null && usuario.DadosUsuarios.Foto != null)
+            {
+                return File(usuario.DadosUsuarios.Foto, "jpeg");
+            }
+
+            // Obtém o caminho físico da imagem padrão
+            var caminhoImagemPadrao = Path.Combine(_hostingEnvironment.WebRootPath, "img", "defaultFoto.jpg");
+
+            // Verifique se o arquivo existe antes de tentar usá-lo
+            if (System.IO.File.Exists(caminhoImagemPadrao))
+            {
+                var imagemPadrao = System.IO.File.ReadAllBytes(caminhoImagemPadrao);
+                return File(imagemPadrao, "image/jpg");
+            }
+
+            return NotFound(); // 404 Not Found
+        }
+
     }
+
    
 }
