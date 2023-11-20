@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApplicationADs_Eixo2.Migrations
 {
     /// <inheritdoc />
-    public partial class m01Db : Migration
+    public partial class M01CriandoBD : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -147,20 +147,20 @@ namespace WebApplicationADs_Eixo2.Migrations
                 columns: table => new
                 {
                     IDUser = table.Column<int>(type: "int", nullable: false),
-                    SobreUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Foto = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Cep = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Rua = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Numero = table.Column<int>(type: "int", nullable: false),
-                    Bairro = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DataNacimento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Celular = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdDeficiencia = table.Column<int>(type: "int", nullable: false),
+                    SobreUsuario = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Foto = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    Cep = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rua = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Numero = table.Column<int>(type: "int", nullable: true),
+                    Bairro = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cidade = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DataNacimento = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Celular = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdDeficiencia = table.Column<int>(type: "int", nullable: true),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),                   
+                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -169,8 +169,7 @@ namespace WebApplicationADs_Eixo2.Migrations
                         name: "FK_DadosUsuarios_Deficiencia_IdDeficiencia",
                         column: x => x.IdDeficiencia,
                         principalTable: "Deficiencia",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_DadosUsuarios_Usuarios_IDUser",
                         column: x => x.IDUser,
@@ -361,8 +360,6 @@ namespace WebApplicationADs_Eixo2.Migrations
                 name: "IX_Usuarios_IdPerfil",
                 table: "Usuarios",
                 column: "IdPerfil");
-
-            
         }
 
         /// <inheritdoc />
