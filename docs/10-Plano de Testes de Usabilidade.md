@@ -1,5 +1,8 @@
 # Plano de Testes de Usabilidade
 
+### Obs: Para acessa a documentação do Registro de Testes de Usabilidade [clique aqui.](./11-Registro%20de%20Testes%20de%20Usabilidade.md)
+---
+
 Os testes de usabilidade permitem avaliar a qualidade da interface com o usuário da aplicação interativa, usando o sitema de escala de Likerts[^1].
 
 Conforme imagem abaixo, usamos da escala negativa, pontos que a usabilidade da interface com usuário está comprometida, conforme a escala tende para o positivo a usabilidade está adequada as necessidades do usuário, usando dos pontos de (Concordância, Frequência, Importância e Probabilidade). 
@@ -19,11 +22,11 @@ Os pontos trabalhanos nessa escala são:
 ![ash likert graph](/docs/img/likert_ask.png)
 
 ## Planilha de testes
-| | | | | |
-|-|-|-|-|-|
-|Caso de Teste|Objetivo do Teste|Tarefas|Critérios de Sucesso|Resultado Obtido|
-|CT-01 - Navegação intuitiva|Verificar se os usuários conseguem navegar pelo WebApp de forma intuitiva.|- Acessar diferentes seções do WebApp<br>- Utilizar o menu de navegação|- Os usuários conseguem encontrar e acessar as seções desejadas sem dificuldades|![likert](/docs/img/TDU/emotion/3.png)
-|CT-02 - Facilidade de cadastro|Avaliar a facilidade e compreensibilidade do processo de cadastro.|- Realizar o cadastro inserindo informações pessoais|- O cadastro é concluído sem problemas<br>- Os usuários entendem as informações solicitadas|![likert](/docs/img/TDU/emotion/5.png)
+| | | | | | | |
+|-|-|-|-|-|-|-|
+|Caso de Teste|Objetivo do Teste|Tarefas|Critérios de Sucesso|Resultado Obtido|Cenários de testes|Imagem de Registro
+|CT-01 - Navegação intuitiva|Verificar se os usuários conseguem navegar pelo WebApp de forma intuitiva.|- Acessar diferentes seções do WebApp<br>- Utilizar o menu de navegação|- Os usuários conseguem encontrar e acessar as seções desejadas sem dificuldades|
+|CT-02 - Facilidade de cadastro|Avaliar a facilidade e compreensibilidade do processo de cadastro.|- Realizar o cadastro inserindo informações pessoais|- O cadastro é concluído sem problemas<br>- Os usuários entendem as informações solicitadas|
 |CT-03 - Solicitação de ajuda|Verificar se o processo de solicitar ajuda é simples e direto.|- Criar uma nova solicitação de ajuda<br>- Descrever o tipo de ajuda necessária|- A solicitação de ajuda é criada com sucesso<br>- Os usuários conseguem descrever suas necessidades claramente|
 |CT-04 - Oferta de ajuda por voluntários|Avaliar se os voluntários conseguem oferecer ajuda de forma eficiente.|- Visualizar solicitações de ajuda disponíveis<br>- Oferecer ajuda para uma solicitação específica|- Os voluntários conseguem visualizar e responder às solicitações de ajuda com facilidade|
 |CT-05 - Comunicação entre usuários e voluntários|Verificar se a ferramenta de comunicação é eficaz e fácil de usar.|- Enviar e receber mensagens através da plataforma|- A comunicação ocorre sem problemas, com mensagens sendo enviadas e recebidas corretamente|
