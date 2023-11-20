@@ -12,8 +12,8 @@ using WebApplicationADs_Eixo2.Models;
 namespace WebApplicationADs_Eixo2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231118134308_DADOSUSUARIOCHAVE")]
-    partial class DADOSUSUARIOCHAVE
+    [Migration("20231119235012_M01-CriandoBD")]
+    partial class M01CriandoBD
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

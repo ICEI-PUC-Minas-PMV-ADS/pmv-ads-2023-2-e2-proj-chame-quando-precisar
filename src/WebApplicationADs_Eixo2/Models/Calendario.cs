@@ -20,10 +20,13 @@ namespace WebApplicationADs_Eixo2.Models
         public int DiaSemana { get; set; }
 
         [Column(TypeName = "time")]
+        [Display(Name = "Horário Inicial")]
         public TimeSpan HoraInicio { get; set; }
 
-        [Column(TypeName = "time")]        
+        [Column(TypeName = "time")]
+        [Display(Name = "Horário Final")]
         public TimeSpan HoraFim { get; set; }
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
         public DateTime DtInclusao { get; set; }
         public DateTime DtAlteracao { get; set; }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApplicationADs_Eixo2.Migrations
 {
     /// <inheritdoc />
-    public partial class M001BancoDeDados : Migration
+    public partial class M01CriandoBD : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,7 @@ namespace WebApplicationADs_Eixo2.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,7 +38,7 @@ namespace WebApplicationADs_Eixo2.Migrations
                     Colaborador = table.Column<bool>(type: "bit", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,7 +53,7 @@ namespace WebApplicationADs_Eixo2.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,13 +74,13 @@ namespace WebApplicationADs_Eixo2.Migrations
                     IdPerfil = table.Column<int>(type: "int", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuarios", x => x.Id);                    
+                    table.PrimaryKey("PK_Usuarios", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Usuarios_Perfil_Perfil",
+                        name: "FK_Usuarios_Perfil_IdPerfil",
                         column: x => x.IdPerfil,
                         principalTable: "Perfil",
                         principalColumn: "ID",
@@ -96,18 +96,20 @@ namespace WebApplicationADs_Eixo2.Migrations
                     DataAmizade = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    User1Id = table.Column<int>(type: "int", nullable: true),
+                    User2Id = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Amigos", x => new { x.Usuario1, x.Usuario2 });
                     table.ForeignKey(
-                        name: "FK_Amigos_Usuarios_Usuario1",
-                        column: x => x.Usuario1,
+                        name: "FK_Amigos_Usuarios_User1Id",
+                        column: x => x.User1Id,
                         principalTable: "Usuarios",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Amigos_Usuarios_Usuario2",
-                        column: x => x.Usuario2,
+                        name: "FK_Amigos_Usuarios_User2Id",
+                        column: x => x.User2Id,
                         principalTable: "Usuarios",
                         principalColumn: "Id");
                 });
@@ -127,55 +129,53 @@ namespace WebApplicationADs_Eixo2.Migrations
                     HoraFim = table.Column<TimeSpan>(type: "time", nullable: false),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Calendario", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Calendario_Usuarios_Usuario",
-                        column: x => x.IdUser,
+                        name: "FK_Calendario_Usuarios_UsuarioId",
+                        column: x => x.UsuarioId,
                         principalTable: "Usuarios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "DadosUsuarios",
                 columns: table => new
                 {
-                    IDUser = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:None", "1, 1"),
-                    SobreUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Foto = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Cep = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Rua = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Numero = table.Column<int>(type: "int", nullable: false),
-                    Bairro = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DataNacimento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Celular = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdDeficiencia = table.Column<int>(type: "int", nullable: false),
+                    IDUser = table.Column<int>(type: "int", nullable: false),
+                    SobreUsuario = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Foto = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    Cep = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rua = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Numero = table.Column<int>(type: "int", nullable: true),
+                    Bairro = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cidade = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DataNacimento = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Celular = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdDeficiencia = table.Column<int>(type: "int", nullable: true),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),                   
+                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DadosUsuarios", x => x.IDUser);
                     table.ForeignKey(
-                        name: "FK_DadosUsuarios_Deficiencia_Deficiencia",
+                        name: "FK_DadosUsuarios_Deficiencia_IdDeficiencia",
                         column: x => x.IdDeficiencia,
                         principalTable: "Deficiencia",
-                        principalColumn: "ID"/*,
-                        onDelete: ReferentialAction.Cascade*/);
+                        principalColumn: "ID");
                     table.ForeignKey(
-                        name: "FK_DadosUsuarios_Usuarios_Usuario",
+                        name: "FK_DadosUsuarios_Usuarios_IDUser",
                         column: x => x.IDUser,
                         principalTable: "Usuarios",
-                        principalColumn: "Id"
-                        /*onDelete: ReferentialAction.Cascade*/);
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -190,23 +190,22 @@ namespace WebApplicationADs_Eixo2.Migrations
                     TextoMensagem = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    
+                    UsuarioRemetenteId = table.Column<int>(type: "int", nullable: true),
+                    UsuarioDestinatarioId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MensagensPrivadas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MensagensPrivadas_Usuarios_UsuarioDestinatario",
-                        column: x => x.IdDestinatario,
+                        name: "FK_MensagensPrivadas_Usuarios_UsuarioDestinatarioId",
+                        column: x => x.UsuarioDestinatarioId,
                         principalTable: "Usuarios",
-                        principalColumn: "Id"/*,
-                        onDelete: ReferentialAction.Cascade*/);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MensagensPrivadas_Usuarios_UsuarioRemetente",
-                        column: x => x.IdRemetente,
+                        name: "FK_MensagensPrivadas_Usuarios_UsuarioRemetenteId",
+                        column: x => x.UsuarioRemetenteId,
                         principalTable: "Usuarios",
-                        principalColumn: "Id"/*,
-                        onDelete: ReferentialAction.Cascade*/);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -226,7 +225,7 @@ namespace WebApplicationADs_Eixo2.Migrations
                 {
                     table.PrimaryKey("PK_Notificacoes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Notificacoes_Usuarios_UsuarioDestinatario",
+                        name: "FK_Notificacoes_Usuarios_IdDestinatario",
                         column: x => x.IdDestinatario,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
@@ -245,29 +244,28 @@ namespace WebApplicationADs_Eixo2.Migrations
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    
+                    UsuarioDeficienteId = table.Column<int>(type: "int", nullable: true),
+                    UsuarioColaboradorId = table.Column<int>(type: "int", nullable: true),
+                    CalendarioID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Agendamento", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Agendamento_Calendario_Calendario",
-                        column: x => x.IdCalendario,
+                        name: "FK_Agendamento_Calendario_CalendarioID",
+                        column: x => x.CalendarioID,
                         principalTable: "Calendario",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                     table.ForeignKey(
-                        name: "FK_Agendamento_Usuarios_UsuarioColaborador",
-                        column: x => x.Colaborador,
+                        name: "FK_Agendamento_Usuarios_UsuarioColaboradorId",
+                        column: x => x.UsuarioColaboradorId,
                         principalTable: "Usuarios",
-                        principalColumn: "Id"/*,
-                        onDelete: ReferentialAction.Cascade*/);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Agendamento_Usuarios_UsuarioDeficiente",
-                        column: x => x.Deficiente,
+                        name: "FK_Agendamento_Usuarios_UsuarioDeficienteId",
+                        column: x => x.UsuarioDeficienteId,
                         principalTable: "Usuarios",
-                        principalColumn: "Id"/*,
-                        onDelete: ReferentialAction.Cascade*/);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -279,96 +277,89 @@ namespace WebApplicationADs_Eixo2.Migrations
                     DataPublicacao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Conteudo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DtInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false)                    
+                    DtAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AgendamentoId = table.Column<int>(type: "int", nullable: true),
+                    UserAvaliadorId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AvaliacaoAgendamento", x => new { x.IdAgendamento, x.Avaliador });
                     table.ForeignKey(
-                        name: "FK_AvaliacaoAgendamento_Agendamento_Agendamento",
-                        column: x => x.IdAgendamento,
+                        name: "FK_AvaliacaoAgendamento_Agendamento_AgendamentoId",
+                        column: x => x.AgendamentoId,
                         principalTable: "Agendamento",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_AvaliacaoAgendamento_Usuarios_UserAvaliador",
-                        column: x => x.Avaliador,
+                        name: "FK_AvaliacaoAgendamento_Usuarios_UserAvaliadorId",
+                        column: x => x.UserAvaliadorId,
                         principalTable: "Usuarios",
-                        principalColumn: "Id"/*,
-                        onDelete: ReferentialAction.Cascade*/);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Agendamento_Calendario_Calendario",
+                name: "IX_Agendamento_CalendarioID",
                 table: "Agendamento",
-                column: "IdCalendario");
+                column: "CalendarioID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Agendamento_Usuario_Colaborador",
+                name: "IX_Agendamento_UsuarioColaboradorId",
                 table: "Agendamento",
-                column: "Colaborador");
+                column: "UsuarioColaboradorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Agendamento_Usuario_Deficiente",
+                name: "IX_Agendamento_UsuarioDeficienteId",
                 table: "Agendamento",
-                column: "Deficiente");
+                column: "UsuarioDeficienteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Amigos_Usuario_Usuario1",
+                name: "IX_Amigos_User1Id",
                 table: "Amigos",
-                column: "Usuario1");
+                column: "User1Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Amigos_Usuario_Usuario2",
+                name: "IX_Amigos_User2Id",
                 table: "Amigos",
-                column: "Usuario2");
+                column: "User2Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AvaliacaoAgendamento_Agendamento_Agendamento",
+                name: "IX_AvaliacaoAgendamento_AgendamentoId",
                 table: "AvaliacaoAgendamento",
-                column: "IdAgendamento");
+                column: "AgendamentoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AvaliacaoAgendamento_Usuario_Avaliador",
+                name: "IX_AvaliacaoAgendamento_UserAvaliadorId",
                 table: "AvaliacaoAgendamento",
-                column: "Avaliador");
+                column: "UserAvaliadorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Calendario_Usuario_Usuario",
+                name: "IX_Calendario_UsuarioId",
                 table: "Calendario",
-                column: "IdUser");
+                column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DadosUsuarios_Deficiencia_Deficiencia",
+                name: "IX_DadosUsuarios_IdDeficiencia",
                 table: "DadosUsuarios",
                 column: "IdDeficiencia");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DadosUsuarios_Usuario_Usuario",
-                table: "DadosUsuarios",
-                column: "IDUser");
+                name: "IX_MensagensPrivadas_UsuarioDestinatarioId",
+                table: "MensagensPrivadas",
+                column: "UsuarioDestinatarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MensagensPrivadas_Usuario_Destinatario",
+                name: "IX_MensagensPrivadas_UsuarioRemetenteId",
                 table: "MensagensPrivadas",
+                column: "UsuarioRemetenteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notificacoes_IdDestinatario",
+                table: "Notificacoes",
                 column: "IdDestinatario");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MensagensPrivadas_Usuario_Remetente",
-                table: "MensagensPrivadas",
-                column: "IdRemetente");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Notificacoes_Usuario_Destinatario",
-                table: "Notificacoes",
-                column: "IdDestinatario");           
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_Perfil_Perfil",
+                name: "IX_Usuarios_IdPerfil",
                 table: "Usuarios",
                 column: "IdPerfil");
-
-            
         }
 
         /// <inheritdoc />
@@ -396,13 +387,13 @@ namespace WebApplicationADs_Eixo2.Migrations
                 name: "Agendamento");
 
             migrationBuilder.DropTable(
+                name: "Deficiencia");
+
+            migrationBuilder.DropTable(
                 name: "Calendario");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
-
-            migrationBuilder.DropTable(
-                name: "Deficiencia");
 
             migrationBuilder.DropTable(
                 name: "Perfil");
