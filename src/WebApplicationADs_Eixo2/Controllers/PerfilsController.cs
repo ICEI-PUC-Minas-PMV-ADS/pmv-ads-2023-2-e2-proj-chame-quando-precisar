@@ -35,7 +35,7 @@ namespace WebApplicationADs_Eixo2.Controllers
             }
 
             var perfil = await _context.Perfils
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (perfil == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Descricao,Administrador,Deficiente,Colaborador,Ativo,DtInclusao,DtAlteracao")] Perfil perfil)
+        public async Task<IActionResult> Create([Bind("Id,Descricao,Administrador,Deficiente,Colaborador,Ativo,DtInclusao,DtAlteracao")] Perfil perfil)
         {
             if (ModelState.IsValid)
             {
@@ -87,9 +87,9 @@ namespace WebApplicationADs_Eixo2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Descricao,Administrador,Deficiente,Colaborador,Ativo,DtInclusao,DtAlteracao")] Perfil perfil)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Descricao,Administrador,Deficiente,Colaborador,Ativo,DtInclusao,DtAlteracao")] Perfil perfil)
         {
-            if (id != perfil.ID)
+            if (id != perfil.Id)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace WebApplicationADs_Eixo2.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PerfilExists(perfil.ID))
+                    if (!PerfilExists(perfil.Id))
                     {
                         return NotFound();
                     }
@@ -126,7 +126,7 @@ namespace WebApplicationADs_Eixo2.Controllers
             }
 
             var perfil = await _context.Perfils
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (perfil == null)
             {
                 return NotFound();
@@ -156,7 +156,7 @@ namespace WebApplicationADs_Eixo2.Controllers
 
         private bool PerfilExists(int id)
         {
-          return (_context.Perfils?.Any(e => e.ID == id)).GetValueOrDefault();
+          return (_context.Perfils?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

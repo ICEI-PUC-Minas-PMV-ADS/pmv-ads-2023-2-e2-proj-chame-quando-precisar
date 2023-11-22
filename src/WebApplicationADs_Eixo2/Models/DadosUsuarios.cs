@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace WebApplicationADs_Eixo2.Models
 {
@@ -7,8 +8,8 @@ namespace WebApplicationADs_Eixo2.Models
     [Table("DadosUsuarios")]
     public class DadosUsuarios
     {
-
-        [Key] public int IDUser { get; set; }
+        [BindNever]
+        public int Id { get; set; }
 
         public string? SobreUsuario { get; set; }
 
@@ -36,10 +37,10 @@ namespace WebApplicationADs_Eixo2.Models
 
         public DateTime DtInclusao { get; set; }
         public DateTime? DtAlteracao { get; set; }
-
-        [ForeignKey("IDUser")]        
+             
         public Usuarios? Usuario { get; set; }
-        [ForeignKey("IdDeficiencia")]
+
+        //[ForeignKey("IdDeficiencia")]
         public Deficiencia? Deficiencia { get; set; }
     }
 }

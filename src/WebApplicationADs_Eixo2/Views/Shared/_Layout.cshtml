@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewData["Title"] - CQP</title>
     <!-- Outros metadados e links -->
+    <link rel="stylesheet" href="~/css/profile.css">
     <!-- Referência aos arquivos CSS do Bootstrap -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
@@ -18,68 +19,71 @@
     </audio>
     <header id="header">        
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Home</a>
-              
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">CQP</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                 @if (User.Identity.IsAuthenticated)
                 {
                     @if (User.IsInRole("ADM"))
                     {
-                        <a class="navbar-brand" asp-controller="Usuarios" asp-action="Index">Cadastro de Usuários</a>
-                        <a class="navbar-brand" asp-controller="Perfils" asp-action="Index">Cadastro de Perfis</a>
-                        <a class="navbar-brand" asp-controller="Notificacoes" asp-action="Index">Notificações</a>
-                        <a class="navbar-brand" asp-controller="Deficiencia" asp-action="Index">Deficiências</a>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item"> <a class="nav-link active" asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Usuarios" asp-action="Index">Cadastro de Usuários</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Perfils" asp-action="Index">Cadastro de Perfis</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Notificacoes" asp-action="Index">Notificações</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Deficiencia" asp-action="Index">Deficiências</a></li>
+                        </ul>
                     }
                     @if (User.IsInRole("DEF"))
                     {
-                        <a class="navbar-brand" asp-controller="Calendario" asp-action="Index">Calendário</a>
-                        <a class="navbar-brand" asp-controller="Preferencias" asp-action="Index">Preferência de Atendimento</a>
-                        <a class="navbar-brand" asp-controller="Agendamento" asp-action="Index">Agendamento</a>
-                        <a class="navbar-brand" asp-controller="Notificacoes" asp-action="Index">Notificacoes</a>
-                        <a class="navbar-brand" asp-controller="Amigos" asp-action="Index">Amigos</a>
-                        <a class="navbar-brand" asp-controller="Usuarios" asp-action="PerfilUsuario" asp-route-id="@User.FindFirst("CodigoUsuario")?.Value">Meu Perfil</a>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item"> <a class="nav-link active" asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Calendario" asp-action="Index">Calendário</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Preferencias" asp-action="Index">Preferência de Atendimento</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Agendamento" asp-action="Index">Agendamento</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Notificacoes" asp-action="Index">Notificacoes</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Amigos" asp-action="Index">Amigos</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Usuarios" asp-action="PerfilUsuario" asp-route-id="@User.FindFirst("CodigoUsuario")?.Value">Meu Perfil</a></li>
+                        </ul>
                         
                     }
                     @if (User.IsInRole("COL"))
                     {
-                        <a class="navbar-brand" asp-controller="Calendario" asp-action="Index">Calendário</a>
-                        <a class="navbar-brand" asp-controller="Agendamento" asp-action="Index">Agendamento</a>
-                        <a class="navbar-brand" asp-controller="Notificacoes" asp-action="Index">Notificacoes</a>
-                        <a class="navbar-brand" asp-controller="Amigos" asp-action="Index">Amigos</a>
-                        <a class="navbar-brand" asp-controller="Usuarios" asp-action="PerfilUsuario" asp-route-id="@User.FindFirst("CodigoUsuario")?.Value">Perfil</a>
-
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item"><a class="nav-link active" asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Calendario" asp-action="Index">Calendário</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Agendamento" asp-action="Index">Agendamento</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Notificacoes" asp-action="Index">Notificacoes</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Amigos" asp-action="Index">Amigos</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Usuarios" asp-action="PerfilUsuario" asp-route-id="@User.FindFirst("CodigoUsuario")?.Value">Meu Perfil</a></li>
+                        </ul>                           
                     }
-
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-lg-auto">
-                            <!-- 'ml-auto' alinha à direita -->
-                            <li class="nav-item">
-                                Olá,@User.Identity.Name
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Usuarios" asp-action="Logout">Sair</a>
-                            </li>
-                        </ul>
-                    </div>              
+                    
+                    <ul class="nav navbar-nav navbar-right">                        
+                        <li class="nav-item"><a class="nav-link" href="#"><span class="glyphicon glyphicon-user"></span>  Olá,@User.Identity.Name</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Usuarios" asp-action="Logout">Sair</a></li>
+                    </ul>                           
 
                 }
                 else
-                {                    
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-lg-auto">
-                            <!-- 'ml-auto' alinha à direita -->
-                            <li class="nav-item">
-                                <a class="nav-link" id="botaologin" asp-controller="Usuarios" asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Usuarios" asp-action="CadastroUser">Cadastro</a>
-                            </li>
-                        </ul>
-                    </div>
+                {
+                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                         <li class="nav-item"><a class="nav-link active" asp-controller="Home" asp-action="Index">Home</a></li>
+                     </ul>
+                    <ul class="nav navbar-nav navbar-right">                        
+                        <li class="nav-item"><a class="nav-link" asp-controller="Usuarios" asp-action="CadastroUser"><span class="glyphicon glyphicon-log-in"></span> Cadastro</a></li>
+                        <li class="nav-item"><a class="nav-link" id="botaologin" asp-controller="Usuarios" asp-action="Login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+                    </ul>
+                    
                 }
-                
+                </div>                
             </div>
         </nav>
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -87,10 +91,13 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - WebApplicationADs_Eixo2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    <footer>
+        <nav class="navbar fixed-bottom navbar-light bg-light">
+            <div class="container-fluid">
+                &copy; 2023 - WebApplicationADs_Eixo2 -  <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </nav>
+       
     </footer>
 
 

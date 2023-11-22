@@ -40,7 +40,8 @@
                     <input type="hidden" asp-for="Senha" />
                     <input type="hidden" asp-for="IdPerfil" />
                     <input type="hidden" asp-for="Ativo" />
-                    <div class="row mt-2">
+                    <input type="hidden" asp-for="DadosUsuarios.Id" />
+                    <div class="row mt-3">
                         <div class="col-md-6">
                             <label asp-for="Nome" class="labels"></label>
                             <input asp-for="Nome" class="form-control" placeholder="Primeiro Nome" />
@@ -50,6 +51,13 @@
                             <label asp-for="SobreNome" class="labels"></label>
                             <input asp-for="SobreNome" class="form-control" placeholder="segundo Nome" />
                             <span asp-validation-for="SobreNome" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label asp-for="DadosUsuarios.DataNacimento" class="labels">Data Nascimento</label>
+                            <input asp-for="DadosUsuarios.DataNacimento" type="date" class="form-control" placeholder="Data Nascimento" />
+                            <span asp-validation-for="DadosUsuarios.DataNacimento" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -111,28 +119,30 @@
                             <label asp-for="DadosUsuarios.Celular" class="form-label">Celular</label>
                             <input asp-for="DadosUsuarios.Celular" type="text" class="form-control" id="celular">
                         </div>
-                    </div>                  
-                    
-                    <div class="mt-5 text-center"><input type="submit" value="Salvar Dados" class="btn btn-primary profile-button" /></div>
-                
+                    </div>                    
+                    <div class="mt-5 text-center"><input type="submit" value="Salvar Dados" class="btn btn-primary profile-button" /></div>                
                 
             </div>
         </div>
     </form>
         <div class="col-md-4">
             <div class="p-3 py-5">
-                <form action="/Usuario/TrocarSenha" method="post">
+            <form asp-action="TrocarSenha" method="post">
+                <input type="hidden" asp-for="Id" value="@Model.Id" />
                     <div class="mb-3">
-                        <label for="senhaAtual" class="form-label">Senha Atual</label>
-                        <input type="password" class="form-control" id="senhaAtual" name="senhaAtual" required>
+                        <label for="SenhaAtual" class="form-label">Senha Atual</label>
+                    <input type="password" class="form-control" id="SenhaAtual" name="SenhaAtual"  >
+                    <span validation-for="SenhaAtual" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <label for="novaSenha" class="form-label">Nova Senha</label>
-                        <input type="password" class="form-control" id="novaSenha" name="novaSenha" required>
+                        <label for="NovaSenha" class="form-label">Nova Senha</label>
+                    <input type="password" class="form-control" id="NovaSenha" name="NovaSenha"  >
+                    <span validation-for="NovaSenha" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <label for="confirmarNovaSenha" class="form-label">Confirmar Nova Senha</label>
-                        <input type="password" class="form-control" id="confirmarNovaSenha" name="confirmarNovaSenha" required>
+                        <label for="ConfirmarNovaSenha" class="form-label">Confirmar Nova Senha</label>
+                    <input type="password" class="form-control" id="ConfirmarNovaSenha" name="ConfirmarNovaSenha"  >
+                    <span validation-for="NovaSenha" class="text-danger"></span>
                     </div>
                     <button type="submit" class="btn btn-primary">Trocar Senha</button>
                 </form>
@@ -140,9 +150,6 @@
         </div>
     </div>
 </div>
-
-
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
