@@ -7,8 +7,7 @@ namespace WebApplicationADs_Eixo2.Models
     public class Calendario
     {
 
-        [Key] public int ID { get; set; }
-        [ForeignKey("IdUser")]
+        public int Id { get; set; }
         public int IdUser { get; set; }
 
         public int Ano { get; set; }
@@ -18,7 +17,7 @@ namespace WebApplicationADs_Eixo2.Models
         public int Dia { get; set; }
 
         public int DiaSemana { get; set; }
-
+        
         [Column(TypeName = "time")]
         [Display(Name = "Horário Inicial")]
         public TimeSpan HoraInicio { get; set; }

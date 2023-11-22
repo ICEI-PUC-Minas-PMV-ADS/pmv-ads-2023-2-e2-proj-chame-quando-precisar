@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting.Internal;
 using WebApplicationADs_Eixo2.Models;
+using WebApplicationADs_Eixo2.Models.ViewModels;
 
 namespace WebApplicationADs_Eixo2.Controllers
 {
@@ -18,9 +19,7 @@ namespace WebApplicationADs_Eixo2.Controllers
     public class UsuariosController : Controller
     {
         private readonly AppDbContext _context;
-
         private readonly IWebHostEnvironment _hostingEnvironment;
-
         private readonly ILogger<UsuariosController> _logger;
 
         public UsuariosController(AppDbContext context , IWebHostEnvironment hostingEnvironment)
@@ -32,11 +31,8 @@ namespace WebApplicationADs_Eixo2.Controllers
         // GET: Usuarios
         [Authorize(Roles = "ADM")]
         public async Task<IActionResult> Index()
-        {
-
-            
+        {            
             return _context.usuarios.Include(n => n.Perfil) != null ?
-
                         View(_context.usuarios.Include(n => n.Perfil)) :
                         Problem("Entity set 'AppDbContext.usuarios'  is null.");
         }
@@ -112,17 +108,12 @@ namespace WebApplicationADs_Eixo2.Controllers
             {
                 return NotFound();
             }
-
             //var user = User.Identity;
             //if (User.IsInRole("ADM"))
             //{
 
             //}
-
-            ViewBag.Perfis = new SelectList(_context.Perfils, "ID", "Descricao");
-
-
-
+            ViewBag.Perfis = new SelectList(_context.Perfils, "Id", "Descricao");
             var usuarios = await _context.usuarios.FindAsync(id);
             if (usuarios == null)
             {
@@ -212,11 +203,15 @@ namespace WebApplicationADs_Eixo2.Controllers
         {
             return (_context.usuarios?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+        private bool DadosUsuariosExists(int id)
+        {
+            return (_context.DadosUsuarios?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
 
         [AllowAnonymous]
         public IActionResult CadastroUser()
         {
-            ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "ID", "Descricao");
+            ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "Id", "Descricao");
             return View();
         }
 
@@ -228,7 +223,7 @@ namespace WebApplicationADs_Eixo2.Controllers
             usuarios.Ativo = true;
             usuarios.DtInclusao = DateTime.Now;
 
-            ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "ID", "Descricao");
+            ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "Id", "Descricao");
 
             if (ModelState.IsValid)
             {
@@ -245,9 +240,6 @@ namespace WebApplicationADs_Eixo2.Controllers
                     ModelState.AddModelError("Login", "Este Login Já se encontra cadastrado");
                     return View(usuarios);
                 }
-
-               
-
                 _context.Add(usuarios);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
@@ -292,7 +284,6 @@ namespace WebApplicationADs_Eixo2.Controllers
                     bool isValid = BCrypt.Net.BCrypt.Verify(usuario.Senha, user.Senha);
                     if (isValid == true)
                     {
-
                         var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name , user.Nome),
@@ -310,9 +301,7 @@ namespace WebApplicationADs_Eixo2.Controllers
                             AllowRefresh = true,
                             ExpiresUtc = DateTime.UtcNow.ToLocalTime().AddHours(8),
                             IsPersistent = true,
-
                         };
-
                         await HttpContext.SignInAsync(principal, Aut);
                         return Redirect("/");
                     }
@@ -345,7 +334,7 @@ namespace WebApplicationADs_Eixo2.Controllers
                 return NotFound();
             }          
 
-            ViewBag.Perfis = new SelectList(_context.Perfils, "ID", "Descricao");
+            ViewBag.Perfis = new SelectList(_context.Perfils, "Id", "Descricao");
 
             var coduser = int.Parse(@User.FindFirst("CodigoUsuario")?.Value);
             if (id != coduser)
@@ -372,30 +361,28 @@ namespace WebApplicationADs_Eixo2.Controllers
                 return NotFound();
             }
 
-            ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "ID", "Descricao");
+            ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "Id", "Descricao");
 
             if (ModelState.IsValid)
             {
                 try
                 {
                     usuarios.DtAlteracao = DateTime.Now;
-
-                    // Verifique se há uma imagem enviada
+                    usuarios.Ativo = true;
                     //if (foto != null && foto.Length > 0)
-                   // {
-                      //  using (var memoryStream = new MemoryStream())
-                      //  {
-                       //     await foto.CopyToAsync(memoryStream);
-                          //  usuarios.DadosUsuarios.Foto = memoryStream.ToArray();
-                      //  }
+                    // {
+                    //  using (var memoryStream = new MemoryStream())
+                    //  {
+                    //     await foto.CopyToAsync(memoryStream);
+                    //  usuarios.DadosUsuarios.Foto = memoryStream.ToArray();
+                    //  }
                     //}
 
                     if (usuarios.DadosUsuarios != null)
-                    {
-                        // Associe o usuário aos DadosUsuarios
+                    {                        
                         usuarios.DadosUsuarios.Usuario = usuarios;
-                        usuarios.DadosUsuarios.IDUser = usuarios.Id;
-                        if (usuarios.DadosUsuarios.IDUser > 0)
+                        usuarios.DadosUsuarios.Id = usuarios.Id;
+                        if (DadosUsuariosExists(usuarios.Id))
                         {
                             _context.Update(usuarios.DadosUsuarios);
                         }
@@ -403,7 +390,8 @@ namespace WebApplicationADs_Eixo2.Controllers
                         {
                             _context.Add(usuarios.DadosUsuarios);
                         }
-                    }
+
+                    }                   
                     _context.Update(usuarios);
                     await _context.SaveChangesAsync();
                 }
@@ -433,24 +421,62 @@ namespace WebApplicationADs_Eixo2.Controllers
             if (usuario != null && usuario.DadosUsuarios != null && usuario.DadosUsuarios.Foto != null)
             {
                 return File(usuario.DadosUsuarios.Foto, "jpeg");
-            }
-
-            // Obtém o caminho físico da imagem padrão
+            }            
             var caminhoImagemPadrao = Path.Combine(_hostingEnvironment.WebRootPath, "img", "defaultFoto.jpg");
-
-            // Verifique se o arquivo existe antes de tentar usá-lo
+            
             if (System.IO.File.Exists(caminhoImagemPadrao))
             {
                 var imagemPadrao = System.IO.File.ReadAllBytes(caminhoImagemPadrao);
                 return File(imagemPadrao, "image/jpg");
             }
-
             return NotFound(); // 404 Not Found
         }
 
+        [HttpPost]
+        [Authorize(Roles = "DEF,COL")]
+        [ValidateAntiForgeryToken] 
+        public async Task<IActionResult> TrocarSenha(TrocarSenhaViewModels viewModels)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Se o modelo não for válido, retorne à view com as mensagens de erro
+                return RedirectToAction(nameof(perfilUsuario));
+            }
+            var usuario = await _context.usuarios.FindAsync(viewModels.Id); 
+            if(usuario == null)
+            {
+                return RedirectToAction(nameof(perfilUsuario));
+            }
+            if (VerificarSenha(usuario, viewModels.SenhaAtual))
+            {                
+                if (viewModels.NovaSenha == viewModels.ConfirmarNovaSenha)
+                {
+                   
+                    usuario.Senha = BCrypt.Net.BCrypt.HashPassword(viewModels.NovaSenha);
+                    usuario.DtAlteracao = DateTime.Now;
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(perfilUsuario));
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "A nova senha e a confirmação da nova senha não coincidem.");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "A senha atual está incorreta.");
+            }            
+            return View(nameof(perfilUsuario), usuario);
+        }
+        
+        private bool VerificarSenha(Usuarios usuario, string senhaAtual)
+        {           
+            if(BCrypt.Net.BCrypt.Verify(senhaAtual,usuario.Senha ))
+            {
+                return true;
+            }
+            return false;
+        }      
+
     }
-
-    
-
-
 }
