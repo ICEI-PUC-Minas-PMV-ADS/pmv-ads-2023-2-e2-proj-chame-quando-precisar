@@ -9,9 +9,12 @@
 
 <h1>Agendamento:</h1>
 
-<p>
-    <a asp-action="Create">Criar</a>
-</p>
+@if (User.IsInRole("DEF"))
+{
+    <p>
+        <a asp-action="Create">Criar</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -42,12 +45,18 @@
             @if (item.IdUser == CurrentUserId)
             {                    
                 <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Visualizar</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Cancelar</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Visualizar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Cancelar</a>
                 </td>
             }
-        </tr>
+            @if (User.IsInRole("COL"))
+            {
+                <td>
+                    <a asp-action="Aceitar" asp-route-id="@item.Id">Aceitar</a>
+                </td>
+            }
+            </tr>
 }
     </tbody>
 </table>

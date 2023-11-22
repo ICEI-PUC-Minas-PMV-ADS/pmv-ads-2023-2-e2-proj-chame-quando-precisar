@@ -25,9 +25,22 @@ namespace WebApplicationADs_Eixo2.Controllers
         // GET: Calendario
         public async Task<IActionResult> Index()
         {
-              return _context.Calendarios != null ? 
-                          View(await _context.Calendarios.ToListAsync()) :
-                          Problem("Entity set 'AppDbContext.Calendarios'  is null.");
+            int CurrentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            if (_context.Calendarios == null)
+            {
+                return NotFound();
+            }  
+            if (User.IsInRole("DEF"))
+            {
+                return View(await _context.Calendarios.Where(c => c.IdUser == CurrentUserId).ToListAsync());
+            }
+            
+            if (User.IsInRole("COL"))
+            {
+                return View(await _context.Calendarios.ToListAsync());
+            }
+
+            return NotFound();
         }
 
         // GET: Calendario/Details/5
