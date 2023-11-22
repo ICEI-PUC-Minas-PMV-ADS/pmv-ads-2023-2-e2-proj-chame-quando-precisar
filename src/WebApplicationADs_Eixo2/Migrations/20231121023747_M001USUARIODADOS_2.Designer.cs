@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplicationADs_Eixo2.Models;
 
@@ -11,9 +12,11 @@ using WebApplicationADs_Eixo2.Models;
 namespace WebApplicationADs_Eixo2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231121023747_M001USUARIODADOS_2")]
+    partial class M001USUARIODADOS_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,52 +24,6 @@ namespace WebApplicationADs_Eixo2.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("WebApplicationADs_Eixo2.Models.Calendario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Ano")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Dia")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DiaSemana")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DtAlteracao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DtInclusao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan>("HoraFim")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan>("HoraInicio")
-                        .HasColumnType("time");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Mes")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("Calendario");
-                });
 
             modelBuilder.Entity("WebApplicationADs_Eixo2.Models.DadosUsuarios", b =>
                 {
@@ -232,17 +189,6 @@ namespace WebApplicationADs_Eixo2.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("WebApplicationADs_Eixo2.Models.Calendario", b =>
-                {
-                    b.HasOne("WebApplicationADs_Eixo2.Models.Usuarios", "Usuario")
-                        .WithMany("Calendarios")
-                        .HasForeignKey("IdUser")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-                });
-
             modelBuilder.Entity("WebApplicationADs_Eixo2.Models.DadosUsuarios", b =>
                 {
                     b.HasOne("WebApplicationADs_Eixo2.Models.Deficiencia", null)
@@ -287,8 +233,6 @@ namespace WebApplicationADs_Eixo2.Migrations
 
             modelBuilder.Entity("WebApplicationADs_Eixo2.Models.Usuarios", b =>
                 {
-                    b.Navigation("Calendarios");
-
                     b.Navigation("DadosUsuarios");
                 });
 #pragma warning restore 612, 618

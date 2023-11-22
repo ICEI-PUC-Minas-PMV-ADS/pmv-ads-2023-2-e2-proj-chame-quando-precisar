@@ -9,7 +9,7 @@ namespace WebApplicationADs_Eixo2.Models
     {
 
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Este campo é Obrigatório")]
         [Display(Name = "Descrição")]
@@ -23,10 +23,8 @@ namespace WebApplicationADs_Eixo2.Models
 
         public bool Ativo { get; set; }
 
-
         public DateTime DtInclusao { get; set; }
-        public DateTime DtAlteracao { get; set; }
-
+        public DateTime? DtAlteracao { get; set; }
 
         public ICollection<Usuarios>? Usuarios { get; set; }
     }

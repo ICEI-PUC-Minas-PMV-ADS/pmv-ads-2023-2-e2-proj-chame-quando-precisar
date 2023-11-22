@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplicationADs_Eixo2.Controllers
 {
-    [Authorize(Roles ="ADM,DEF")]
+    [Authorize(Roles ="DEF,COL")]
     public class CalendarioController : Controller
     {
         private readonly AppDbContext _context;
@@ -39,7 +39,7 @@ namespace WebApplicationADs_Eixo2.Controllers
             }
 
             var calendario = await _context.Calendarios
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (calendario == null)
             {
                 return NotFound();
@@ -59,7 +59,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,IdUser,Ano,Mes,Dia,DiaSemana,HoraInicio,HoraFim,Descricao")] Calendario calendario)
+        public async Task<IActionResult> Create([Bind("Id,IdUser,Ano,Mes,Dia,DiaSemana,HoraInicio,HoraFim,Descricao")] Calendario calendario)
         {
             calendario.DtAlteracao = DateTime.Now;
             calendario.DtInclusao = DateTime.Now;
@@ -125,7 +125,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         
-        public async Task<IActionResult> Edit(int id, [Bind("ID,IdUser,Ano,Mes,Dia,DiaSemana,HoraInicio,HoraFim,Descricao,DtInclusao,DtAlteracao")] Calendario calendario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IdUser,Ano,Mes,Dia,DiaSemana,HoraInicio,HoraFim,Descricao,DtInclusao,DtAlteracao")] Calendario calendario)
         {
         //  Camada de persistência, pegar tais dados direto do banco gera erro de instância
             CalendarioPersistence.DtAlteracao = DateTime.Now;
@@ -140,7 +140,7 @@ namespace WebApplicationADs_Eixo2.Controllers
                 return View();
             }
 
-            if (id != calendario.ID)
+            if (id != calendario.Id)
             {
                 return NotFound();
             }
@@ -154,7 +154,7 @@ namespace WebApplicationADs_Eixo2.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CalendarioExists(calendario.ID))
+                    if (!CalendarioExists(calendario.Id))
                     {
                         return NotFound();
                     }
@@ -177,7 +177,7 @@ namespace WebApplicationADs_Eixo2.Controllers
             }
 
             var calendario = await _context.Calendarios
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (calendario == null)
             {
                 return NotFound();
@@ -216,7 +216,7 @@ namespace WebApplicationADs_Eixo2.Controllers
 
         private bool CalendarioExists(int id)
         {
-          return (_context.Calendarios?.Any(e => e.ID == id)).GetValueOrDefault();
+          return (_context.Calendarios?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
     }

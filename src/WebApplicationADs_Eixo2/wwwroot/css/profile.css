@@ -1,6 +1,6 @@
 body {
     /*background: rgb(99, 39, 120)*/
-    background-image: linear-gradient(to top, #AA4499, #882255);
+    background-image: linear-gradient(to top, #882255, #882255);
 }
 
 
@@ -45,5 +45,12 @@ body {
     cursor: pointer;
     border: solid 1px #BA68C8
 }
+
+.text-custom {
+    color: #ffF;
+}
+
+
+
 
 

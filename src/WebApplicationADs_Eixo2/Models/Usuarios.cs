@@ -8,7 +8,7 @@ namespace WebApplicationADs_Eixo2.Models
     [Table("Usuarios")]
     public class Usuarios
     {
-        [Key]
+        
         public int Id { get; set; }
 
         [Required(ErrorMessage ="Campo Obrigatório")]
@@ -35,16 +35,14 @@ namespace WebApplicationADs_Eixo2.Models
 
         public bool Ativo { get; set; }
         public DateTime DtInclusao { get; set; }
-        public DateTime DtAlteracao { get; set; }
+        public DateTime? DtAlteracao { get; set; }
 
-
-        // Relação usuário e perfil
-        [ForeignKey("IdPerfil")]
+        //[ForeignKey("IdPerfil")]
         public Perfil? Perfil { get; set; }        
         public DadosUsuarios? DadosUsuarios { get; set; }
 
-        public ICollection<Notificacoes>? Notificacoes { get; set; }
+        //public ICollection<Notificacoes>? Notificacoes { get; set; }
 
-        public ICollection<Calendario>? AllCalendario { get; set; }
+        public ICollection<Calendario>? Calendarios { get; set; }
     }
 }
