@@ -33,7 +33,7 @@
 </div>
 <div>
     <a asp-action="Index">Voltar</a>
-    @if (Model.IdUser == CurrentUserId) {
+    @if (Model.IdUsuario == CurrentUserId) {
         <a asp-action="Edit" asp-route-id="@Model?.Id">Editar</a>
     }
 </div>

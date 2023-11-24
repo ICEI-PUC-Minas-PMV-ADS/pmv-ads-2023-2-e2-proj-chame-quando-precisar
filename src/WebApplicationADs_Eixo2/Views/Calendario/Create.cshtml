@@ -10,26 +10,7 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Ano" class="control-label"></label>
-                <input asp-for="Ano" class="form-control" />
-                <span asp-validation-for="Ano" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Mes" class="control-label"></label>
-                <input asp-for="Mes" class="form-control" />
-                <span asp-validation-for="Mes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Dia" class="control-label"></label>
-                <input asp-for="Dia" class="form-control" />
-                <span asp-validation-for="Dia" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiaSemana" class="control-label"></label>
-                <input asp-for="DiaSemana" class="form-control" />
-                <span asp-validation-for="DiaSemana" class="text-danger"></span>
-            </div>
+            
             <div class="form-group">
                 <label asp-for="HoraInicio" class="control-label"></label>
                 <input asp-for="HoraInicio" type="time" class="form-control" />

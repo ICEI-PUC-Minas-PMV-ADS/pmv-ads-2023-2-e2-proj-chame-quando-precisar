@@ -35,7 +35,7 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <a asp-action="Index">Voltar</a>
-        @if (Model.IdUser == CurrentUserId)
+        @if (Model.IdUsuario == CurrentUserId)
         {
             <input type="submit" value="Cancelar" class="btn btn-danger" />
         }
