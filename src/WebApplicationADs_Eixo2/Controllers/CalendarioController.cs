@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using WebApplicationADs_Eixo2.Models;
 using WebApplicationADs_Eixo2.Controllers;
 using Microsoft.AspNetCore.Authorization;
+using WebApplicationADs_Eixo2.Models.ViewModels;
+using System.Globalization;
 
 namespace WebApplicationADs_Eixo2.Controllers
 {
@@ -25,9 +27,15 @@ namespace WebApplicationADs_Eixo2.Controllers
         // GET: Calendario
         public async Task<IActionResult> Index()
         {
-              return _context.Calendarios != null ? 
-                          View(await _context.Calendarios.ToListAsync()) :
-                          Problem("Entity set 'AppDbContext.Calendarios'  is null.");
+            var viewModel = new CalendarioViewModel
+            {
+                Calendarios = await _context.Calendarios.ToListAsync(),
+                NovoCalendario = new Calendario() 
+            };
+
+            return _context.Calendarios != null ?
+                View(viewModel) :
+                Problem("Entity set 'AppDbContext.Calendarios' is null.");
         }
 
         // GET: Calendario/Details/5
@@ -59,35 +67,18 @@ namespace WebApplicationADs_Eixo2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdUser,Ano,Mes,Dia,DiaSemana,HoraInicio,HoraFim,Descricao")] Calendario calendario)
+        public async Task<IActionResult> Create(CalendarioViewModel viewModel)
         {
-            calendario.DtAlteracao = DateTime.Now;
-            calendario.DtInclusao = DateTime.Now;
-
-            int CurrentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            calendario.IdUser = CurrentUserId;
-
-            if (calendario.HoraInicio > calendario.HoraFim) 
+            var usuario = await _context.usuarios.FindAsync(viewModel.NovoCalendario.IdUsuario);
+            viewModel.NovoCalendario.DtInclusao = DateTime.Now;
+            viewModel.NovoCalendario.Usuario = usuario;
+            if (ModelState.IsValid)
             {
-                ViewBag.ErrorMessage = "O Horário Inicial do agendamento não pode ser maior que o Horário Final";
-                return View();
+                _context.Calendarios.Add(viewModel.NovoCalendario);
+                await _context.SaveChangesAsync();              
             }
+            return View("Index", viewModel);
 
-            if (_context.usuarios.Where(p => p.Id == CurrentUserId).Any())
-            {
-                if (ModelState.IsValid)
-                {
-                    _context.Add(calendario);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                return View(calendario);
-            }
-            else
-            {
-                ViewBag.ErrorMessage = "Erro de identificação de usuário. Favor contactar o Administrador";
-                return View();
-            }
         }
 
         // GET: Calendario/Edit/5
@@ -106,7 +97,7 @@ namespace WebApplicationADs_Eixo2.Controllers
             
             int CurrentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-            if (calendario.IdUser == CurrentUserId)
+            if (calendario.IdUsuario == CurrentUserId)
             {
                 CalendarioPersistence = calendario;
                 return View(calendario);
@@ -185,7 +176,7 @@ namespace WebApplicationADs_Eixo2.Controllers
 
             int CurrentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-            if (calendario.IdUser == CurrentUserId)
+            if (calendario.IdUsuario == CurrentUserId)
             {
                 return View(calendario);
             }
@@ -219,5 +210,25 @@ namespace WebApplicationADs_Eixo2.Controllers
           return (_context.Calendarios?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+        public IActionResult GetCalendarioData()
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            var eventos = _context.Calendarios
+                .Where(c => c.IdUsuario == userId)
+                .Select(c => new
+                {
+                    id = c.Id,
+                    title = c.Descricao,
+                    start = $"{c.DtInicioEvento.ToString("yyyy-MM-dd")}T{c.HoraInicio}"
+                    
+                })
+                .ToList();
+
+            return Json(eventos);
+        }
+
     }
+
+
 }
