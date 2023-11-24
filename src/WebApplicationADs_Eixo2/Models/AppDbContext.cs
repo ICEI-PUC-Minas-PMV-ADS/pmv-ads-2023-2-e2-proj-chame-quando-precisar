@@ -15,11 +15,11 @@ namespace WebApplicationADs_Eixo2.Models
 
         public DbSet<Calendario> Calendarios { get; set;}
 
-        //public DbSet<Agendamento> agendamentos { get; set;}
+        public DbSet<Agendamento> Agendamentos { get; set;}
 
         //public DbSet<Amigos> Amigos { get; set;}
 
-        //public DbSet<AvaliacaoAgendamento> AvaliacaoAgendamentos { get; set;}
+        public DbSet<Avaliacao> Avaliacao { get; set;}
 
         //public DbSet<MensagensPrivadas> MensagensPrivadas { get; set;}
 
@@ -30,7 +30,10 @@ namespace WebApplicationADs_Eixo2.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configuração do relacionamento entre Usuarios e DadosUsuarios
+
+            base.OnModelCreating(modelBuilder);
+            //USUARIOS
+            // Configuração do relacionamento entre Usuarios e DADOSUSUARIOS
             modelBuilder.Entity<Usuarios>()
             .HasKey(u => u.Id);
             modelBuilder.Entity<Usuarios>()
@@ -38,8 +41,12 @@ namespace WebApplicationADs_Eixo2.Models
                 .WithOne(d => d.Usuario)
                 .HasForeignKey<DadosUsuarios>(d => d.Id)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            // Configuração do relacionamento entre Usuarios e Perfis
+            // Configuração do relacionamento entre Usuarios e Agendamentos
+            modelBuilder.Entity<Usuarios>()
+           .HasMany(u => u.Agendamentos)
+           .WithOne(a => a.Colaborador)
+           .HasForeignKey(a => a.IdColaborador);
+            // Configuração do relacionamento entre Usuarios e Perfil
             modelBuilder.Entity<Usuarios>()
                 .HasOne(u => u.Perfil)
                 .WithMany(p => p.Usuarios)
@@ -59,8 +66,35 @@ namespace WebApplicationADs_Eixo2.Models
             modelBuilder.Entity<Calendario>()
            .HasOne(c => c.Usuario)      
             .WithMany(u => u.Calendarios) 
-            .HasForeignKey(c => c.IdUser) 
-            .OnDelete(DeleteBehavior.Cascade); 
+            .HasForeignKey(c => c.IdUsuario)
+            .OnDelete(DeleteBehavior.NoAction);
+            //AGENDAMENTO
+
+            modelBuilder.Entity<Agendamento>()
+            .HasKey(a => a.Id);
+
+            modelBuilder.Entity<Agendamento>()
+                .HasOne(a => a.Calendario)
+                .WithOne(c => c.Agendamento)
+                .HasForeignKey<Agendamento>(a => a.IdCalendario)
+                .OnDelete(DeleteBehavior.NoAction); ;
+
+            //AVALIACAO
+            modelBuilder.Entity<Avaliacao>()
+                .HasKey(a => a.Id);
+            modelBuilder.Entity<Avaliacao>()
+                .HasOne(a => a.Usuario)
+                .WithMany(u => u.Avaliacoes)
+                .HasForeignKey(a => a.IdUsuario)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Avaliacao>()
+                .HasOne(a => a.Agendamento)
+                .WithMany(c => c.Avaliacoes)
+                .HasForeignKey(a => a.IdAgendamento)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
 
             // Configuração da entidade Usuarios
             //modelBuilder.Entity<Usuarios>()

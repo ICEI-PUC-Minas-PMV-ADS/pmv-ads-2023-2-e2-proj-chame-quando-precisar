@@ -44,5 +44,9 @@ namespace WebApplicationADs_Eixo2.Models
         //public ICollection<Notificacoes>? Notificacoes { get; set; }
 
         public ICollection<Calendario>? Calendarios { get; set; }
+
+        public ICollection<Agendamento>? Agendamentos { get; set; }
+
+        public ICollection<Avaliacao>? Avaliacoes { get; set; }
     }
 }
