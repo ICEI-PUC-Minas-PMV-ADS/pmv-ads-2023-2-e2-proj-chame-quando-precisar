@@ -1,7 +1,9 @@
-﻿@using System.Security.Claims;
-@model IEnumerable<WebApplicationADs_Eixo2.Models.Calendario>
+@using System.Security.Claims;
+@model WebApplicationADs_Eixo2.Models.ViewModels.CalendarioViewModel
 
-@{ var CurrentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);}
+@{
+    var CurrentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+}
 
 @{
     ViewData["Title"] = "Index";
@@ -10,44 +12,103 @@
 <h1>Agendamento:</h1>
 
 <p>
-    <a asp-action="Create">Criar</a>
+
+    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" asp-action="Create">Novo Registro</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.HoraInicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HoraFim)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoraInicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoraFim)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            @if (item.IdUser == CurrentUserId)
-            {                    
-                <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Visualizar</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Cancelar</a>
-                </td>
+<div id="calendar"></div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Novo Registro para o calendário</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" data-ajax="true" data-ajax-method="POST" data-ajax-complete="onCreateComplete">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="NovoCalendario.Id" />
+                    <input type="hidden" asp-for="NovoCalendario.IdUsuario" value="@CurrentUserId" />
+
+                    <div class="form-group">
+                        <label asp-for="NovoCalendario.Descricao" class="control-label"></label>
+                        <textarea rows="5" asp-for="NovoCalendario.Descricao" class="form-control"></textarea>
+                        <!--nput asp-for="NovoCalendario.Descricao" class="form-control" /-->
+                        <span asp-validation-for="NovoCalendario.Descricao" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label asp-for="NovoCalendario.DtInicioEvento" class="labels"></label>
+                            <input type="date" asp-for="NovoCalendario.DtInicioEvento" class="form-control" placeholder="Data do Envento" />
+                            <span asp-validation-for="NovoCalendario.DtInicioEvento" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="NovoCalendario.HoraInicio" class="control-label"></label>
+                            <input asp-for="NovoCalendario.HoraInicio" type="time" class="form-control" />
+                            <span asp-validation-for="NovoCalendario.HoraInicio" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label asp-for="NovoCalendario.DtFimEvento" class="labels"></label>
+                            <input type="date" asp-for="NovoCalendario.DtFimEvento" class="form-control" placeholder="Data do Envento" />
+                            <span asp-validation-for="NovoCalendario.DtFimEvento" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="NovoCalendario.HoraFim" class="control-label"></label>
+                            <input asp-for="NovoCalendario.HoraFim" type="time" class="form-control" />
+                            <span asp-validation-for="NovoCalendario.HoraFim" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Inserir</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!--  CALENDARIO-->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/fullcalendar-6.1.9/packages/core/index.global.min.js"></script>
+    <script src="~/lib/fullcalendar-6.1.9/packages/daygrid/index.global.min.js"></script>
+    <script src="~/lib/fullcalendar-6.1.9/packages/timegrid/index.global.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: '/Calendario/GetCalendarioData',
+                locale: 'pt-br'
+
+            });
+            calendar.render();
+        });
+    </script>
+    <!-- FIM CALENDARIO-->
+
+    <script>
+        function onCreateComplete(data) {
+            e.preventDefault();
+            if ($.trim(data.responseText) !== "") {
+                var response = $(data.responseText);
+                var validationSummary = response.find("[data-valmsg-summary=true]").text();
+
+                if (validationSummary.length > 0) {
+                    $('#staticBackdrop .modal-body').html(data.responseText);
+                    $('#staticBackdrop').modal('show');
+                } else {
+                    $('#staticBackdrop').modal('hide');
+                }
             }
-        </tr>
+        }
+    </script>
 }
-    </tbody>
-</table>

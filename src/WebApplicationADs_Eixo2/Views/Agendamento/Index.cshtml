@@ -1,0 +1,24 @@
+﻿@model IEnumerable<WebApplicationADs_Eixo2.Models.Calendario>
+<link rel="stylesheet" href="~/css/Agendamento.css">
+
+<div class="containerAgendamento">
+    <h2>Agendamento: </h2>
+    <ul class="listaCalendarios">
+        @foreach (var item in Model) {
+                <li>               
+                        <a asp-action="Details" asp-route-id="@item.Id" class="linkCalendarios"> 
+                            <img src="img/tempo-rapido.png" class="imgIndex">
+                            <div>
+                             Titulo:<br>   @Html.DisplayFor(modelItem => item.Titulo)
+                            </div>                    
+                            <div>
+                             Inicio:<br> @Html.DisplayFor(modelItem => item.DtInicioEvento)
+                            </div>
+                            <div>
+                            Fim:<br>@Html.DisplayFor(modelItem => item.DtFimEvento)
+                            </div> 
+                        </a>
+                </li>
+        }
+    </ul>
+</div>

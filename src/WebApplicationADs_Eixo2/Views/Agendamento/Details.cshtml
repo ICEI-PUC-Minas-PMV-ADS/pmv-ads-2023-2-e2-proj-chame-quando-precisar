@@ -1,0 +1,36 @@
+﻿@model WebApplicationADs_Eixo2.Models.Calendario
+<link rel="stylesheet" href="~/css/Agendamento.css">
+
+<div class="containerAgendamento detailsCont">
+    <h2>Detalhes do Agendamento:</h2>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Titulo):
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DtInicioEvento):
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DtInicioEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DtFimEvento):
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DtFimEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao):
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+    </dl>
+    <form asp-action="Details" class="formDetails">
+        <input type="submit" value="Aceitar" class="button-details button"/>
+        <button asp-action="Index" class="button-details button">Voltar</button>
+    </form>
+</div>
