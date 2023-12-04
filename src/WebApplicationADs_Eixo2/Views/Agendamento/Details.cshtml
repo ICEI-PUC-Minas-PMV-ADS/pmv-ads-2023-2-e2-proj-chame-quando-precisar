@@ -1,0 +1,57 @@
+﻿@model WebApplicationADs_Eixo2.Models.Calendario
+<link rel="stylesheet" href="~/css/Agendamento.css" />
+<link rel="stylesheet" href="~/css/Modal.css" />
+
+<div class="containerAgendamento detailsCont">
+    <h2>Detalhes do Agendamento:</h2>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Titulo):
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DtInicioEvento):
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DtInicioEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DtFimEvento):
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DtFimEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao):
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+    </dl>
+    <form asp-action="Details" class="formDetails">
+        <button asp-action="Index" class="button-details button">Voltar</button>
+        @if(ViewBag.Aceito != true) {
+            <input type="submit" value="Aceitar" class="button-details button"/>
+        }
+        else
+        {
+            <a class="button-details button" id="openModal">Cancelar</a>
+        }
+    </form>
+</div>
+
+<!---- > Modal de Cancelamento </!---->
+<div class="fundo hide" id="fundo"></div>
+<div class="containerAgendamento modal hide " id="modal">
+    <h3>Tem certeza que deseja cancelar seu agendamento?</h3>
+    <img src="~/img/agendado1.png" class="imgAgendado" />
+    <form asp-action="Delete" method="post" class="formDetails" asp-route-id="@Model.Id">
+        <input type="hidden" asp-for="Id" />
+        <a  class="button-details button" id="closeModal">Voltar</a>
+        <input type="submit" value="Cancelar" class="button-details button"/>
+    </form>
+</div>
+
+<script src="~/js/Modal.js"></script>
