@@ -14,8 +14,10 @@ O grupo deve ter o cuidado em utilizar figuras, imagens, e cores dentro do conte
 
 ## Conjunto de Slides (Estrutura)
 
-<iframe
-  src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e2-proj-chame-quando-precisar/blob/feature/sql_serve_azure/docs/img/slides/index.html"
+<iframe 
   style="width:100%; height:600px;"
-></iframe>
- 
+  src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e2-proj-chame-quando-precisar/blob/feature/sql_serve_azure/docs/img/slides/index.html"
+  frameborder="0"
+  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen>
+</iframe>
