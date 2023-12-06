@@ -2,6 +2,10 @@ body {
     /*background: rgb(99, 39, 120)*/
     background-image: linear-gradient(to top, #882255, #882255);
 }
+table{
+    color:#fff
+
+}
 
 
 
@@ -47,10 +51,238 @@ body {
 }
 
 .text-custom {
-    color: #ffF;
+    color: #dc3545;
+}
+
+.fc-header-toolbar {
+    color: #dc3545;
+}
+a {
+    color: #dc3545;
+}
+    a:hover {
+        color: #dc3545;
+    }
+
+
+
+
+.account-block {
+    padding: 0;
+    background-image: url(https://bootdey.com/img/Content/bg1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    position: relative;
+}
+
+    .account-block .overlay {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .account-block .account-testimonial {
+        text-align: center;
+        color: #fff;
+        position: absolute;
+        margin: 0 auto;
+        padding: 0 1.75rem;
+        bottom: 3rem;
+        left: 0;
+        right: 0;
+    }
+
+.text-theme {
+    color: #5369f8 !important;
+}
+
+.btn-theme {
+    background-color: #5369f8;
+    border-color: #5369f8;
+    color: #fff;
 }
 
 
+/*@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    
+    background-image: linear-gradient(to top, #882255, #882255);
+}
+
+.container {
+    margin-top: 50px;
+}
+
+    .container .table-wrap {
+        overflow-x: auto;
+    }
+
+        .container .table-wrap::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .container .table-wrap::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-image: linear-gradient(to right, #5D7ECD, #0C91E6);
+        }
 
 
+.table > :not(caption) > * > * {
+    padding: 2rem 0.5rem;
+}
 
+.table tbody td input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: #eee;
+    position: relative;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+    .table tbody td input[type="checkbox"]:after {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 600;
+        content: "\f00c";
+        color: #fff;
+        font-size: 15px;
+        display: none;
+    }
+
+    .table tbody td input[type="checkbox"]:checked,
+    .table tbody td input[type="checkbox"]:checked:hover {
+        background-color: #40bfc1;
+    }
+
+        .table tbody td input[type="checkbox"]:checked::after {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    .table tbody td input[type="checkbox"]:hover {
+        background-color: #ddd;
+    }
+
+.table tbody td .img-container {
+    width: 50px;
+    height: 50px;
+}
+
+    .table tbody td .img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+.table tbody,
+.table thead {
+    background-color: #fff;
+}
+
+    .table tbody tr td:nth-of-type(1) {
+        text-align: center;
+        min-width: 70px;
+        max-width: 70px;
+    }
+
+    .table tbody tr td:nth-of-type(2) {
+        min-width: 300px;
+        max-width: 300px;
+    }
+
+
+    .table tbody tr td:nth-of-type(3) {
+        min-width: 150px;
+        max-width: 150px;
+    }
+
+    .table tbody tr td:nth-of-type(4) {
+        min-width: 300px;
+        max-width: 300px;
+    }
+
+    .table tbody tr td:nth-of-type(5) {
+        min-width: 50px;
+        max-width: 50px;
+    }
+
+    .table tbody tr {
+        box-shadow: 0px 2px 3px #1f1f1f1a;
+    }
+
+    .table thead tr {
+        border-bottom: 4px solid #E1F5FE;
+    }
+
+    .table tbody td .active,
+    .table tbody td .waiting {
+        background-color: #B9F6CA;
+        color: #388E3C;
+        font-weight: 600;
+        padding: 1px 10px;
+        border-radius: 15px;
+        font-size: 0.9rem;
+    }
+
+    .table tbody td .waiting {
+        background-color: #FFECB3;
+        color: #FFA000;
+    }
+
+        .table tbody td .active .circle,
+        .table tbody td .waiting .circle {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #388E3C;
+        }
+
+        .table tbody td .waiting .circle {
+            background-color: #FFA000;
+        }
+
+    .table tbody td .fa-times {
+        color: #D32F2F;
+        font-size: 0.9rem;
+    }
+
+.fw-600 {
+    font-weight: 600 !important;
+}
+
+.fs-09 {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.text-grey {
+    color: #a8a8a8 !important;
+}
+
+
+@media(min-width: 992px) {
+    .container .table-wrap {
+        overflow: hidden;
+    }
+}*/

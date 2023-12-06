@@ -72,10 +72,20 @@ namespace WebApplicationADs_Eixo2.Controllers
             var usuario = await _context.usuarios.FindAsync(viewModel.NovoCalendario.IdUsuario);
             viewModel.NovoCalendario.DtInclusao = DateTime.Now;
             viewModel.NovoCalendario.Usuario = usuario;
+
+
             if (ModelState.IsValid)
             {
+                
                 _context.Calendarios.Add(viewModel.NovoCalendario);
-                await _context.SaveChangesAsync();              
+                await _context.SaveChangesAsync();
+
+                viewModel.Calendarios = await _context.Calendarios
+                         .Where(c => c.Usuario.Id == usuario.Id) 
+                         .ToListAsync();
+
+                // Limpar o objeto NovoCalendario para um novo registro
+                viewModel.NovoCalendario = new Calendario(); 
             }
             return View("Index", viewModel);
 
@@ -219,7 +229,7 @@ namespace WebApplicationADs_Eixo2.Controllers
                 .Select(c => new
                 {
                     id = c.Id,
-                    title = c.Descricao,
+                    title = c.Titulo,
                     start = $"{c.DtInicioEvento.ToString("yyyy-MM-dd")}T{c.HoraInicio}"
                     
                 })

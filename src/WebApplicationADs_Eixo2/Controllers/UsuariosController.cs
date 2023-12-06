@@ -30,7 +30,7 @@ namespace WebApplicationADs_Eixo2.Controllers
 
         // GET: Usuarios
         [Authorize(Roles = "ADM")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page, string searchString)
         {            
             return _context.usuarios.Include(n => n.Perfil) != null ?
                         View(_context.usuarios.Include(n => n.Perfil)) :
@@ -60,7 +60,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         [Authorize(Roles = "ADM")]
         public IActionResult Create()
         {
-            ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "ID", "Descricao");
+            ViewBag.Perfis = new SelectList(_context.Perfils.Where(p => !p.Administrador), "Id", "Descricao");
             return View();
         }
 
@@ -114,7 +114,7 @@ namespace WebApplicationADs_Eixo2.Controllers
 
             //}
             ViewBag.Perfis = new SelectList(_context.Perfils, "Id", "Descricao");
-            var usuarios = await _context.usuarios.FindAsync(id);
+            var usuarios = _context.usuarios.Include(u => u.DadosUsuarios).FirstOrDefault(obj => obj.Id == id);
             if (usuarios == null)
             {
                 return NotFound();
@@ -128,7 +128,7 @@ namespace WebApplicationADs_Eixo2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "ADM")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,SobreNome,Email,Login,Senha,IdPerfil,Ativo,DtInclusao,DtAlteracao")] Usuarios usuarios)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,SobreNome,Email,Login,Senha,IdPerfil,Ativo,DtAlteracao,DadosUsuarios")] Usuarios usuarios)
         {
             if (id != usuarios.Id)
             {
@@ -139,8 +139,22 @@ namespace WebApplicationADs_Eixo2.Controllers
             {
                 try
                 {
+                    usuarios.DtAlteracao = DateTime.Now;    
 
-                    usuarios.Senha = BCrypt.Net.BCrypt.HashPassword(usuarios.Senha);
+                    if (usuarios.DadosUsuarios != null)
+                    {
+                        usuarios.DadosUsuarios.Usuario = usuarios;
+                        usuarios.DadosUsuarios.Id = usuarios.Id;
+                        if (DadosUsuariosExists(usuarios.Id))
+                        {
+                            _context.Update(usuarios.DadosUsuarios);
+                        }
+                        else
+                        {
+                            _context.Add(usuarios.DadosUsuarios);
+                        }
+
+                    }
                     _context.Update(usuarios);
                     await _context.SaveChangesAsync();
                 }
@@ -155,8 +169,11 @@ namespace WebApplicationADs_Eixo2.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                TempData["MensagemSucesso"] = "Dados atualizados com sucesso!";
+                return RedirectToAction(nameof(Edit));
+                
             }
+            TempData["MensagemErro"] = "Verifique os dados Enviados.";
             return View(usuarios);
         }
 
@@ -352,8 +369,8 @@ namespace WebApplicationADs_Eixo2.Controllers
         [HttpPost]
         [Authorize(Roles = "DEF,COL")]
         [ValidateAntiForgeryToken]
-
-         /*IFormFile foto*/
+        [RequestFormLimits(MultipartBodyLengthLimit = long.MaxValue)]
+        /*IFormFile foto*/
         public async Task<IActionResult> perfilUsuario(int id, [Bind("Id,Nome,SobreNome,Email,Login,Senha,IdPerfil,DtAlteracao,DadosUsuarios")] Usuarios usuarios)
         {
             if (id != usuarios.Id)
@@ -437,36 +454,45 @@ namespace WebApplicationADs_Eixo2.Controllers
         [ValidateAntiForgeryToken] 
         public async Task<IActionResult> TrocarSenha(TrocarSenhaViewModels viewModels)
         {
+
+            var usuario = await _context.usuarios.FindAsync(viewModels.Id);
+
+            if (usuario == null)
+            {
+                return RedirectToAction(nameof(perfilUsuario));
+            }
+
             if (!ModelState.IsValid)
             {
                 // Se o modelo não for válido, retorne à view com as mensagens de erro
-                return RedirectToAction(nameof(perfilUsuario));
+                return RedirectToAction("perfilUsuario", new { id = usuario.Id });
             }
-            var usuario = await _context.usuarios.FindAsync(viewModels.Id); 
-            if(usuario == null)
-            {
-                return RedirectToAction(nameof(perfilUsuario));
-            }
+           
+            
             if (VerificarSenha(usuario, viewModels.SenhaAtual))
             {                
                 if (viewModels.NovaSenha == viewModels.ConfirmarNovaSenha)
-                {
-                   
+                {                   
                     usuario.Senha = BCrypt.Net.BCrypt.HashPassword(viewModels.NovaSenha);
                     usuario.DtAlteracao = DateTime.Now;
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(perfilUsuario));
+                    TempData["MensagemSucessoSenha"] = "Senha alterada com Sucesso.";
+                    return RedirectToAction("perfilUsuario", new { id = usuario.Id });
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "A nova senha e a confirmação da nova senha não coincidem.");
+                   // ModelState.AddModelError(string.Empty, "A nova senha e a confirmação da nova senha não coincidem.");
+                    TempData["MensagemErroSenha"] = "A nova senha e a confirmação da nova senha não coincidem.";
+                    return RedirectToAction("perfilUsuario", new { id = usuario.Id });
                 }
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "A senha atual está incorreta.");
-            }            
-            return View(nameof(perfilUsuario), usuario);
+                /*ModelState.AddModelError(string.Empty, "A senha atual está incorreta.");*/
+                TempData["MensagemErroSenha"] = "A senha atual está incorreta.";
+                return RedirectToAction("perfilUsuario", new { id = usuario.Id });
+            }
+            //return RedirectToAction("perfilUsuario", new { id = usuario.Id });
         }
         
         private bool VerificarSenha(Usuarios usuario, string senhaAtual)

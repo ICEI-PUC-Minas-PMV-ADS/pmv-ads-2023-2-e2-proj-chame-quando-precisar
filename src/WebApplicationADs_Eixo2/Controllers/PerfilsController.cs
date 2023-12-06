@@ -55,14 +55,19 @@ namespace WebApplicationADs_Eixo2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descricao,Administrador,Deficiente,Colaborador,Ativo,DtInclusao,DtAlteracao")] Perfil perfil)
+        public async Task<IActionResult> Create([Bind("Id,Descricao,Administrador,Deficiente,Colaborador,Ativo,DtInclusao")] Perfil perfil)
         {
             if (ModelState.IsValid)
             {
+
+                perfil.DtInclusao = DateTime.Now;
                 _context.Add(perfil);
                 await _context.SaveChangesAsync();
+
+                TempData["MensagemSucesso"] = "Perfil Inserido com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
+            TempData["MensagemErro"] = "Verifique os dados Enviados.";
             return View(perfil);
         }
 
@@ -98,6 +103,7 @@ namespace WebApplicationADs_Eixo2.Controllers
             {
                 try
                 {
+                    perfil.DtAlteracao = DateTime.Now;
                     _context.Update(perfil);
                     await _context.SaveChangesAsync();
                 }
@@ -112,8 +118,10 @@ namespace WebApplicationADs_Eixo2.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                TempData["MensagemSucesso"] = "Dados atualizados com sucesso!";
+                return RedirectToAction(nameof(Edit));
             }
+            TempData["MensagemErro"] = "Verifique os dados Enviados.";
             return View(perfil);
         }
 
@@ -131,7 +139,7 @@ namespace WebApplicationADs_Eixo2.Controllers
             {
                 return NotFound();
             }
-
+            TempData["MensagemSucesso"] = "Perfil  Removido com sucesso!";
             return View(perfil);
         }
 
