@@ -1,11 +1,12 @@
 ﻿.fundo {
-    position:absolute;
-    height:100%;
-    width:100%;
-    top:0px;
-    left:0px;
-    z-index:1054;
-    background-color: rgba(0,0,0,0.6); 
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1054;
+    backdrop-filter: blur(10px);
+    transition: 0.5s;
 }
 
 .modal {

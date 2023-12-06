@@ -1,12 +1,37 @@
 ﻿var Modal = document.querySelector("#modal");
-var fade = document.querySelector("#fundo");
-var openButton = document.querySelector("#openModal");
-var closeButton = document.querySelector("#closeModal");
+var ModalAc = document.querySelector("#modalAceitar");
+var ModalCancele = document.querySelector("#modalCancele");
+var fade = document.querySelector("#fade");
+var openButton = document.querySelectorAll("#openModal");
+var closeButton = document.querySelectorAll("#closeModal");
 
-function hideToggle() {
-    [Modal, fade].forEach(e => e.classList.toggle("hide"))
+function hideToggle(qualModal) {
+    console.log(qualModal)
+    if (qualModal == "Aceitar") {
+        [ModalAc, fade, closeButton].forEach(e => e.classList.toggle("hide"))
+    }
+    else if (qualModal == "Cancelar") {
+        [Modal, fade].forEach(e => e.classList.toggle("hide"))
+    }
+    else if (qualModal == "Cancele") {
+        Modal.classList.add("hide");
+        ModalCancele.classList.toggle("hide");
+    }
+    else if (qualModal == "closeModal") {
+        [Modal, ModalAc, ModalCancele, fade].forEach(e => e.classList.add("hide"));
+    }
 }
 
-[fade, openButton, closeButton].forEach(e => {
-    e.addEventListener("click", (event) => hideToggle())
+openButton.forEach(e => {
+    e.addEventListener("click", (event) => {        
+        hideToggle(event.target.innerText)                    
+    })
+    
+});
+
+closeButton.forEach(e => {
+    e.addEventListener("click", (event) => {
+        console.log(event.target.id)
+        hideToggle("closeModal")
+    })
 });

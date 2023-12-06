@@ -97,13 +97,16 @@ namespace WebApplicationADs_Eixo2.Controllers
                 agendamento.Descricao = calendario.Descricao;
                 agendamento.DtInclusao = DateTime.Now;
                 agendamento.DtAlteracao = DateTime.Now;
+                agendamento.Calendario = calendario;
+                agendamento.Colaborador = await _context.usuarios.FirstOrDefaultAsync(u => u.Id == CurrentUserId);
 
                 if (ModelState.IsValid)
                 {
+
                     _context.Agendamentos.Add(agendamento);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
+                    return RedirectToAction("Index", "Calendario");
+                }                    
             }
             return NotFound();
         }
@@ -142,12 +145,12 @@ namespace WebApplicationADs_Eixo2.Controllers
                 _context.Agendamentos.Remove(agendamento);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToAction("Details" , new {id = id});
+            return RedirectToAction("Index");
         }
 
         private bool CalendarioExists(int id)
         {
             return (_context.Calendarios?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+        }      
     }
 }
