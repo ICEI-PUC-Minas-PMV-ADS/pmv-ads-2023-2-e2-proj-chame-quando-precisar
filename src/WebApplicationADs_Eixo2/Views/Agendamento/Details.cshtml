@@ -1,4 +1,8 @@
 ﻿@model WebApplicationADs_Eixo2.Models.Calendario
+@{
+    DateTime DataInicio = Model.DtInicioEvento;
+    var DataInicioFormatada = DataInicio.ToString("dd/MM/yyyy");
+}
 <link rel="stylesheet" href="~/css/Agendamento.css" />
 <link rel="stylesheet" href="~/css/Modal.css" />
 
@@ -22,13 +26,14 @@
             @Html.DisplayNameFor(model => model.DtInicioEvento):
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DtInicioEvento)
+            @DataInicioFormatada
+            @Html.DisplayFor(model => model.HoraInicio)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DtFimEvento):
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DtFimEvento)
+            @Html.DisplayFor(model => model.DtFimEvento)            
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Descricao):

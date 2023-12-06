@@ -235,6 +235,22 @@ namespace WebApplicationADs_Eixo2.Controllers
                 })
                 .ToList();
 
+            if (User.IsInRole("COL")) {
+                            
+                var eventosAg =  _context.Agendamentos
+                .Where(a => a.IdColaborador == userId)
+                .Select(c => new
+                {
+                    id = c.Calendario.Id,
+                    title = c.Calendario.Titulo,
+                    start = $"{c.Calendario.DtInicioEvento.ToString("yyyy-MM-dd")}T{c.Calendario.HoraInicio}"
+
+                })
+                .ToList();
+
+                eventos = eventos.Concat(eventosAg).ToList();                
+            }
+
             return Json(eventos);
         }
 

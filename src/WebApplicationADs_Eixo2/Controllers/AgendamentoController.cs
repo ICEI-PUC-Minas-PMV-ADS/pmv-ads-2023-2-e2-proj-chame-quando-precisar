@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -12,6 +13,7 @@ using WebApplicationADs_Eixo2.Models;
 
 namespace WebApplicationADs_Eixo2.Controllers
 {
+    [Authorize(Roles ="COL")]
     public class AgendamentoController : Controller
     {
         private readonly AppDbContext _context;

@@ -23,7 +23,7 @@ namespace WebApplicationADs_Eixo2.Models
         public TimeSpan? HoraInicio { get; set; }
 
         [Display(Name = "Data Final")]
-        public DateTime? DtFimEvento { get; set; }
+        public DateTime DtFimEvento { get; set; }
 
         [Column(TypeName = "time")]
         [Display(Name = "Horário Final")]
