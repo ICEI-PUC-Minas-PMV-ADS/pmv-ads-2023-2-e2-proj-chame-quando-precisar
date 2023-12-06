@@ -1,0 +1,29 @@
+﻿.fundo {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1054;
+    backdrop-filter: blur(10px);
+    transition: 0.5s;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: fit-content;
+    min-height: 0px;
+    height:fit-content;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: 0.8s;
+}
+
+.hide {
+    opacity:0;
+    pointer-events:none;
+    top:0;
+}

@@ -1,0 +1,14 @@
+﻿@model WebApplicationADs_Eixo2.Models.Agendamento
+<link rel="stylesheet" href="~/css/Agendamento.css">
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="containerAgendamento detailsCont">
+    <h3>Tem certeza que deseja cancelar seu agendamento?</h3>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <a asp-action="Index" class="button-details button">Back to List</a>
+        <input type="submit" value="Cancelar" class="button-details button" />
+    </form>
+</div>
