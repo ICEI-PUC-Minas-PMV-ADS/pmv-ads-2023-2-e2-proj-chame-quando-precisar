@@ -20,6 +20,19 @@
   <ItemGroup>
     <Content Remove="wwwroot\img\FileName.cs" />
     <Content Remove="wwwroot\img\ju.jpg" />
+    <Content Remove="wwwroot\lib\fullcalendar-6.1.9\examples\month-view.html" />
+    <Content Remove="wwwroot\lib\fullcalendar-6.1.9\examples\external-dragging-2cals.html" />
+    <Content Remove="wwwroot\lib\fullcalendar-6.1.9\examples\daygrid-views.html" />
+    <Content Remove="wwwroot\lib\fullcalendar-6.1.9\examples\list-sticky-header.html" />
+    <Content Remove="wwwroot\lib\fullcalendar-6.1.9\examples\background-events.html" />
+    <Content Remove="wwwroot\lib\fullcalendar-6.1.9\examples\selectable.html" />
+    <Content Remove="wwwroot\lib\fullcalendar-6.1.9\examples\multimonth-view.html" />
+    <Content Remove="wwwroot\lib\fullcalendar-6.1.9\examples\multiweek-view.html" />
+    <Content Remove="wwwroot\lib\fullcalendar-6.1.9\examples\natural-height.html" />
+    <Content Remove="wwwroot\lib\fullcalendar-6.1.9\examples\external-dragging-builtin.html" />
+    <Content Remove="wwwroot\lib\fullcalendar-6.1.9\examples\list-views.html" />
+    <Content Remove="wwwroot\lib\fullcalendar-6.1.9\examples\timegrid-views.html" />
+    <Content Remove="wwwroot\lib\fullcalendar-6.1.9\examples\full-height.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,8 +55,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\lib\fullcalendar-6.1.9\dist\index.global.js" />
-    <None Include="wwwroot\lib\fullcalendar-6.1.9\dist\index.global.min.js" />
+    <None Remove="wwwroot\lib\fullcalendar-6.1.9\dist\index.global.js" />
+    <None Remove="wwwroot\lib\fullcalendar-6.1.9\dist\index.global.min.js" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="wwwroot\lib\fullcalendar-6.1.9\LICENSE.md" />
     <None Include="wwwroot\lib\fullcalendar-6.1.9\packages\bootstrap4\index.global.js" />
     <None Include="wwwroot\lib\fullcalendar-6.1.9\packages\bootstrap4\index.global.min.js" />
