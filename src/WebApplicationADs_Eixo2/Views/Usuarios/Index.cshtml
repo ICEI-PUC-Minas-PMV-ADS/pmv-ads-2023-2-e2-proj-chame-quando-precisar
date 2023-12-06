@@ -3,70 +3,230 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h1 style="color:#ffff">Usuarios Cadastrados</h1>
+<h1 class="text-light"> Cadastro de Usuários</h1>
+<a class="btn btn-primary" asp-action="Create">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+    </svg>Novo Usuário
+</a>
+<div class="container rounded bg-white mt-5 mb-5">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Login)
+                </th>
 
-<p>
-    <a class="btn btn-primary" asp-action="Create">Novo Usuário</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th class="text-custom">
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>            
-            <th class="text-custom">
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th class="text-custom">
-                @Html.DisplayNameFor(model => model.Login)
-            </th >
-           
-            <th class ="text-custom">
-                @Html.DisplayNameFor(model => model.IdPerfil)
-            </th>
-            <th class="text-custom">
-                @Html.DisplayNameFor(model => model.Ativo)
-            </th>
-            <th class="text-custom">
-                @Html.DisplayNameFor(model => model.DtInclusao)
-            </th>
-            <th class="text-custom">
-                @Html.DisplayNameFor(model => model.DtAlteracao)
-            </th>
-            <th class="text-custom"></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Nome) @Html.DisplayFor(modelItem => item.SobreNome)
-            </td>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Login)
-            </td>            
-            <td>
-                @Html.DisplayFor(modelItem => item.Perfil.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ativo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DtInclusao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DtAlteracao)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdPerfil)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ativo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DtInclusao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DtAlteracao)
+                </th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome) @Html.DisplayFor(modelItem => item.SobreNome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Login)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Perfil.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ativo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DtInclusao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DtAlteracao)
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <a title="Editar" type="button" class="btn btn-outline-dark" asp-action="Edit" asp-route-id="@item.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                                </svg>
+                            </a>
+                            <a title="Visualizar" type="button" class="btn btn-outline-dark" asp-action="Details" asp-route-id="@item.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                                </svg>
+                            </a>
+                            <a title="Excluir" type="button" class="btn btn-outline-dark" asp-action="Delete" asp-route-id="@item.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+                                </svg>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!--div class="container">
+    <div class="table-wrap">
+        <table class="table table-borderless table-responsive">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="text-muted fw-600">Email</th>
+                    <th class="text-muted fw-600">Username</th>
+                    <th class="text-muted fw-600">Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="align-middle alert" role="alert">
+                    <td>
+                        <input type="checkbox" id="check">
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="img-container">
+                                <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                                     alt="">
+                            </div>
+                            <div class="ps-3">
+                                <div class="fw-600 pb-1">mark@gmail.com</div>
+                                <p class="m-0 text-grey fs-09">Added: 03/02/2012</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="fw-600">Markov98</div>
+                    </td>
+                    <td>
+                        <div class="d-inline-flex align-items-center active">
+                            <div class="circle"></div>
+                            <div class="ps-2">Active</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn p-0" data-bs-dismiss="alert">
+                            <span class="fas fa-times"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="align-middle alert" role="alert">
+                    <td>
+                        <input type="checkbox" id="check" checked>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="img-container">
+                                <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                                     alt="">
+                            </div>
+                            <div class="ps-3">
+                                <div class="fw-600 pb-1">harry@gmail.com</div>
+                                <p class="m-0 text-grey fs-09">Added: 03/02/2012</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="fw-600">Harry2020</div>
+                    </td>
+                    <td>
+                        <div class="d-inline-flex align-items-center waiting">
+                            <div class="circle"></div>
+                            <div class="ps-2">Waiting for Reassignment</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn p-0" data-bs-dismiss="alert">
+                            <span class="fas fa-times"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="align-middle alert" role="alert">
+                    <td>
+                        <input type="checkbox" id="check">
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="img-container">
+                                <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                                     alt="">
+                            </div>
+                            <div class="ps-3">
+                                <div class="fw-600 pb-1">mark@gmail.com</div>
+                                <p class="m-0 text-grey fs-09">Added: 03/02/2012</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="fw-600">Markov98</div>
+                    </td>
+                    <td>
+                        <div class="d-inline-flex align-items-center active">
+                            <div class="circle"></div>
+                            <div class="ps-2">Active</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn p-0" data-bs-dismiss="alert">
+                            <span class="fas fa-times"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="align-middle alert" role="alert">
+                    <td>
+                        <input type="checkbox" id="check">
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="img-container">
+                                <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                                     alt="">
+                            </div>
+                            <div class="ps-3">
+                                <div class="fw-600 pb-1">harry@gmail.com</div>
+                                <p class="m-0 text-grey fs-09">Added: 03/02/2012</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="fw-600">Harry2020</div>
+                    </td>
+                    <td>
+                        <div class="d-inline-flex align-items-center waiting">
+                            <div class="circle"></div>
+                            <div class="ps-2">Waiting for Reassignment</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn p-0" data-bs-dismiss="alert">
+                            <span class="fas fa-times"></span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div-->

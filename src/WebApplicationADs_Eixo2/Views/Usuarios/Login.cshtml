@@ -4,32 +4,100 @@
 @{
     ViewData["Title"] = "Login";
 }
-<link rel="stylesheet" href="~/css/site.css">
+<!--link rel="stylesheet" href="~/css/site.css"-->
+<link rel="stylesheet" href="~/css/profile.css">
 
-
-<h1>Login</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Login">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-           <br />
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" placeholder="Login ou Email" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>            
-            <div class="form-group">
-                <label asp-for="Senha" class="control-label"></label>
-                <input asp-for="Senha" class="form-control" />
-                <span asp-validation-for="Senha" class="text-danger"></span>
-            </div>            
-            <div class="form-group">
-                <input type="submit" value="Acessar" class="btn btn-success" />
+<!--div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Login">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <br />
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" placeholder="Login ou Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Senha" class="control-label"></label>
+                    <input asp-for="Senha" class="form-control" />
+                    <span asp-validation-for="Senha" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Acessar" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8">
+            <div class="p-3 py-5">
+                <img src="~/img/Deficiente-visual-II.png" alt="Imagem de Exemplo" class="img-fluid" />
             </div>
-        </form>
+
+        </div>
     </div>
+</div-->
+<br />
+<br />
+<div id="main-wrapper" class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-10">
+            <div class="card border-0">
+                <div class="card-body p-0">
+                    <div class="row no-gutters">
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="mb-5">
+                                    <h3 class="h4 font-weight-bold text-theme">Login</h3>
+                                </div>
+
+                                <h6 class="h5 mb-0">Seja Bem Vindo!</h6>
+                                <p class="text-muted mt-2 mb-5">Entre com seu  acesso (Email ou Login) e sua senha para acessar o painel .</p>
+
+                                <form asp-action="Login">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <br />
+                                    <div class="form-group">
+                                        <label asp-for="Email" class="control-label"></label>
+                                        <input asp-for="Email" class="form-control" placeholder="Login ou Email" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group mb-5">
+                                        <label asp-for="Senha" class="control-label"></label>
+                                        <input asp-for="Senha" class="form-control" />
+                                        <span asp-validation-for="Senha" class="text-danger"></span>
+                                    </div>
+                                    <input type="submit" value="Acessar" class="btn btn-success" />
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 d-none d-lg-inline-block">
+                            <div class="account-block rounded-right">
+                                <div class="overlay rounded-right"></div>
+                                <div class="account-testimonial">
+                                    <h4 class="text-white mb-4">Receba Ajuda ou Ajude Alguém que esteja precisando!</h4>
+                                    <p class="lead text-white">"Voluntários e pessoas com deficiência visual podem se cadastrar em poucos minutos, compartilhando informações básicas.."</p>
+                                    <p class="text-muted text-center mt-3 mb-0">Ainda não fez o seu cadastro? <a asp-action="CadastroUser" class="text-primary ml-1">Cadastre-se</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- end card-body -->
+            </div>
+            <!-- end card -->
+
+           
+
+            <!-- end row -->
+
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- Row -->
 </div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

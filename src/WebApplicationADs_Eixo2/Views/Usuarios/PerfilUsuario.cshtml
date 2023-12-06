@@ -3,19 +3,21 @@
     ViewData["Title"] = "PerfilUsuario";
 }
 <link rel="stylesheet" href="~/css/profile.css">
-<h1 style="color:#ffff">Perfil</h1>
+<h1 class="text-light">Perfil</h1>
 
 <div class="container rounded bg-white mt-5 mb-5">
-    <form asp-action="perfilUsuario">
+    <form asp-action="perfilUsuario" method="post"  enctype="multipart/form-data">
         @if (TempData["MensagemSucesso"] != null)
         {
+            <br />
             <div class="alert alert-success">
                 @TempData["MensagemSucesso"]
             </div>
         }
         @if (TempData["MensagemErro"] != null)
         {
-            <div class="alert alert-success">
+            <br />
+            <div class="alert alert-danger">
                 @TempData["MensagemErro"]
             </div>
         }
@@ -26,7 +28,7 @@
                 <span class="font-weight-bold">@Model.Nome</span>
                 <span class="text-black-50">@Model.Email</span>
             </div>
-            <input  type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                <input asp-for="DadosUsuarios.Foto" type="file" class="form-control" >
 
         </div>
         <div class="col-md-5 border-right">
@@ -128,6 +130,18 @@
         <div class="col-md-4">
             <div class="p-3 py-5">
             <form asp-action="TrocarSenha" method="post">
+                @if (TempData["MensagemSucessoSenha"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["MensagemSucessoSenha"]
+                    </div>
+                }
+                @if (TempData["MensagemErroSenha"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @TempData["MensagemErroSenha"]
+                    </div>
+                }
                 <input type="hidden" asp-for="Id" value="@Model.Id" />
                     <div class="mb-3">
                         <label for="SenhaAtual" class="form-label">Senha Atual</label>
