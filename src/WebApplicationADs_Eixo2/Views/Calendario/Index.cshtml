@@ -7,14 +7,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Calendario</h1>
+<h1 class="text-light">Calendario</h1>
+<a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" asp-action="Create">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+    </svg>Novo Registro
+</a>
 
 
-<p>
-    
-    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" asp-action="Create">Novo Registro</a>
-</p>
-<div id="calendar"></div>
+<div class="container rounded bg-white mt-5 mb-5">
+    <br />
+    <div id="calendar"></div>
+    <br />
+</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -29,6 +35,21 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="NovoCalendario.Id" />
                     <input type="hidden" asp-for="NovoCalendario.IdUsuario" value="@CurrentUserId" />
+
+                     @if (User.IsInRole("DEF"))
+                    {
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="NovoCalendario.PedindoAjuda" /> Este Registro é um pedido de Ajuda
+                            </label>
+                        </div>                        
+                    }
+
+                    <div class="form-group">
+                        <label asp-for="NovoCalendario.Titulo" class="control-label"></label>
+                        <input asp-for="NovoCalendario.Titulo" class="form-control" placeholder="Título" />                       
+                        <span asp-validation-for="NovoCalendario.Titulo" class="text-danger"></span>
+                    </div>
 
                     <div class="form-group">
                         <label asp-for="NovoCalendario.Descricao" class="control-label"></label>

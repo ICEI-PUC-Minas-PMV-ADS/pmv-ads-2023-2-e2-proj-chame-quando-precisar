@@ -1,60 +1,90 @@
 ﻿@model WebApplicationADs_Eixo2.Models.Perfil
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Novo Perfil";
 }
 
-<h1>Create</h1>
+<h1 class="text-light">Novo Perfil</h1>
 
-<h4>Perfil</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Descricao" class="control-label"></label>
-                <input asp-for="Descricao" class="form-control" />
-                <span asp-validation-for="Descricao" class="text-danger"></span>
+<a type="button" class="btn btn-light" asp-action="index">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z" />
+    </svg>  Voltar para Lista
+</a>
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        @if (TempData["MensagemSucesso"] != null)
+        {
+            <br />
+            <div class="alert alert-success">
+                @TempData["MensagemSucesso"]
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Administrador" /> @Html.DisplayNameFor(model => model.Administrador)
-                </label>
+        }
+        @if (TempData["MensagemErro"] != null)
+        {
+            <br />
+            <div class="alert alert-danger">
+                @TempData["MensagemErro"]
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Deficiente" /> @Html.DisplayNameFor(model => model.Deficiente)
-                </label>
+        }
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <form asp-action="Create" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>                    
+                    <div class="form-group">
+                        <label asp-for="Descricao" class="control-label"></label>
+                        <input asp-for="Descricao" class="form-control" />
+                        <span asp-validation-for="Descricao" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input asp-for="Administrador" type="radio" value="true" id="Administrador" class=" teste form-check-input" />Administrador
+                        </label>
+                    </div>
+
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input asp-for="Deficiente" type="radio" value="true" id="Deficiente" class=" teste form-check-input" />Deficiente
+                        </label>
+                    </div>
+
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input asp-for="Colaborador" type="radio" value="true" id="Colaborador" class="teste form-check-input" />Colaborador
+                        </label>
+                    </div>
+                    <br />
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Ativo" /> Perfil Ativo
+                        </label>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <input type="submit" value="Inserir" class="btn btn-success" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Colaborador" /> @Html.DisplayNameFor(model => model.Colaborador)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="DtInclusao" class="control-label"></label>
-                <input asp-for="DtInclusao" class="form-control" />
-                <span asp-validation-for="DtInclusao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DtAlteracao" class="control-label"></label>
-                <input asp-for="DtAlteracao" class="form-control" />
-                <span asp-validation-for="DtAlteracao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+@section Scripts {
+    <script>
+        // Adiciona um ouvinte de evento ao formulário
+        document.querySelector('form').addEventListener('change', function (event) {
+            // Verifica se o alvo do evento é um radio button
+            if (event.target.type === 'radio') {
+                // Desmarca todos os outros radio buttons
+                document.getElementById('Administrador').checked = false;
+                document.getElementById('Deficiente').checked = false;
+                document.getElementById('Colaborador').checked = false;
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+                // Marca o radio button selecionado
+                event.target.checked = true;
+            }
+        });
+    </script>
+}
 

@@ -55,14 +55,18 @@ namespace WebApplicationADs_Eixo2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Descricao,DtInclusao,DtAlteracao")] Deficiencia deficiencia)
+        public async Task<IActionResult> Create([Bind("ID,Descricao,DtInclusao")] Deficiencia deficiencia)
         {
             if (ModelState.IsValid)
             {
+                deficiencia.DtInclusao = DateTime.Now;
                 _context.Add(deficiencia);
                 await _context.SaveChangesAsync();
+
+                TempData["MensagemSucesso"] = "Deficiência Inserida com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
+            TempData["MensagemErro"] = "Verifique os dados Enviados.";
             return View(deficiencia);
         }
 
@@ -98,6 +102,7 @@ namespace WebApplicationADs_Eixo2.Controllers
             {
                 try
                 {
+                    deficiencia.DtAlteracao = DateTime.Now;
                     _context.Update(deficiencia);
                     await _context.SaveChangesAsync();
                 }
@@ -112,8 +117,10 @@ namespace WebApplicationADs_Eixo2.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                TempData["MensagemSucesso"] = "Dados atualizados com sucesso!";
+                return RedirectToAction(nameof(Edit));
             }
+            TempData["MensagemErro"] = "Verifique os dados Enviados.";
             return View(deficiencia);
         }
 

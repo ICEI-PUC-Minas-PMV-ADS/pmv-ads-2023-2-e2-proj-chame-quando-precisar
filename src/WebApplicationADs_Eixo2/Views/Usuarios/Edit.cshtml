@@ -4,65 +4,147 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<link rel="stylesheet" href="~/css/profile.css">
 
-<h4>Usuarios</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
+<h1 class="text-light">Editar Usuário</h1>
+<a type="button" class="btn btn-light" asp-action="index">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z" />
+    </svg>  Voltar para Lista
+</a>
+
+<a type="button" class="btn btn-primary" asp-action="Create">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+    </svg>  Novo Usuário
+</a>
+
+
+<div class="container rounded bg-white mt-5 mb-5">
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <br />
+        <div class="alert alert-success">
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+    @if (TempData["MensagemErro"] != null)
+    {
+        <br />
+        <div class="alert alert-danger">
+            @TempData["MensagemErro"]
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img class="rounded-circle mt-5" width="150px" src="@Url.Action("ObterImagem", "Usuarios", new { id = Model.Id})">
+                <span class="font-weight-bold">@Model.Nome</span>
+                <span class="text-black-50">@Model.Email</span>
             </div>
-            <div class="form-group">
-                <label asp-for="SobreNome" class="control-label"></label>
-                <input asp-for="SobreNome" class="form-control" />
-                <span asp-validation-for="SobreNome" class="text-danger"></span>
+        </div>
+       
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                 <form asp-action="Edit" method="post"  enctype="multipart/form-data">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>Seus Dados</h2>
+                </div>
+                <hr />
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="Senha" />
+                <input type="hidden" asp-for="IdPerfil" />                
+                <input type="hidden" asp-for="DadosUsuarios.Id" />
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Ativo">Usuário Ativo
+
+                        </label>
+                    </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label asp-for="Nome" class="labels"></label>
+                        <input asp-for="Nome" class="form-control" placeholder="Primeiro Nome" />
+                        <span asp-validation-for="Nome" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="SobreNome" class="labels"></label>
+                        <input asp-for="SobreNome" class="form-control" placeholder="segundo Nome" />
+                        <span asp-validation-for="SobreNome" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label asp-for="DadosUsuarios.DataNacimento" class="labels">Data Nascimento</label>
+                        <input asp-for="DadosUsuarios.DataNacimento" type="date" class="form-control" placeholder="Data Nascimento" />
+                        <span asp-validation-for="DadosUsuarios.DataNacimento" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label asp-for="Email" class="labels">Email</label>
+                        <input asp-for="Email" class="form-control" placeholder="Informe seu Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12">
+                        <label asp-for="Login" class="labels"></label>
+                        <input asp-for="Login" class="form-control" placeholder="Informe seu Login" />
+                        <span asp-validation-for="Login" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12">
+                        <label asp-for="IdPerfil" class="labels"></label>
+                        <select disabled asp-for="IdPerfil" asp-items="ViewBag.Perfis" class="form-control">
+                            <option value="@Model.IdPerfil">Selecione um perfil</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                        <label asp-for="DadosUsuarios.SobreUsuario" class="labels">Fale um pouco sobre você..</label>
+                        <textarea asp-for="DadosUsuarios.SobreUsuario" class="form-control"></textarea>
+                        <span asp-validation-for="DadosUsuarios.SobreUsuario" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2>Dados de contato e Endereço</h2>
+                    </div>
+                    <hr />
+                    <div class="col-md-12">
+                        <label asp-for="DadosUsuarios.Cep" class="form-label">CEP</label>
+                        <input asp-for="DadosUsuarios.Cep" type="text" class="form-control" id="cep">
+                    </div>
+                    <div class="col-md-8">
+                        <label asp-for="DadosUsuarios.Rua" class="form-label">Rua</label>
+                        <input asp-for="DadosUsuarios.Rua" type="text" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="DadosUsuarios.Numero" class="form-label">Número</label>
+                        <input asp-for="DadosUsuarios.Numero" type="text" class="form-control">
+                    </div>
+                    <div class="col-md-12">
+                        <label asp-for="DadosUsuarios.Bairro" class="form-label">Bairro</label>
+                        <input asp-for="DadosUsuarios.Bairro" type="text" class="form-control">
+                    </div>
+                    <div class="col-md-8">
+                        <label asp-for="DadosUsuarios.Cidade" class="form-label">Cidade</label>
+                        <input asp-for="DadosUsuarios.Cidade" type="text" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="DadosUsuarios.Estado" class="form-label">Estado</label>
+                        <input asp-for="DadosUsuarios.Estado" type="text" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="DadosUsuarios.Telefone" class="form-label">Telefone</label>
+                        <input asp-for="DadosUsuarios.Telefone" type="text" class="form-control" id="telefone">
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="DadosUsuarios.Celular" class="form-label">Celular</label>
+                        <input asp-for="DadosUsuarios.Celular" type="text" class="form-control" id="celular">
+                    </div>
+                </div>
+                <div class="mt-5 text-center"><input type="submit" value="Salvar Dados" class="btn btn-success" /></div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Login" class="control-label"></label>
-                <input asp-for="Login" class="form-control" />
-                <span asp-validation-for="Login" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Senha" class="control-label"></label>
-                <input asp-for="Senha" class="form-control" />
-                <span asp-validation-for="Senha" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdPerfil" class="control-label"></label>
-                <select asp-for="IdPerfil" asp-items="ViewBag.Perfis" class="form-control">
-                    <option value="">Selecione um perfil</option>
-                </select>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="DtInclusao" class="control-label"></label>
-                <input asp-for="DtInclusao" class="form-control" />
-                <span asp-validation-for="DtInclusao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DtAlteracao" class="control-label"></label>
-                <input asp-for="DtAlteracao" class="form-control" />
-                <span asp-validation-for="DtAlteracao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>    
     </div>
 </div>
 
